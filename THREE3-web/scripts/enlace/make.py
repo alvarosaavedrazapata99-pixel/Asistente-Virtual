@@ -16,7 +16,7 @@ def body(path):
     b=re.sub(r'<next-route-announcer.*?</next-route-announcer>','',b,flags=re.S)
     return b
 def fix(b):
-    b=re.sub(r'(src|href)="/(assets|videos)/',r'\1="\2/',b)
+    b=re.sub(r'(src|href|poster)="/(assets|videos)/',r'\1="\2/',b)
     b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/"','href="index.html"')
     return b
 JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()

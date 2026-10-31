@@ -3,6 +3,10 @@ const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // videos: solo se reproducen cuando son visibles
 const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{})}else v.pause()}),{threshold:.4});
 if(!rm)document.querySelectorAll('video').forEach(v=>io.observe(v));
+else document.querySelectorAll('video').forEach(v=>{ // movimiento reducido: imagen fija + botón para reproducir
+ const b=document.createElement('button');b.type='button';b.className='vplay';b.setAttribute('aria-label','Reproducir video');b.textContent='▶';
+ b.onclick=()=>{if(v.paused){v.play().catch(()=>{});b.textContent='❚❚';b.setAttribute('aria-label','Pausar video')}else{v.pause();b.textContent='▶';b.setAttribute('aria-label','Reproducir video')}};
+ v.parentElement.appendChild(b)});
 // tarjetas de servicio: Ver precio / Cerrar
 document.querySelectorAll('.card .foot button').forEach(b=>b.onclick=()=>{const c=b.closest('.card'),o=!c.classList.contains('open');
  document.querySelectorAll('.card.open').forEach(x=>{if(x!==c){x.classList.remove('open');const y=x.querySelector('.foot button');y.textContent='Ver precio';y.setAttribute('aria-expanded','false')}});
