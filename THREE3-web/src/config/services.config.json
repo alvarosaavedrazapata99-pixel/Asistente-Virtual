@@ -1,0 +1,60 @@
+{
+  "_nota": "Precios y plazos son HIPÓTESIS. Con publicar=false la web muestra 'Cotizar'. Reemplazar con el services.config.json real y validar con 3 cotizaciones.",
+  "moneda": ["PEN", "USD"],
+  "servicios": [
+    {
+      "id": "chatbot",
+      "nombre": "Chatbot",
+      "resumen": "Responde a tus clientes en WhatsApp y en tu web, a cualquier hora.",
+      "incluye": ["Flujos de atención y preguntas frecuentes", "Base de conocimiento de tu negocio", "Derivación a una persona cuando hace falta"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    },
+    {
+      "id": "crm",
+      "nombre": "CRM",
+      "resumen": "Cada contacto y cada venta en un solo lugar, ordenado.",
+      "incluye": ["Embudo de ventas configurado", "Estados y seguimiento por cliente", "Checklist inicial de uso"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    },
+    {
+      "id": "leads",
+      "nombre": "Captación de leads",
+      "resumen": "De Instagram o tu web al CRM, con seguimiento automático.",
+      "incluye": ["Formulario o palabra clave en comentarios", "Registro automático en tu CRM", "Recordatorios de seguimiento"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    },
+    {
+      "id": "sheets",
+      "nombre": "Base maestra en Sheets",
+      "resumen": "Tus datos centralizados en una hoja de Google lista para usar.",
+      "incluye": ["Plantilla copiada a tu cuenta", "Pestañas de clientes, ventas y reportes", "Permisos mínimos necesarios"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    },
+    {
+      "id": "juego",
+      "nombre": "Videojuego a medida",
+      "resumen": "Un juego web (2D, 3D o RPG) para tu marca o tu comunidad.",
+      "incluye": ["Proyecto desde plantilla", "Revisión humana antes de entregar", "Enlace jugable y archivos del juego"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    },
+    {
+      "id": "personaje",
+      "nombre": "Tu personaje 3D",
+      "resumen": "Una mascota original estilo juguete 3D para tu marca.",
+      "incluye": ["Boceto aprobado por ti", "Modelado y render en Blender", "PNG, turntable en video y licencia"],
+      "plazo": null,
+      "precioDesde": { "PEN": null, "USD": null },
+      "publicar": false
+    }
+  ]
+}
