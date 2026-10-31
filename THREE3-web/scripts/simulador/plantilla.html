@@ -1,0 +1,129 @@
+<meta charset="utf-8">
+<title>Simulador de leads</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Mesa de control oscura: controles arriba, resultado en dos columnas comparables, bitácora en vivo. */
+:root{--bg:#071022;--panel:#0e1a33;--panel2:#13244a;--fg:#e8eefc;--mute:#8ea0c4;--cy:#22d3ee;--or:#ff7a3d;--ok:#4ade80;--bad:#ff6b6b;--line:#1d3160;color-scheme:dark;
+--d:'Anton','Impact',sans-serif;--b:'Bricolage Grotesque','Segoe UI',sans-serif;--m:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--b);padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.w{max-width:980px;margin:0 auto;display:grid;gap:22px}
+h1{font:400 clamp(34px,7vw,56px)/1 var(--d);text-transform:uppercase;margin:0}
+h2{font:600 13px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--cy);margin:0 0 10px}
+p{margin:0}.mute{color:var(--mute)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.ctl{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+label{display:grid;gap:6px;font:500 13px var(--m);color:var(--mute)}
+label b{color:var(--fg);font:400 26px var(--d);letter-spacing:.02em}
+input[type=range]{width:100%;accent-color:var(--cy);min-height:32px}
+button{min-height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--cy);color:#04141c;font:600 16px var(--b);cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+button:focus-visible,input:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.bar{height:10px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--cy);transition:width .15s}
+.cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.col h3{margin:0 0 12px;font:600 18px var(--b)}
+.col.a{border-color:rgba(74,222,128,.5)}.col.b{border-color:rgba(255,107,107,.5)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:baseline}
+.kv span{color:var(--mute);font-size:14px}.kv b{font:400 28px var(--d);text-align:right;font-variant-numeric:tabular-nums}
+.kv b.bad{color:var(--bad)}.kv b.ok{color:var(--ok)}
+.veredicto{padding:14px 16px;border-radius:12px;font-weight:600;border:1px solid var(--line);background:var(--panel2)}
+.veredicto.ok{border-color:var(--ok);color:var(--ok)}.veredicto.bad{border-color:var(--bad);color:var(--bad)}
+.feed{font:400 12.5px/1.7 var(--m);min-height:150px;display:grid;align-content:start}
+.feed div{display:grid;grid-template-columns:72px 1fr;gap:10px;border-bottom:1px dashed var(--line);padding:2px 0}
+.e-creado{color:var(--ok)}.e-duplicado{color:var(--or)}.e-reintento{color:var(--cy)}.e-invalido{color:var(--bad)}
+.nota{font-size:14px;color:var(--mute)}.nota b{color:var(--fg)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+<div class="w">
+  <header>
+    <h2>THREE3 · Prueba de lógica</h2>
+    <h1>Simulador de leads</h1>
+    <p class="mute" style="margin-top:12px;max-width:62ch">Lanza bots que envían el formulario al mismo tiempo, con dobles clics, reenvíos, correos escritos distinto y datos inválidos. Compara el sistema con bloqueo (el del Sheet maestro) contra uno sin bloqueo.</p>
+  </header>
+
+  <section class="card" aria-label="Controles">
+    <div class="ctl">
+      <label for="personas">Personas distintas <b id="vp">800</b><input id="personas" type="range" min="100" max="3000" step="100" value="800"></label>
+      <label for="bots">Bots enviando a la vez <b id="vb">150</b><input id="bots" type="range" min="10" max="400" step="10" value="150"></label>
+    </div>
+    <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:18px">
+      <button id="go" type="button">Lanzar simulacro</button>
+      <span class="mute" id="estado" role="status">Listo para lanzar.</span>
+    </div>
+    <div class="bar" style="margin-top:14px" aria-hidden="true"><i id="prog"></i></div>
+  </section>
+
+  <section aria-label="Resultados" id="res" hidden class="w" style="gap:16px">
+    <div class="veredicto" id="vered"></div>
+    <div class="cols">
+      <div class="card col a"><h3>Con bloqueo (Sheet maestro)</h3><div class="kv" id="ka"></div></div>
+      <div class="card col b"><h3>Sin bloqueo</h3><div class="kv" id="kb"></div></div>
+    </div>
+    <p class="nota" id="verdad"></p>
+  </section>
+
+  <section class="card" aria-label="Bitácora en vivo">
+    <h2>Bitácora en vivo (con bloqueo)</h2>
+    <div class="feed" id="feed" aria-live="off"><span class="mute">Aquí verás cómo responde el sistema a cada envío.</span></div>
+  </section>
+
+  <section class="card nota">
+    <h2>Qué prueba y qué no</h2>
+    <p><b>Prueba</b> la lógica anti-duplicados: normalización, clave por persona + servicio + día, reintentos con la misma clave y por qué hace falta un bloqueo. Es el mismo código que escribirá en el Sheet.</p>
+    <p style="margin-top:8px"><b>No mide</b> la capacidad real de Google Sheets ni del hosting: las escrituras son simuladas. Esa prueba se hace contra el sistema desplegado.</p>
+  </section>
+</div>
+<script>
+/*CORE*/
+const $=s=>document.getElementById(s);
+$('personas').oninput=e=>$('vp').textContent=e.target.value;
+$('bots').oninput=e=>$('vb').textContent=e.target.value;
+function crearStore(){var contactos={},porEmail={},porCel={},sol={},idem={},nC=0,nS=0,log={creado:0,duplicado:0,reintento:0,invalido:0};
+ return{contactoPorEmail:e=>porEmail[e]||null,contactoPorCel:c=>porCel[c]||null,
+ crearContacto:o=>{var c={id:"C-"+String(++nC).padStart(6,"0"),email:o.email,celular:o.celular};contactos[c.id]=c;if(o.email)porEmail[o.email]=c;if(o.celular)porCel[o.celular]=c;return c},
+ actualizarContacto:(id,o)=>{var c=contactos[id];if(o.email&&!c.email){c.email=o.email;porEmail[o.email]=c}if(o.celular&&!c.celular){c.celular=o.celular;porCel[o.celular]=c}},
+ solicitudPorClave:k=>sol[k]||null,
+ crearSolicitud:o=>{var s={id:"S-"+String(++nS).padStart(6,"0"),intentos:0};sol[o.clave]=s;return s},
+ sumarDuplicado:k=>{sol[k].intentos++},vistoIdem:k=>!!idem[k],marcarIdem:k=>{idem[k]=1},auditar:ev=>{log[ev]++},
+ resumen:()=>{var d=0;Object.keys(sol).forEach(k=>d+=sol[k].intentos);return{contactos:Object.keys(contactos).length,solicitudes:Object.keys(sol).length,duplicados:d,log}}}}
+const ch=new MessageChannel();let pend=[];ch.port1.onmessage=()=>{const f=pend;pend=[];f.forEach(r=>r())};
+const ceder=()=>new Promise(r=>{pend.push(r);ch.port2.postMessage(0)});   // cede el turno: permite que otros bots se intercalen
+function rngSeed(a){return()=>{a|=0;a=(a+0x6d2b79f5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296}}
+function generar(N){const rng=rngSeed(7),pick=a=>a[Math.floor(rng()*a.length)],ev=[],pares=new Set();let k=0;
+ const CAMP=[["instagram","ads","campana-1"],["instagram","reel","automatizacion"],["instagram","bio","link-bio"],["directo","none","none"]];
+ for(let i=0;i<N;i++){const t=rng(),email=`persona${i}@correo${i%40}.com`,cel="9"+String(10000000+i).padStart(8,"0");
+  const ids=t<.4?{email}:t<.7?{celular:cel}:{email,celular:cel},camp=pick(CAMP),servs=[...LEADS.SERVICIOS].sort(()=>rng()-.5).slice(0,rng()<.3?2:1),dias=rng()<.2?["2026-11-02","2026-11-03"]:["2026-11-02"];
+  for(const s of servs)for(const d of dias){pares.add(i+"|"+s+"|"+d);const r=rng(),n=r<.6?1:r<.85?2:4,kd="k"+(++k);
+   for(let j=0;j<n;j++){const v={};if(ids.email)v.email=pick([ids.email,ids.email.toUpperCase()," "+ids.email+" "]);if(ids.celular)v.celular=pick([ids.celular,"+51 "+ids.celular.replace(/(\d{3})(\d{3})(\d{3})/,"$1 $2 $3"),ids.celular.replace(/(\d{3})(\d{3})(\d{3})/,"$1-$2-$3"),"51"+ids.celular]);
+    ev.push({p:{nombre:"Persona  "+i,...v,servicio_id:s,consentimiento:true,utm_source:camp[0],utm_medium:camp[1],utm_campaign:camp[2],idempotency_key:(n===4&&j<2)?kd:"k"+(++k)},iso:d+"T"+String(8+Math.floor(rng()*12)).padStart(2,"0")+":00:00.000Z"})}}}
+ const base=ev.length;for(let j=0;j<Math.round(base*.05);j++){const m=j%3;ev.push({p:{nombre:"Bot",email:m===0?"no-es-correo":"x"+j+"@y.com",servicio_id:m===1?"inexistente":"crm",consentimiento:m!==2,idempotency_key:"bad"+j},iso:"2026-11-02T10:00:00.000Z"})}
+ ev.sort(()=>rng()-.5);return{ev,pares:pares.size,contactos:N}}
+async function correr(ev,bots,handler,onTick){const store=crearStore(),cola=ev.slice(),total=ev.length;let hecho=0,m=Promise.resolve();
+ const lock=fn=>{const r=m.then(fn);m=r.catch(()=>{});return r};
+ async function w(){while(cola.length){const e=cola.shift();await handler({store,lock},e);hecho++;if(hecho%25===0){onTick(hecho,total);await new Promise(r=>requestAnimationFrame(r))}}}
+ const t0=performance.now();await Promise.all(Array.from({length:bots},w));onTick(total,total);return{store,seg:(performance.now()-t0)/1000}}
+const feed=[];function pushFeed(r,e){feed.unshift(`<div><span class="e-${r.estado}">${r.estado}</span><span>${(e.p.email||e.p.celular||"").toString().trim().slice(0,26)} · ${e.p.servicio_id}${r.motivo?" · falta "+r.motivo:""}</span></div>`);feed.length=Math.min(feed.length,7);if(!pushFeed.t){pushFeed.t=setTimeout(()=>{$('feed').innerHTML=feed.join("");pushFeed.t=0},120)}}
+const conBloqueo=({store,lock},e)=>lock(async()=>{const r=LEADS.procesar(store,e.p,e.iso);pushFeed(r,e);await ceder()});
+const ingenuo=async({store},e)=>{const p=e.p,s=store,email=LEADS.normEmail(p.email),cel=LEADS.normCel(p.celular);
+ if(!LEADS.normTexto(p.nombre)||(!email&&!cel)||LEADS.SERVICIOS.indexOf(p.servicio_id)<0||p.consentimiento!==true)return s.auditar("invalido");
+ let c=(email&&s.contactoPorEmail(email))||(cel&&s.contactoPorCel(cel));await ceder();if(!c)c=s.crearContacto({email,celular:cel});
+ const k=LEADS.claveSolicitud(c.id,p.servicio_id,e.iso),ex=s.solicitudPorClave(k);await ceder();if(!ex)s.crearSolicitud({clave:k});else s.sumarDuplicado(k)};
+const fmt=n=>n.toLocaleString("es-PE");
+function pintar(el,r,verdad,bueno){const dc=r.contactos-verdad.contactos,ds=r.solicitudes-verdad.pares;
+ el.innerHTML=`<span>Contactos guardados</span><b>${fmt(r.contactos)}</b><span>Solicitudes guardadas</span><b>${fmt(r.solicitudes)}</b><span>Duplicados bloqueados</span><b>${fmt(r.duplicados)}</b><span>Contactos de más</span><b class="${dc?'bad':'ok'}">${fmt(dc)}</b><span>Solicitudes de más</span><b class="${ds?'bad':'ok'}">${fmt(ds)}</b>`}
+$('go').onclick=async()=>{const N=+$('personas').value,B=+$('bots').value;$('go').disabled=true;$('res').hidden=true;feed.length=0;
+ const v=generar(N);const tick=(a,b)=>{$('prog').style.width=(100*a/b)+"%";$('estado').textContent=`Procesando ${fmt(a)} de ${fmt(b)} envíos…`};
+ $('estado').textContent="Generando bots…";await ceder();
+ const a=await correr(v.ev,B,conBloqueo,(h,t)=>tick(h/2,t));
+ const b=await correr(v.ev,B,ingenuo,(h,t)=>tick(t/2+h/2,t));
+ clearTimeout(pushFeed.t);pushFeed.t=0;$('feed').innerHTML=feed.join("");
+ const ra=a.store.resumen(),rb=b.store.resumen();pintar($('ka'),ra,v);pintar($('kb'),rb,v);
+ const okA=ra.contactos===v.contactos&&ra.solicitudes===v.pares,extra=(rb.contactos-v.contactos)+(rb.solicitudes-v.pares);
+ $('vered').className="veredicto "+(okA?"ok":"bad");
+ $('vered').textContent=okA?`Con bloqueo: 0 duplicados, los datos coinciden exactamente. Sin bloqueo: ${fmt(extra)} registros repetidos.`:"El procesador con bloqueo no coincide con la verdad: revisar.";
+ $('verdad').innerHTML=`Verdad de referencia: <b>${fmt(v.contactos)}</b> contactos únicos y <b>${fmt(v.pares)}</b> solicitudes únicas (persona + servicio + día), a partir de <b>${fmt(v.ev.length)}</b> envíos de <b>${B}</b> bots simultáneos. Registro del procesador con bloqueo: ${ra.log.creado} creados, ${ra.log.duplicado} duplicados, ${ra.log.reintento} reintentos, ${ra.log.invalido} inválidos.`;
+ $('res').hidden=false;$('estado').textContent=`Listo en ${(a.seg+b.seg).toFixed(1)} s. Puedes cambiar los valores y repetir.`;$('go').disabled=false};
+</script>
