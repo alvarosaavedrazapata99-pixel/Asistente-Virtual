@@ -17,3 +17,4 @@ Notas:
 - Al publicar, pasar en `files` todo el contenido de `.enlace/` (legal.html, assets/, videos/ incl. videos/posters/).
 - Leads: lógica anti-duplicados en `scripts/leads/core.js` (probar con `node scripts/leads/prueba-unitaria.js`); `docs/sheets/Codigo.gs` se genera con `node scripts/leads/build-apps-script.js`. Si cambias `core.js`, regenera y vuelve a pegar el script.
 - El formulario envía solo si existe `NEXT_PUBLIC_LEADS_ENDPOINT` (si no, modo copiar y enviar).
+- Simulación del enlace de Instagram (artefacto aparte): `python3 scripts/simulacion-ig/construir.py` (requiere `.enlace/` ya construido con `scripts/enlace/build.sh`); se republica tras cambios en `/ig`.

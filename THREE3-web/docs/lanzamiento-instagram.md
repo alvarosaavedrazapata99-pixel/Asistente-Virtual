@@ -41,7 +41,10 @@ Si algo falla, anota qué toqué y qué viste y me lo cuentas.
 - **Medición anónima:** cada visita y cada clic se registra en la hoja Eventos del Sheet, sin cookies ni datos personales. El Panel muestra visitas, clics y leads por campaña. Requiere haber pegado de nuevo `Codigo.gs` (versión nueva) y tener `NEXT_PUBLIC_LEADS_ENDPOINT`.
 - **Código QR** para afiches y tarjetas: `node scripts/qr.js https://TU-DIRECCION/ig ig` (genera PNG y SVG en `docs/qr/`).
 
-## E. Cómo enlazar en Instagram
+## E. Simulación para revisar
+Hay un artefacto con un perfil de ejemplo: al tocar el enlace de la biografía se abre la página `/ig` real y, al lado, se ve lo que recibiría el Sheet (visitas, clics, solicitudes, duplicados bloqueados). Se regenera con `python3 scripts/simulacion-ig/construir.py`.
+
+## F. Cómo enlazar en Instagram
 - **Biografía:** `https://TU-DIRECCION/ig`
 - **Historias o publicaciones concretas:** `https://TU-DIRECCION/ig/automatizacion`, `/ig/personaje` o `/ig/pack`
 - **Historias con enlace:** el mismo, con `?utm_campaign=historia-<tema>` para saber qué historia convierte.

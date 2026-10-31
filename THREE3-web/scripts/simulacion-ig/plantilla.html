@@ -1,0 +1,174 @@
+<meta charset="utf-8">
+<title>Simulación del enlace de Instagram</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Mesa de revisión: teléfono a la izquierda, lo que recibe el Sheet a la derecha (apilado en móvil). */
+:root{--bg:#071022;--panel:#0e1a33;--panel2:#13244a;--fg:#e8eefc;--mute:#8ea0c4;--cy:#22d3ee;--or:#ff7a3d;--ok:#4ade80;--bad:#ff6b6b;--line:#1d3160;color-scheme:dark;
+--d:'Anton','Impact',sans-serif;--b:'Bricolage Grotesque','Segoe UI',sans-serif;--m:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--b);padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.w{max-width:1040px;margin:0 auto;display:grid;gap:22px}
+h1{font:400 clamp(30px,6vw,48px)/1 var(--d);text-transform:uppercase;margin:0}
+h2{font:600 12px var(--m);letter-spacing:.13em;text-transform:uppercase;color:var(--cy);margin:0 0 10px}
+p{margin:0}.mute{color:var(--mute)}
+.aviso{font-size:14px;color:var(--mute);border:1px dashed var(--or);border-radius:12px;padding:10px 14px}
+.sel{display:flex;gap:8px;flex-wrap:wrap}
+.sel button,.btn{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--mute);font:600 14px var(--b);cursor:pointer}
+.sel button[aria-pressed="true"]{background:var(--cy);border-color:var(--cy);color:#04141c}
+.btn.p{background:var(--cy);border-color:var(--cy);color:#04141c}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.grid{display:grid;gap:24px;grid-template-columns:minmax(0,360px) minmax(0,1fr);align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr;justify-items:center}.grid>*{width:100%}.phone{max-width:360px}}
+/* teléfono */
+.phone{position:relative;width:100%;max-width:360px;border:10px solid #0b1530;border-radius:44px;background:#000;height:680px;overflow:hidden;box-shadow:0 30px 60px -30px #000,0 0 0 1px var(--line);margin:0 auto}
+.phone::before{content:"";position:absolute;top:8px;left:50%;width:90px;height:22px;border-radius:99px;background:#0b1530;transform:translateX(-50%);z-index:5}
+.screen{position:absolute;inset:0;background:var(--bg);overflow:auto;padding:46px 16px 16px}
+.perfil .top{font:600 15px var(--b);text-align:center;margin-bottom:14px}
+.cab{display:flex;gap:16px;align-items:center}
+.av{width:78px;height:78px;border-radius:50%;background:var(--panel2);border:2px solid var(--cy);display:grid;place-items:center;overflow:hidden;flex:none}
+.av img{width:60px;height:auto}
+.nom b{display:block;font:600 17px var(--b)}.nom span{font-size:13px;color:var(--mute)}
+.bio{margin:14px 0 4px;font-size:14.5px}
+.enlace{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;border:0;background:transparent;color:var(--cy);font:600 14.5px var(--b);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.enlace i{width:9px;height:9px;border-radius:50%;background:var(--cy);box-shadow:0 0 0 0 rgba(34,211,238,.6);animation:pulso 1.8s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 10px rgba(34,211,238,0)}100%{box-shadow:0 0 0 0 rgba(34,211,238,0)}}
+.acc{display:flex;gap:8px;margin:10px 0 16px}.acc span{flex:1;text-align:center;padding:9px;border-radius:10px;background:var(--panel2);font:600 13px var(--b)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.tiles div{aspect-ratio:1;background:var(--panel2);display:grid;place-items:center;font:500 10px var(--m);color:var(--mute)}
+.tiles div:nth-child(2n){background:#10305f}.tiles div:nth-child(3n){background:#1a1036}
+.nota-mini{font-size:11px;color:var(--mute);margin-top:6px;text-align:center}
+/* navegador interno */
+.nav{position:absolute;inset:0;background:var(--bg);display:grid;grid-template-rows:auto 1fr;transform:translateY(100%);transition:transform .35s;z-index:4}
+.nav.on{transform:none}
+.barra{display:flex;align-items:center;gap:10px;padding:44px 12px 10px;background:var(--panel);border-bottom:1px solid var(--line);font:500 12.5px var(--m)}
+.barra button{min-height:44px;border:0;background:transparent;color:var(--cy);font:600 14px var(--b);cursor:pointer;padding:0 6px}
+.barra span{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute)}
+.contenido{overflow:auto;min-height:0}
+/* formulario simulado */
+.vel{position:absolute;inset:0;background:rgba(4,10,24,.75);display:none;align-items:flex-end;z-index:7}.vel.on{display:flex}
+.hoja{width:100%;background:var(--panel);border-radius:20px 20px 0 0;padding:18px 16px 22px;display:grid;gap:8px;max-height:100%;overflow:auto}
+.hoja h3{font:400 24px var(--d);text-transform:uppercase;margin:0}
+.hoja label{font:500 11px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--cy)}
+.hoja input[type=text]{width:100%;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:400 16px var(--b);padding:0 12px}
+.chk{display:flex;gap:10px;align-items:start;font:400 13px/1.4 var(--b);color:var(--fg);text-transform:none;letter-spacing:0}
+.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--cy)}
+.res{font:500 13px/1.4 var(--m);padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.res.creado{border-color:var(--ok);color:var(--ok)}.res.duplicado,.res.reintento{border-color:var(--or);color:var(--or)}.res.invalido{border-color:var(--bad);color:var(--bad)}
+.toast{position:absolute;left:12px;right:12px;bottom:14px;background:var(--panel2);border:1px solid var(--cy);border-radius:12px;padding:10px 12px;font-size:13px;z-index:8;display:none}
+.toast.on{display:block}
+/* panel del Sheet */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.res4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.res4 div{background:var(--bg);border-radius:12px;padding:10px 4px}
+.res4 b{display:block;font:400 28px var(--d);font-variant-numeric:tabular-nums}.res4 span{font-size:11px;color:var(--mute)}
+@media(max-width:420px){.res4{grid-template-columns:repeat(2,1fr)}}
+.tabla{overflow-x:auto;margin-top:8px}
+table{border-collapse:collapse;width:100%;font:400 12px/1.5 var(--m);min-width:420px}
+th{color:var(--cy);text-align:left;font-weight:500;padding:4px 8px;border-bottom:1px solid var(--line)}
+td{padding:4px 8px;border-bottom:1px dashed var(--line);white-space:nowrap}
+td.creado{color:var(--ok)}td.duplicado,td.reintento{color:var(--or)}
+.vacio{color:var(--mute);font-size:13px;padding:8px 0}
+@media(prefers-reduced-motion:reduce){.nav{transition:none}.enlace i{animation:none}}
+</style>
+<div class="w">
+  <header>
+    <h2>THREE3 · Revisión</h2>
+    <h1>Simulación del enlace de Instagram</h1>
+    <p class="mute" style="margin-top:12px;max-width:66ch">Así se vería tu página de enlaces al tocar el link de la biografía, y esto es lo que recibiría tu Sheet con cada visita, clic y solicitud. Toca el enlace del perfil y prueba los botones.</p>
+  </header>
+  <p class="aviso">Es una maqueta de revisión, no la aplicación de Instagram. El perfil, las publicaciones y la dirección <b>tu-dominio.com/ig</b> son de ejemplo. La página de adentro es la real de THREE3.</p>
+
+  <div><h2>Página de enlaces</h2><div class="sel" id="sel" role="group" aria-label="Página de enlaces">
+    <button type="button" data-p="ig" aria-pressed="true">/ig (biografía)</button>
+    <button type="button" data-p="automatizacion" aria-pressed="false">/ig/automatizacion</button>
+    <button type="button" data-p="personaje" aria-pressed="false">/ig/personaje</button>
+    <button type="button" data-p="pack" aria-pressed="false">/ig/pack</button>
+  </div></div>
+
+  <div class="grid">
+    <div class="phone" id="phone">
+      <div class="screen perfil">
+        <div class="top">three_3agency</div>
+        <div class="cab"><div class="av"><img alt="Logo de THREE3" src="__LOGO__"></div><div class="nom"><b>THREE3</b><span>@three_3agency</span></div></div>
+        <p class="bio">Automatiza tu negocio. Conecta cada cliente.</p>
+        <button class="enlace" id="abrir" type="button"><i></i>tu-dominio.com/ig</button>
+        <div class="acc"><span>Seguir</span><span>Mensaje</span></div>
+        <div class="tiles"><div>REEL</div><div>POST</div><div>REEL</div><div>POST</div><div>REEL</div><div>REEL</div></div>
+        <p class="nota-mini">Publicaciones de ejemplo</p>
+      </div>
+      <div class="nav" id="nav" aria-hidden="true">
+        <div class="barra"><button type="button" id="cerrar">Cerrar</button><span id="url">tu-dominio.com/ig</span></div>
+        <div class="contenido" id="contenido"></div>
+      </div>
+      <div class="vel" id="vel"><div class="hoja" role="dialog" aria-labelledby="ft">
+        <h3 id="ft">Activa tu servicio</h3>
+        <label for="fs">Servicio</label><input id="fs" type="text" readonly>
+        <label for="fn">Tu nombre</label><input id="fn" type="text" value="Ana Prueba" autocomplete="off">
+        <label for="fc">Celular</label><input id="fc" type="text" value="987 654 321" inputmode="tel" autocomplete="off">
+        <label class="chk" for="fa"><input id="fa" type="checkbox"><span>Autorizo que THREE3 use estos datos solo para responder mi solicitud.</span></label>
+        <div class="res" id="fr" hidden></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn p" id="enviar" type="button">Enviar solicitud</button><button class="btn" id="fx" type="button">Cerrar</button></div>
+      </div></div>
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+
+    <div style="display:grid;gap:16px;min-width:0">
+      <section class="card"><h2>Lo que recibe tu Sheet</h2>
+        <div class="res4"><div><b id="n-v">0</b><span>visitas</span></div><div><b id="n-c">0</b><span>clics</span></div><div><b id="n-l">0</b><span>solicitudes únicas</span></div><div><b id="n-d">0</b><span>duplicados bloqueados</span></div></div>
+        <div style="margin-top:12px"><button class="btn" id="reset" type="button">Reiniciar simulación</button></div>
+      </section>
+      <section class="card"><h2>Hoja "Eventos"</h2><div class="tabla" id="t-ev"></div></section>
+      <section class="card"><h2>Hoja "Solicitudes"</h2><div class="tabla" id="t-sol"></div></section>
+      <p class="mute" style="font-size:13.5px">Las visitas y los clics se miden de forma anónima. Las solicitudes pasan por la misma lógica anti-duplicados que usará el Sheet: el mismo servicio, la misma persona y el mismo día no crean otra fila.</p>
+    </div>
+  </div>
+</div>
+<script>
+/*CORE*/
+const PAGES=/*PAGES*/;
+const SITE_CSS=/*CSS*/;
+const $=s=>document.getElementById(s);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function crearStore(){var contactos={},porEmail={},porCel={},sol={},idem={},nC=0,nS=0,filas=[];
+ return{filas:filas,contactoPorEmail:e=>porEmail[e]||null,contactoPorCel:c=>porCel[c]||null,
+ crearContacto:o=>{var c={id:"C-"+String(++nC).padStart(6,"0"),email:o.email,celular:o.celular};contactos[c.id]=c;if(o.email)porEmail[o.email]=c;if(o.celular)porCel[o.celular]=c;return c},
+ actualizarContacto:(id,o)=>{var c=contactos[id];if(o.email&&!c.email){c.email=o.email;porEmail[o.email]=c}if(o.celular&&!c.celular){c.celular=o.celular;porCel[o.celular]=c}},
+ solicitudPorClave:k=>sol[k]||null,crearSolicitud:o=>{var s={id:"S-"+String(++nS).padStart(6,"0"),intentos:0,o:o};sol[o.clave]=s;filas.push(s);return s},
+ sumarDuplicado:k=>{sol[k].intentos++},vistoIdem:k=>!!idem[k],marcarIdem:k=>{idem[k]=1},auditar:()=>{}}}
+let store,eventos,duplicados,idemActual,ctx;
+function reiniciar(){store=crearStore();eventos=[];duplicados=0;pintar()}
+const hora=()=>new Date().toISOString().slice(11,19);
+function evento(tipo,ev,camp){eventos.unshift({h:hora(),tipo,ev,camp,disp:"movil"});pintar()}
+function pintar(){
+ $("n-v").textContent=eventos.filter(e=>e.tipo==="vista").length;$("n-c").textContent=eventos.filter(e=>e.tipo==="click").length;
+ $("n-l").textContent=store.filas.length;$("n-d").textContent=duplicados;
+ $("t-ev").innerHTML=eventos.length?`<table><thead><tr><th>hora</th><th>tipo</th><th>evento</th><th>utm_campaign</th><th>disp.</th></tr></thead><tbody>${eventos.slice(0,12).map(e=>`<tr><td>${e.h}</td><td>${e.tipo}</td><td>${esc(e.ev)}</td><td>${esc(e.camp)}</td><td>${e.disp}</td></tr>`).join("")}</tbody></table>`:'<p class="vacio">Aún no hay eventos. Toca el enlace del perfil.</p>';
+ $("t-sol").innerHTML=store.filas.length?`<table><thead><tr><th>id</th><th>servicio</th><th>contacto</th><th>utm_campaign</th><th>duplicados</th></tr></thead><tbody>${store.filas.map(s=>`<tr><td>${s.id}</td><td>${esc(s.o.servicio_id)}</td><td>${esc(s.o.contacto)}</td><td>${esc(s.o.utm_campaign)}</td><td>${s.intentos}</td></tr>`).join("")}</tbody></table>`:'<p class="vacio">Aún no hay solicitudes. Toca un servicio y envía el formulario.</p>'}
+const host=document.createElement("div");$("contenido").appendChild(host);const root=host.attachShadow({mode:"open"});
+let pagina="ig";
+function cargar(p){pagina=p;root.innerHTML=`<style>${SITE_CSS}</style><div class="wrapsite">${PAGES[p]}</div>`;$("url").textContent="tu-dominio.com/"+(p==="ig"?"ig":"ig/"+p);$("contenido").scrollTop=0}
+const campanaDe=p=>p==="ig"?"link-bio":"bio-"+p;
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),3200)}
+$("sel").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...$("sel").children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));cargar(b.dataset.p);if($("nav").classList.contains("on"))evento("vista",p2ev(b.dataset.p),campanaDe(b.dataset.p))});
+const p2ev=p=>p==="ig"?"ig":"ig:"+p;
+$("abrir").onclick=()=>{cargar(pagina);$("nav").classList.add("on");$("nav").setAttribute("aria-hidden","false");evento("vista",p2ev(pagina),campanaDe(pagina))};
+$("cerrar").onclick=()=>{$("nav").classList.remove("on");$("nav").setAttribute("aria-hidden","true")};
+root.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();
+ const ev=a.getAttribute("data-ev")||"otro",href=a.getAttribute("href")||"",q=new URLSearchParams(href.split("?")[1]||"").get.bind(new URLSearchParams((href.split("?")[1]||"").split("#")[0]));
+ const camp=q("utm_campaign")||campanaDe(pagina);
+ if(ev!=="otro")evento("click",ev,camp);
+ const act=q("activar");
+ if(act){const nom=(a.querySelector("b")||a).textContent.trim();ctx={servicio:act,nombre:nom,camp};$("fs").value=nom;$("fa").checked=false;$("fr").hidden=true;idemActual="k"+Date.now()+Math.random().toString(16).slice(2);$("vel").classList.add("on");$("fn").focus()}
+ else if(href.indexOf("index.html")===0)toast("Aquí se abriría la web completa en la sección Servicios.");
+ else if(href.indexOf("legal.html")===0)toast("Aquí se abriría la página legal.");
+ else toast("Aquí se abriría Instagram para escribirte un mensaje.")});
+$("fx").onclick=()=>$("vel").classList.remove("on");
+$("enviar").onclick=()=>{const r=LEADS.procesar(store,{nombre:$("fn").value,celular:$("fc").value,servicio_id:ctx.servicio,consentimiento:$("fa").checked,utm_source:"instagram",utm_medium:"bio",utm_campaign:ctx.camp,idempotency_key:idemActual,dispositivo:"movil"},new Date().toISOString());
+ const fila=store.filas[store.filas.length-1];if(r.estado==="creado"&&fila)fila.o.contacto=$("fc").value.replace(/\s+/g," ").trim();
+ if(r.estado==="duplicado")duplicados++;
+ const msg={creado:"Creado: se guardó en Contactos y Solicitudes.",duplicado:"Duplicado bloqueado: misma persona, servicio y día. No se creó otra fila.",reintento:"Reintento ignorado: la misma solicitud ya se recibió (doble clic).",invalido:{nombre:"Falta el nombre.",contacto:"Falta un celular o correo válido.",servicio:"Servicio no válido.",consentimiento:"Falta la autorización para usar los datos."}[r.motivo]||"Datos no válidos."}[r.estado];
+ const e=$("fr");e.hidden=false;e.className="res "+r.estado;e.textContent=msg;pintar()};
+$("reset").onclick=()=>{reiniciar();$("vel").classList.remove("on")};
+reiniciar();cargar("ig");
+</script>
