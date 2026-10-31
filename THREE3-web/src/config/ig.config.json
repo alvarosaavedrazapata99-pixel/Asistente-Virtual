@@ -1,0 +1,9 @@
+{
+  "_nota": "Configuración de las páginas /ig. Se edita sin tocar código. 'destacado' es la tarjeta de arriba en /ig; 'campanas' crean páginas /ig/<slug> con otro destacado y su propia etiqueta UTM (bio-<slug>). Los textos de ejemplo se pueden cambiar.",
+  "destacado": { "activo": true, "servicio": "pack-automatiza" },
+  "campanas": [
+    { "slug": "automatizacion", "titulo": "Automatiza tu atención al cliente", "servicio": "chatbot" },
+    { "slug": "personaje", "titulo": "Un personaje 3D para tu marca", "servicio": "personaje-basico" },
+    { "slug": "pack", "titulo": "De Instagram a la venta, todo conectado", "servicio": "pack-automatiza" }
+  ]
+}

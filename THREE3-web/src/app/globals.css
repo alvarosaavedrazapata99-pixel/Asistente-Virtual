@@ -250,3 +250,10 @@ footer a{display:inline-block;padding:14px 4px}
 .igp-l .igp-main{box-shadow:0 10px 30px -10px rgba(34,211,238,.6)}
 .igp-f{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;color:var(--mute);font-size:13px;padding-top:6px}
 .igp-f a{text-decoration:underline;padding:12px 0}
+
+/* /ig: tarjeta destacada */
+.igp-feat{display:grid;gap:6px;padding:18px;border-radius:18px;border:1px solid var(--cy);background:linear-gradient(160deg,#143a80,var(--panel) 65%);box-shadow:0 14px 40px -18px var(--cy)}
+.igp-feat small{font:500 11px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--cy)}
+.igp-feat b{font:400 26px/1.1 var(--d);text-transform:uppercase;letter-spacing:.01em}
+.igp-feat span{color:var(--mute);font-size:14.5px}
+.igp-feat .btn{margin-top:8px;pointer-events:none}

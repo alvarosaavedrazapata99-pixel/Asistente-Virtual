@@ -12,6 +12,7 @@
 | Fuentes | Etiquetas UTM válidas (Instagram bio, reels, anuncios) |
 | Listas | Opciones de los desplegables |
 | Auditoria | Evento por cada envío: creado, duplicado, reintento, inválido |
+| Eventos | Visitas y clics anónimos de las páginas `/ig` (sin datos personales) |
 
 Protecciones: encabezados congelados, desplegables estrictos (estado, dispositivo, servicio), resaltado rojo si una clave se repite y control en el Panel.
 
@@ -23,6 +24,8 @@ Protecciones: encabezados congelados, desplegables estrictos (estado, dispositiv
 5. Envía un lead de prueba desde la web y comprueba que aparece en Contactos, Solicitudes y Auditoria.
 
 Sin la variable, el formulario sigue funcionando en modo manual (la persona copia su solicitud y la envía por Instagram).
+
+**Si actualizaste el Sheet o el código:** vuelve a pegar `Codigo.gs` en Apps Script y en *Implementar → Administrar implementaciones* crea una **nueva versión** (si no, sigue corriendo la anterior).
 
 ## Reglas anti-duplicado (iguales en el simulacro y en el Sheet)
 1. **Normalización:** correo en minúsculas; celular solo dígitos, sin 51, 9 dígitos que empiezan con 9.

@@ -70,6 +70,7 @@ export default function Legal() {
           <li>Las infracciones pueden sancionarse con multas de hasta 100 UIT. Registrar y actualizar los bancos de datos es una de las obligaciones más frecuentemente incumplidas.</li>
           <li>Los titulares pueden ejercer sus derechos de acceso, rectificación, cancelación y oposición escribiendo a {dato(empresa.correo, "[CORREO DE CONTACTO]")}.</li>
         </ul>
+        <p>Las páginas de enlaces de THREE3 miden visitas y clics de forma anónima, sin cookies ni datos que identifiquen a la persona [VERIFICAR con abogado].</p>
         <p>Los mensajes comerciales de seguimiento requieren consentimiento previo. El INDECOPI puede sancionar con multas de hasta 450 UIT las comunicaciones comerciales no solicitadas.</p>
 
         <h2 id="reclamos">4. Libro de Reclamaciones y protección al consumidor</h2>

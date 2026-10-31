@@ -11,6 +11,7 @@ function doPost(e) {
   }
   try {
     var p = JSON.parse(e.postData.contents);
+    if (p.tipo === "vista" || p.tipo === "click") return salida({ ok: registrarEvento(p) }); // medición anónima de /ig
     if (p.web_url_trampa) return salida({ ok: true, estado: "reintento" }); // campo trampa para bots
     var r = LEADS.procesar(crearStoreSheet(), p, new Date().toISOString());
     return salida({ ok: r.estado !== "invalido", estado: r.estado, motivo: r.motivo || "" });
@@ -19,6 +20,15 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function registrarEvento(p) {
+  var corto = function (v, n) { return String(v == null ? "" : v).slice(0, n); };
+  if (!/^[a-z0-9:_-]{1,60}$/.test(String(p.evento || ""))) return false; // solo etiquetas simples: evita basura
+  SpreadsheetApp.getActive().getSheetByName("Eventos").appendRow([
+    new Date().toISOString(), p.tipo, p.evento, corto(p.pagina, 80), corto(p.utm_source, 40), corto(p.utm_medium, 40), corto(p.utm_campaign, 60), corto(p.dispositivo, 12),
+  ]);
+  return true;
 }
 
 function salida(o) {

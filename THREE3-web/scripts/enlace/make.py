@@ -29,7 +29,12 @@ lcss=re.search(r'<style[^>]*>(.*?)</style>',lh,re.S)
 doc='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 Información legal</title><style>body{margin:0;background:#fff}'+css+'</style></head><body>'+fix(body(W+'/legal.html'))+'</body></html>'
 open(O+'/legal.html','w',encoding='utf8').write(doc)
 
-# /ig: página del enlace de la biografía (documento completo, sin JavaScript)
-igdoc='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 Enlaces</title>'+GF+'<style>'+css+'</style></head><body>'+fix(body(W+'/ig.html'))+'</body></html>'
-open(O+'/ig.html','w',encoding='utf8').write(igdoc)
-print(len(index),len(doc),len(igdoc))
+# /ig y /ig/<campaña>: páginas del enlace de la biografía (documentos completos)
+EV=open(ROOT+'/public/eventos.js',encoding='utf8').read()
+def pagina_ig(origen,destino):
+    d='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 Enlaces</title>'+GF+'<style>'+css+'</style></head><body>'+fix(body(origen))+'<script>'+EV+'</script></body></html>'
+    open(O+'/'+destino,'w',encoding='utf8').write(d); return len(d)
+igdoc=' '*pagina_ig(W+'/ig.html','ig.html')
+for f in sorted(glob.glob(W+'/ig/*.html')):
+    pagina_ig(f,'ig-'+os.path.basename(f))
+print(len(index),len(doc),sorted(os.listdir(O)))

@@ -34,8 +34,16 @@ Instagram abre los enlaces dentro de su propio navegador, que se comporta distin
 8. Repite en un celular Android y en uno iPhone si puedes.
 Si algo falla, anota qué toqué y qué viste y me lo cuentas.
 
-## D. Cómo enlazar en Instagram
+## D. Qué es nuestro "Linktree" y por qué no usamos uno externo
+`/ig` es nuestra propia página de enlaces. Frente a Linktree: el formulario se abre de un toque con el servicio elegido, cada lead llega al Sheet con su etiqueta (qué reel o anuncio lo trajo), el diseño es 100% THREE3 y los datos son tuyos. Linktree sirve si no queremos tocar nada, pero no conecta con el formulario ni con el Sheet.
+- **Páginas por campaña:** `/ig/automatizacion`, `/ig/personaje` y `/ig/pack`. Cada una destaca otro servicio y usa su propia etiqueta (`bio-<nombre>`), para saber cuál enlace de historias o de biografía convierte mejor.
+- **Se editan sin código:** `src/config/ig.config.json` (destacado y campañas). Los textos actuales son de ejemplo.
+- **Medición anónima:** cada visita y cada clic se registra en la hoja Eventos del Sheet, sin cookies ni datos personales. El Panel muestra visitas, clics y leads por campaña. Requiere haber pegado de nuevo `Codigo.gs` (versión nueva) y tener `NEXT_PUBLIC_LEADS_ENDPOINT`.
+- **Código QR** para afiches y tarjetas: `node scripts/qr.js https://TU-DIRECCION/ig ig` (genera PNG y SVG en `docs/qr/`).
+
+## E. Cómo enlazar en Instagram
 - **Biografía:** `https://TU-DIRECCION/ig`
+- **Historias o publicaciones concretas:** `https://TU-DIRECCION/ig/automatizacion`, `/ig/personaje` o `/ig/pack`
 - **Historias con enlace:** el mismo, con `?utm_campaign=historia-<tema>` para saber qué historia convierte.
 - **Anuncios:** `https://TU-DIRECCION/?utm_source=instagram&utm_medium=ads&utm_campaign=<nombre-campaña>` (el nombre debe existir en la hoja Fuentes).
 - **Reels con palabra clave:** `…&utm_medium=reel&utm_campaign=automatizacion`.

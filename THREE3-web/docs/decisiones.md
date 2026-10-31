@@ -11,6 +11,7 @@
 | [0007](adr/0007-enlace-estatico.md) | Enlace de revisión estático, republicado tras cada cambio | Aceptado |
 | [0008](adr/0008-leads-sheet-interino.md) | Sheet maestro = vista de trabajo; base de datos real en Postgres cuando haya tráfico | **Propuesto** (necesita tu OK) |
 | [0009](adr/0009-dominio.md) | Dominio: three3agency.com (+ three3.pe); three3.com está ocupado | **Propuesto** (la compra es tuya) |
+| [0010](adr/0010-linktree-propio.md) | Página de enlaces propia (`/ig` y por campaña) en lugar de Linktree | Aceptado |
 
 ## Recomendaciones abiertas
 1. **Qué NO construir todavía:** pagos y facturación SUNAT (antes de validar precios), sandbox de juegos y render automático de Blender (primero a mano con plantilla), A/B, multi-idioma, panel de analítica propio.
