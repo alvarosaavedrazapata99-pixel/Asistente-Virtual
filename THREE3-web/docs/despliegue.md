@@ -1,5 +1,7 @@
 # Ver la web como usuario (versión de prueba, sin dominio)
 
+> **Corrección (31-oct-2026):** el plan gratis de Vercel (Hobby) está pensado para proyectos personales **no comerciales** [VALIDAR en sus términos vigentes]. Para el sitio de un negocio, usa **Cloudflare Pages** (gratis, permite uso comercial) o paga el plan de Vercel. Como la web de hoy es estática, Cloudflare Pages es la opción recomendada; los pasos están al final.
+
 La web se publica en una dirección gratis de Vercel (por ejemplo `three3-web.vercel.app`). Es la forma real de verla: sin barras de Claude ni de edición, igual que la verá un cliente.
 
 ## Pasos (los haces tú, unos 5 minutos)
@@ -25,3 +27,14 @@ Cuando compres el dominio: Vercel → *Settings → Domains* → agrégalo y cop
 
 ## Alternativa sin Vercel
 Cloudflare Pages: conecta el mismo repo, rama `three3-web-carga`, directorio raíz `THREE3-web`, comando `npm run build`, directorio de salida `out`.
+
+## Costos mensuales y anuales (estimados, a validar al contratar)
+| Concepto | Costo | Nota |
+|---|---|---|
+| Dominio `.com` | ≈ US$ 10–16 **al año** | Se renueva cada año; no es pago mensual |
+| Hosting en Cloudflare Pages | US$ 0 | Plan gratis, uso comercial permitido [VALIDAR] |
+| Google Sheets + Apps Script | US$ 0 | Con tu cuenta de Google |
+| Reenvío de correo del dominio (Cloudflare Email Routing) | US$ 0 | Recibes `hola@tudominio.com` en tu Gmail |
+| Correo profesional completo (Google Workspace) | ≈ US$ 7 por persona al mes **[VALIDAR]** | Opcional, no hace falta al inicio |
+| Base de datos (Supabase) | US$ 0 al inicio | Plan de pago cuando haya volumen [VALIDAR] |
+| WhatsApp Business (Meta) | Por conversación | Solo cuando exista el chatbot |
