@@ -1,42 +1,70 @@
-# THREE3 — Análisis Fase 0
+# THREE3 — Fase 0 (v4): análisis y arquitectura
 
-> Nota de método: los skills "Legends/genios" no están instalados en esta sesión. Este análisis usa criterio propio de marketing, ventas, diseño, seguridad y legal-tech. Todo lo marcado **[VALIDAR]** es hipótesis sin dato verificado; no hay cifras de mercado inventadas.
+> Método: los skills "Legends" no existen en esta sesión; el análisis usa criterio propio de marketing, ventas, diseño, AppSec, datos y legal-tech. Lo marcado **[VALIDAR]** es hipótesis sin dato verificado. No se inventan competidores, cifras ni testimonios.
 
 ## 1. Público objetivo
-| Segmento | Dolor | Cómo llega |
+| Segmento | Dolor | Canal | Prioridad |
+|---|---|---|---|
+| **A. Pyme peruana que vende por WhatsApp/Instagram** (clínicas, tiendas, academias, inmobiliarias) | Responde tarde, pierde leads, anota en cuaderno o Excel | Instagram, comentarios con palabra clave | **1** |
+| B. Marca personal / emprendedor | Quiere mascota y presencia premium | Reels, turntables 3D | 2 |
+| C. Creador/estudio pequeño | Juego a medida barato | Serie "Crea tu videojuego" | 3 |
+
+El comprador A paga recurrente (mantenimiento mensual) y entiende el retorno. B y C son entrada y diferenciación visual.
+
+## 2. Propuesta de valor por servicio
+| Servicio | Promesa concreta | Qué lo hace comprable |
 |---|---|---|
-| **A. Pyme peruana con ventas por WhatsApp/Instagram** (tiendas, clínicas, academias, inmobiliarias) | Responden tarde, pierden leads, anotan en cuaderno o Excel | Instagram (@three_3agency), comentarios con palabra clave |
-| **B. Emprendedor/marca personal** | Quiere mascota/personaje y presencia premium | Reels, turntables 3D |
-| **C. Creador/estudio pequeño** | Quiere un juego a medida barato | Serie "Crea tu videojuego" |
+| Chatbot web + WhatsApp | Atiende 24/7 con tu información y pasa a una persona cuando hace falta | Precio y plazo visibles; se identifica como asistente virtual |
+| CRM | Contactos, ventas y seguimiento en un tablero | Plantilla versionada + checklist de uso |
+| Captación de leads | Del comentario/formulario al CRM, con aviso y recordatorios | Prueba de humo automática al entregar |
+| Base maestra en Sheets | Datos ordenados y listos para analizar | Es la entrada barata (2–3 días) |
+| Pack Chatbot + CRM + Leads | Flujo completo de ventas | Ancla de precio frente a agencias |
+| Personaje 3D (básico / completo) | Mascota original con licencia clara | Boceto aprobado antes de modelar |
+| Videojuego a medida | Juego web de alcance cerrado | Revisión humana siempre |
+| Idiomas/voz | Demo de Tri en varios idiomas | Es demostración, no servicio con precio |
 
-**Prioridad: A.** Es el que paga recurrente y entiende el ROI. B y C son puertas de entrada y diferenciación visual, no el negocio central (coincide con tu nota del 30-oct: el personaje es un servicio más).
+## 3. Competencia (categorías; nombres a validar con búsquedas reales)
+- **Constructores no-code de chatbots/CRM por suscripción:** baratos, pero el cliente arma todo solo.
+- **Agencias y freelancers locales de automatización:** sin catálogo ni precio público, entrega artesanal. El archivo de precios cita rangos de agencias (flujo completo S/ 8,000–15,000; mantenimiento S/ 500–2,000/mes) **[VALIDAR con 3 cotizaciones]**.
+- **Estudios 3D / freelancers de personajes:** buen arte, venta por cotización, sin proceso transparente ni licencia estándar.
+- **Brecha:** nadie combina catálogo con precio visible, marca fuerte, entrega con licencia y compra guiada.
 
-## 2. Propuesta de valor
-"Automatiza tu negocio. Conecta cada cliente." Instagram → chatbot → lead → CRM → venta, ya armado, con precio visible y entrega en días, no meses. Diferenciador: **la marca (Tri) y el cuidado visual**, algo que las agencias de chatbots casi nunca tienen.
+## 4. Riesgos
+1. **Alcance** (pagos, panel, facturación, sandbox de juegos, Blender automatizado) frente a un equipo pequeño. Mitigación: ver "qué NO construir todavía".
+2. **WhatsApp Business** exige verificación de Meta y tiene costos propios: nunca prometer activación instantánea.
+3. **Servicios creativos** (personaje, juego) no se automatizan de punta a punta: hay revisión humana y plazos de días. La web debe modelar "en proceso", no "entrega inmediata".
+4. **Precios** son hipótesis. Publicar sin validar es el riesgo comercial más barato de evitar.
+5. **Legal:** Ley 29733 (datos), 31814 (IA), 32495 (Libro de Reclamaciones), SUNAT. Todo el texto es borrador hasta revisión de abogado y contador.
+6. **IA de costo variable:** sin tope por pedido, una conversación larga se come el margen.
+7. **Dependencias externas** (Meta, Mercado Pago, Instagram Graph) pueden fallar o cambiar reglas: cada una detrás de una interfaz.
 
-## 3. Competencia en LATAM (categorías; nombres por validar)
-- **Plataformas de chatbot/CRM por suscripción** (tipo constructores no-code de WhatsApp): baratas, pero el cliente arma todo solo. Debilidad: curva de aprendizaje.
-- **Agencias y freelancers locales de automatización**: precio variable, sin catálogo ni precio público, entrega artesanal. Debilidad: nada se compra en 1 clic.
-- **Estudios 3D / freelancers de personajes**: buen arte, venden por cotización, sin proceso transparente ni licencia clara.
-- **Brecha:** nadie combina catálogo con precio visible + marca fuerte + licencias claras. **[VALIDAR]** con 10 búsquedas reales y 3 cotizaciones antes de fijar precios.
+## 5. Qué NO construir todavía
+- Cobro automático y facturación SUNAT **antes** de validar precios y demanda con cotizaciones reales (se activa en la Fase 4).
+- Sandbox de videojuegos y render automático en Blender: primero se hacen a mano con plantilla; se automatiza lo que se repita 5+ veces.
+- Multi-idioma completo, pruebas A/B y panel de analítica propio (basta Plausible/PostHog con consentimiento).
+- Marketplace, cuentas de equipo, suscripciones: no hay evidencia de que se necesiten.
 
-## 4. Estructura que convierte (móvil primero, tráfico desde Instagram)
-1. Hero: promesa en una línea + 1 CTA ("Ver servicios") + video loop sin audio.
-2. Prueba de funcionamiento: "Mira cómo funciona" (conecta, personaje, juego, idiomas).
-3. Catálogo de 6 servicios con "Ver precio / Activar" y precio "desde" o "Cotizar".
-4. Cómo trabajamos (3 pasos) + qué necesitamos del cliente.
-5. Tu personaje 3D (comparador boceto→render).
-6. Instagram + WhatsApp. Pie mínimo con enlace a `/legal`.
-Sin testimonios inventados: usar "Caso ilustrativo" hasta tener clientes reales.
+## 6. Estado real del proyecto (hoy)
+- Hecho: boceto convertido a Next.js (Inicio, `/legal`), formulario "Activar" sin servidor, "Cómo trabajamos", FAQ, enlace de revisión.
+- **Desfase detectado:** el `services.config.json` oficial trae **8** servicios (con pack y personaje básico/completo, tipo de cambio 3.4, mensualidad); el sitio usa 6 con datos copiados del boceto. Se reemplaza en la próxima fase. Ya están disponibles WebM, `hero_loop` y `tri_frente.png` (antena de 3 bolitas verificada).
+- El sitio no es todavía un monorepo ni tiene CI, base de datos, pagos ni seguridad de producción.
 
-## 5. Riesgos que veo
-- **Alcance enorme** (pagos, panel, licencias PDF, sandbox de juegos). Vender primero con "Cotizar" + WhatsApp valida demanda antes de construir la automatización completa.
-- **WhatsApp Business** exige verificación de Meta: no prometer activación instantánea.
-- **Precios en `services.config.json`** son hipótesis: no publicar sin 3 cotizaciones.
-- **Legal** (Ley 29733, 31814, Libro de Reclamaciones): borradores, revisión de abogado obligatoria.
-- **Rendimiento:** muchos videos autoplay en móvil pesan; solo reproducir los visibles y cargar WebM ligero.
+## 7. Arquitectura: dos alternativas
+### A. Next.js en Vercel + Supabase + Inngest + worker de contenedor (recomendada)
+- **Front/API:** Next.js (App Router, TypeScript estricto). **Datos:** Supabase Postgres con RLS, Auth, Storage. **Jobs:** Inngest (reintentos, idempotencia). **Trabajos pesados** (Blender, sandbox de juego): worker en contenedor (Fly.io/Railway) con red restringida. **Borde:** Cloudflare delante (DNS, WAF, Turnstile, Stream/R2).
+- **Ventajas:** la pila más rápida de poner en producción; RLS nativa (seguridad en la base, no solo en el código); Postgres real para analítica y lead scoring; buen soporte de TypeScript y de Mercado Pago/Inngest.
+- **Desventajas:** varios proveedores (Vercel, Supabase, Inngest, Fly) = más facturas y más secretos; costo de Vercel crece con el tráfico; funciones serverless no sirven para trabajos largos (de ahí el worker).
 
-## 6. Tres decisiones clave (necesito tu respuesta)
-1. **¿Vender en 1 clic desde el día 1, o primero "Cotizar" + WhatsApp?** Recomiendo cotizar primero: Fases 1–3 en semanas, pagos y entrega automática después, con demanda ya probada.
-2. **Foco del hero: automatización para pymes (A), no el personaje.** Recomiendo A; el personaje 3D y los juegos como servicios secundarios.
-3. **Video en producción: Cloudflare Stream/Mux (HLS) vs. archivos propios en el CDN.** Recomiendo archivos WebM/MP4 cortos propios ahora (clips de 5–6 s) y Stream/Mux solo para videos largos.
+### B. Todo en Cloudflare (Workers/Pages + D1/R2 + Queues)
+- **Ventajas:** un solo proveedor para hosting, WAF, Turnstile, Stream, R2 y colas; costo de salida bajo; latencia excelente.
+- **Desventajas:** Next.js en Workers depende de un adaptador menos maduro; D1 es SQLite (sin RLS, sin extensiones de Postgres): la autorización queda toda en el código, más superficie de error; Auth hay que construirla o integrarla; Mercado Pago/Inngest requieren más trabajo propio.
+
+### Recomendación: A, con Cloudflare solo en el borde
+Elegir A porque el mayor riesgo del negocio es la seguridad de pedidos y pagos, y RLS la mueve a la base de datos. Cloudflare aporta lo que hace mejor (DNS, WAF, Turnstile, Stream, R2) sin atar la aplicación. Revisar en un ADR si los costos de Vercel superan el margen.
+
+**Monorepo (pnpm + Turborepo):** `apps/web`, `packages/ui`, `packages/config` (services.config), `packages/db`, `packages/provisioning`, `docs`. Migración desde la estructura actual en un PR aparte, sin cambiar el diseño.
+
+## 8. Decisiones que necesito de ti
+1. **¿Validamos precios con "Cotizar" antes de activar pagos?** Recomiendo sí (la Fase 4 espera hasta tener 3 cotizaciones cerradas).
+2. **¿Aprobada la arquitectura A?** Si sí, el siguiente bloqueo son las cuentas de Supabase, Vercel y Cloudflare.
+3. **¿Adopto ya el `services.config.json` oficial de 8 servicios** (con pack y personaje básico/completo) en el sitio y el catálogo?
