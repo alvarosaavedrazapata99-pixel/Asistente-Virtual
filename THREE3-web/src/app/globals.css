@@ -237,3 +237,16 @@ footer a{display:inline-block;padding:14px 4px}
 /* formulario: campo trampa para bots y estado "enviado" */
 .trampa{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
 .dlg [data-ok].enviado .solo-manual,.dlg [data-ok].enviado .dlg-pre{display:none}
+
+/* /ig: página del enlace de la biografía */
+.igp{max-width:520px;margin:0 auto;padding:max(28px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(32px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:grid;gap:22px}
+.igp-h{display:grid;justify-items:center;gap:6px;text-align:center}
+.igp-h img{height:auto;filter:drop-shadow(0 18px 28px rgba(0,0,0,.5)) drop-shadow(0 0 30px rgba(34,211,238,.25))}
+.igp-h h1{font-size:44px}
+.igp-h p{color:var(--mute)}
+.igp-l{display:grid;gap:10px}
+.igp-l h2{font:600 12px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--cy);margin:14px 0 2px}
+.igp-l .btn{min-height:54px;font-size:16px}
+.igp-l .igp-main{box-shadow:0 10px 30px -10px rgba(34,211,238,.6)}
+.igp-f{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;color:var(--mute);font-size:13px;padding-top:6px}
+.igp-f a{text-decoration:underline;padding:12px 0}

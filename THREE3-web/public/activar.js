@@ -52,6 +52,17 @@
   });
   d.addEventListener("close", () => ultimo && ultimo.focus && ultimo.focus());
 
+  // Enlace desde Instagram: ?activar=crm abre el formulario con ese servicio ya elegido.
+  const pre = new URLSearchParams(location.search).get("activar");
+  if (pre && [...campo("servicio").options].some((o) => o.value === pre)) {
+    requestAnimationFrame(() => {
+      abrir(pre, null);
+      const q = new URLSearchParams(location.search);
+      q.delete("activar"); // se conservan las etiquetas utm_*
+      history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "") + location.hash);
+    });
+  }
+
   const esCorreo = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   const esCelular = (v) => /^\+?[\d\s-]{9,15}$/.test(v) && v.replace(/\D/g, "").length >= 9;
 

@@ -1,0 +1,8 @@
+{
+  "_nota": "Datos reales de la empresa. Mientras un campo esté vacío, /legal muestra [COMPLETAR]. whatsapp: solo dígitos con código de país (ej. 51987654321).",
+  "razon_social": "",
+  "ruc": "",
+  "domicilio": "",
+  "correo": "",
+  "whatsapp": ""
+}

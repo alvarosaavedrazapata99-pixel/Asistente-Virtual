@@ -18,9 +18,19 @@ export function ServiceGrid() {
             <div className="vid">
               <LoopVideo base={`/videos/${s.video}`} poster={`/videos/posters/${s.video}.webp`} label={`Demostración animada de ${s.nombre}`} />
               <div className="pp" id={`panel-${s.id}`} aria-hidden={!open}>
-                <small>{MOSTRAR_PRECIO_EJEMPLO ? "Desde · precio de ejemplo" : "Desde"}</small>
-                <b>{textoDesde(s)} <i>{textoUsd(s)}</i></b>
-                <small>Entrega {s.entrega}{s.mensualPen ? ` · ${textoMensual(s)}` : ""}</small>
+                {MOSTRAR_PRECIO_EJEMPLO ? (
+                  <>
+                    <small>Desde · precio de ejemplo</small>
+                    <b>{textoDesde(s)} <i>{textoUsd(s)}</i></b>
+                    <small>Entrega {s.entrega}{s.mensualPen ? ` · ${textoMensual(s)}` : ""}</small>
+                  </>
+                ) : (
+                  <>
+                    <small>Precio</small>
+                    <b>Cotizar <i>te lo enviamos por escrito</i></b>
+                    <small>Entrega {s.entrega}</small>
+                  </>
+                )}
                 <ul>
                   {s.incluye.map((i) => (
                     <li key={i}>{i}</li>

@@ -17,7 +17,7 @@ def body(path):
     return b
 def fix(b):
     b=re.sub(r'(src|href|poster)="/(assets|videos)/',r'\1="\2/',b)
-    b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/"','href="index.html"')
+    b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/?','href="index.html?').replace('href="/"','href="index.html"')
     return b
 JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()+'\n'+open(ROOT+'/public/ui.js',encoding='utf8').read()
 GF='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">'
@@ -28,4 +28,8 @@ lh=open(W+'/legal.html',encoding='utf8').read()
 lcss=re.search(r'<style[^>]*>(.*?)</style>',lh,re.S)
 doc='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 Información legal</title><style>body{margin:0;background:#fff}'+css+'</style></head><body>'+fix(body(W+'/legal.html'))+'</body></html>'
 open(O+'/legal.html','w',encoding='utf8').write(doc)
-print(len(index),len(doc))
+
+# /ig: página del enlace de la biografía (documento completo, sin JavaScript)
+igdoc='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 Enlaces</title>'+GF+'<style>'+css+'</style></head><body>'+fix(body(W+'/ig.html'))+'</body></html>'
+open(O+'/ig.html','w',encoding='utf8').write(igdoc)
+print(len(index),len(doc),len(igdoc))

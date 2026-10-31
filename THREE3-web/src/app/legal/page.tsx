@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import empresa from "@/config/empresa.config.json";
 import s from "./legal.module.css";
+
+const dato = (v: string, marcador = "[COMPLETAR]") => v.trim() || marcador;
 
 export const metadata: Metadata = {
   title: "Información legal · THREE3",
@@ -39,7 +42,7 @@ export default function Legal() {
         </div>
 
         <h2 id="marca">1. Marca registrada y signos distintivos</h2>
-        <p>THREE3, el logotipo árbol-circuito y el personaje Tri son signos distintivos de [RAZÓN SOCIAL / TITULAR]. Su registro ante la Dirección de Signos Distintivos del INDECOPI se encuentra por iniciar [COMPLETAR].</p>
+        <p>THREE3, el logotipo árbol-circuito y el personaje Tri son signos distintivos de {dato(empresa.razon_social, "[RAZÓN SOCIAL / TITULAR]")}. Su registro ante la Dirección de Signos Distintivos del INDECOPI se encuentra por iniciar [COMPLETAR].</p>
         <p>Datos de referencia del trámite de registro de marca en el Perú:</p>
         <ul>
           <li>Tasa: S/ 534,90 por la primera clase y S/ 533,30 por cada clase adicional. La primera clase tiene una tasa reducida de S/ 401,20 para titulares inscritos en el ReMYPE con RUC activo y habido.</li>
@@ -65,7 +68,7 @@ export default function Legal() {
           <li>Los incidentes que afecten datos personales se notifican en un plazo de 48 horas desde que se toma conocimiento, a la autoridad y, cuando corresponda, a los titulares afectados.</li>
           <li>El oficial de datos personales se exige de forma escalonada según el tamaño de la empresa: pequeñas empresas, noviembre de 2027; microempresas, noviembre de 2028; salvo que se traten datos sensibles o grandes volúmenes de datos.</li>
           <li>Las infracciones pueden sancionarse con multas de hasta 100 UIT. Registrar y actualizar los bancos de datos es una de las obligaciones más frecuentemente incumplidas.</li>
-          <li>Los titulares pueden ejercer sus derechos de acceso, rectificación, cancelación y oposición escribiendo a [CORREO DE CONTACTO].</li>
+          <li>Los titulares pueden ejercer sus derechos de acceso, rectificación, cancelación y oposición escribiendo a {dato(empresa.correo, "[CORREO DE CONTACTO]")}.</li>
         </ul>
         <p>Los mensajes comerciales de seguimiento requieren consentimiento previo. El INDECOPI puede sancionar con multas de hasta 450 UIT las comunicaciones comerciales no solicitadas.</p>
 
@@ -79,7 +82,7 @@ export default function Legal() {
         <p>Los asistentes virtuales (chatbots) de THREE3 se identifican como tales dentro de la conversación. Los videojuegos y demás entregables pasan por revisión humana antes de su entrega.</p>
 
         <h2 id="fact">6. Facturación y datos del proveedor</h2>
-        <p>Razón social: [COMPLETAR]. RUC: [COMPLETAR]. Domicilio: [COMPLETAR]. Correo de contacto: [COMPLETAR]. Los comprobantes de pago se emiten de forma electrónica mediante un facturador autorizado por la SUNAT.</p>
+        <p>Razón social: {dato(empresa.razon_social)}. RUC: {dato(empresa.ruc)}. Domicilio: {dato(empresa.domicilio)}. Correo de contacto: {dato(empresa.correo)}. Los comprobantes de pago se emiten de forma electrónica mediante un facturador autorizado por la SUNAT.</p>
 
         <h2 id="fuentes">7. Fuentes consultadas</h2>
         <ul>
