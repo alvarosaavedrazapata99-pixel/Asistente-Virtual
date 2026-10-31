@@ -2,7 +2,6 @@ import Link from "next/link";
 import Script from "next/script";
 import { ActivarDialog } from "@/components/ActivarDialog";
 import { Faq, Proceso } from "@/components/Confianza";
-import { CircuitCanvas } from "@/components/CircuitCanvas";
 import { Instagram } from "@/components/Instagram";
 import { LoopVideo } from "@/components/LoopVideo";
 import { Personaje } from "@/components/Personaje";
@@ -42,8 +41,7 @@ export default function Home() {
       <main>
       <div className="w">
         <header className="hero" id="top">
-          <CircuitCanvas />
-          <div>
+          <div className="hero-copy">
             <h1>
               Automatiza tu negocio.
               <br />
@@ -58,19 +56,13 @@ export default function Home() {
               <a className="btn ghost" href="#videos">Ver cómo funciona</a>
             </div>
             <div className="proof">
-              <div><b>6</b>servicios en 1 clic</div>
+              <div><b>8</b>servicios en 1 clic</div>
               <div><b>24/7</b>funcionando</div>
               <div><b>PEN · USD</b>pago local</div>
             </div>
           </div>
-          <div className="stage">
-            <div className="ring r2" />
-            <div className="ring r1" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="tri" alt="Tri, la mascota de THREE3" src="/assets/tri-render.webp" width={250} height={375} fetchPriority="high" decoding="async" />
-            <span className="chip c1"><i />Chatbot respondiendo</span>
-            <span className="chip c2"><i />Lead nuevo → CRM</span>
-            <span className="chip c3"><i />Seguimiento enviado</span>
+          <div className="hero-media">
+            <LoopVideo base="/videos/hero_loop" poster="/videos/posters/hero_loop.webp" label="Tri, la mascota de THREE3, atendiendo a un cliente" />
           </div>
         </header>
       </div>
@@ -116,7 +108,7 @@ export default function Home() {
             {MURO.map((m) => (
               <figure className="vf" key={m.id}>
                 <div className="vid">
-                  <LoopVideo src={`/videos/svc_${m.id}.mp4`} label={m.t} />
+                  <LoopVideo base={`/videos/svc_${m.id}`} poster={`/videos/posters/svc_${m.id}.webp`} label={m.t} />
                 </div>
                 <figcaption>
                   <b>{m.t}</b>

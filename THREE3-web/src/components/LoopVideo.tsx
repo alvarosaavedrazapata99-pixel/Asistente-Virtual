@@ -2,8 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+type Props = {
+  /** Ruta sin extensión, p. ej. "/videos/svc_crm". Se sirve WebM primero y MP4 de respaldo. */
+  base: string;
+  /** Imagen fija: primer cuadro y única imagen si hay prefers-reduced-motion. */
+  poster: string;
+  label: string;
+};
+
 /** Video en bucle, mudo; solo se reproduce cuando está visible y no hay prefers-reduced-motion. */
-export function LoopVideo({ src, label }: { src: string; label: string }) {
+export function LoopVideo({ base, poster, label }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -17,6 +25,10 @@ export function LoopVideo({ src, label }: { src: string; label: string }) {
     return () => io.disconnect();
   }, []);
 
-  // "#t=0.1" fuerza a mostrar el primer cuadro como póster sin descargar el video completo.
-  return <video ref={ref} muted loop playsInline preload="metadata" src={`${src}#t=0.1`} aria-label={label} />;
+  return (
+    <video ref={ref} muted loop playsInline preload="none" poster={poster} aria-label={label}>
+      <source src={`${base}.webm`} type="video/webm" />
+      <source src={`${base}.mp4`} type="video/mp4" />
+    </video>
+  );
 }

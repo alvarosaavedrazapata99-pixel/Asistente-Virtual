@@ -1,67 +1,16 @@
 {
-  "_nota": "Precios del boceto del 30-oct: HIPÓTESIS 'de ejemplo'. publicar=false => la tarjeta muestra 'Cotizar'. Validar con 3 cotizaciones antes de publicar.",
-  "mostrarPrecioEjemplo": true,
+  "_nota": "Precios HIPOTESIS v2 (30 oct 2026), alineados con referencias de mercado peruano. Validar con 3 cotizaciones reales antes de publicar. Mientras 'publicar' sea false la web muestra 'Cotizar'. Referencias: KOM Agencia Digital (jun 2026): caso simple S/ 3,000-6,000; flujo de atencion completo S/ 8,000-15,000; integracion CRM S/ 4,000-15,000; mantenimiento S/ 500-2,000/mes. WhatsApp API ~US$ 0.05 por conversacion. Personaje 3D estilizado desde ~US$ 2,000 en estudio (pixune.com); freelance mucho menos.",
+  "moneda_base": "PEN",
+  "tipo_cambio_usd": 3.4,
+  "posicionamiento": "Precio de lanzamiento ~30-40% bajo agencias, con portafolio propio. Subir cuando haya 3 casos reales.",
   "servicios": [
-    {
-      "id": "chatbot",
-      "nombre": "Chatbot",
-      "resumen": "Responde a tus clientes en WhatsApp y en tu web con tu información.",
-      "precioEjemplo": "S/ 3,000",
-      "plazo": "5-10 días · mant. desde S/ 300/mes",
-      "incluye": ["Base de conocimiento", "Web + WhatsApp", "Traspaso a una persona"],
-      "icono": "M4 5h16v11H9l-5 4z",
-      "publicar": false
-    },
-    {
-      "id": "crm",
-      "nombre": "CRM",
-      "resumen": "Todos tus contactos, ventas y seguimientos en un solo tablero.",
-      "precioEjemplo": "S/ 2,500",
-      "plazo": "5-10 días · mant. desde S/ 300/mes",
-      "incluye": ["Pipeline de ventas", "Recordatorios", "Reporte semanal"],
-      "icono": "M4 20V10m6 10V4m6 16v-7m4 7H2",
-      "publicar": false
-    },
-    {
-      "id": "leads",
-      "nombre": "Captación de leads",
-      "resumen": "Formularios y flujos que guardan cada interesado y le dan seguimiento.",
-      "precioEjemplo": "S/ 1,500",
-      "plazo": "3-5 días · mant. desde S/ 200/mes",
-      "incluye": ["Formulario y flujo", "Aviso inmediato", "Envío al CRM"],
-      "icono": "M3 5h18l-7 8v6l-4-2v-4z",
-      "publicar": false
-    },
-    {
-      "id": "sheets",
-      "nombre": "Base maestra en Sheets",
-      "resumen": "Tus datos ordenados en una hoja lista para analizar y conectar.",
-      "precioEjemplo": "S/ 500",
-      "plazo": "2-3 días",
-      "incluye": ["Plantilla a tu cuenta", "Fórmulas y totales", "Guía de uso"],
-      "icono": "M4 4h16v16H4zM4 10h16M10 4v16",
-      "publicar": false
-    },
-    {
-      "id": "juego",
-      "nombre": "Videojuego a medida",
-      "resumen": "Un juego propio 2D, 3D o RPG para tu marca, revisado por una persona.",
-      "precioEjemplo": "S/ 3,500",
-      "plazo": "10-20 días",
-      "incluye": ["Juego web jugable", "Revisión humana", "Licencia de uso"],
-      "icono": "M6 9h12a3 3 0 0 1 3 3v3a2 2 0 0 1-3.4 1.4L16 15H8l-1.6 1.4A2 2 0 0 1 3 15v-3a3 3 0 0 1 3-3z",
-      "publicar": false
-    },
-    {
-      "id": "personaje",
-      "nombre": "Tu personaje 3D",
-      "resumen": "Mascota original en estilo juguete 3D con boceto, render y licencia.",
-      "precioEjemplo": "S/ 900",
-      "plazo": "5-7 días",
-      "incluye": ["Boceto en blanco y negro", "Render y turntable 360", "Licencia comercial PDF"],
-      "icono": "M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5",
-      "destacado": true,
-      "publicar": false
-    }
+    {"id":"sheets","nombre":"Base maestra en Sheets","desde_pen":500,"entrega":"2-3 dias","publicar":false},
+    {"id":"leads","nombre":"Flujo de captacion de leads","desde_pen":1500,"mensual_pen":200,"entrega":"3-5 dias","publicar":false},
+    {"id":"crm","nombre":"CRM (configuracion e integracion)","desde_pen":2500,"mensual_pen":300,"entrega":"5-10 dias","publicar":false},
+    {"id":"chatbot","nombre":"Chatbot web + WhatsApp (caso simple)","desde_pen":3000,"mensual_pen":300,"entrega":"5-10 dias","nota":"Costos de WhatsApp (Meta) y de IA van aparte segun volumen","publicar":false},
+    {"id":"pack-automatiza","nombre":"Pack Chatbot + CRM + Leads","desde_pen":5500,"mensual_pen":500,"entrega":"15-20 dias","nota":"Mercado: S/ 8,000-15,000 por flujo completo","publicar":false},
+    {"id":"personaje-basico","nombre":"Personaje 3D basico (boceto, render, turntable, licencia)","desde_pen":900,"entrega":"5-7 dias","publicar":false},
+    {"id":"personaje-completo","nombre":"Personaje 3D completo (rig, expresiones, GLB)","desde_pen":2500,"entrega":"10-14 dias","publicar":false},
+    {"id":"videojuego","nombre":"Videojuego a medida (web, alcance cerrado)","desde_pen":3500,"entrega":"10-20 dias","nota":"con revision humana","publicar":false}
   ]
 }
