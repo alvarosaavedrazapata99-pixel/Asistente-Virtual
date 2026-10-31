@@ -18,3 +18,4 @@ Notas:
 - Leads: lógica anti-duplicados en `scripts/leads/core.js` (probar con `node scripts/leads/prueba-unitaria.js`); `docs/sheets/Codigo.gs` se genera con `node scripts/leads/build-apps-script.js`. Si cambias `core.js`, regenera y vuelve a pegar el script.
 - El formulario envía solo si existe `NEXT_PUBLIC_LEADS_ENDPOINT` (si no, modo copiar y enviar).
 - Simulación del enlace de Instagram (artefacto aparte): `python3 scripts/simulacion-ig/construir.py` (requiere `.enlace/` ya construido con `scripts/enlace/build.sh`); se republica tras cambios en `/ig`.
+- Servidor: `server/` (pagos, seguridad, leads; TypeScript ejecutable por Node) y `functions/` (Cloudflare Pages Functions). Pruebas: `npm test`. Tipos: `npm run typecheck`. CSP: `npm run build:cf` y `node scripts/probar-csp.mjs`. Migración: `supabase/migrations/`. Guía de claves: `docs/pagos-seguridad.md`. NUNCA poner secretos en el código ni en variables `NEXT_PUBLIC_*`.

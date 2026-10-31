@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test \"server/**/*.test.ts\" && node scripts/leads/prueba-unitaria.js",
+    "typecheck": "tsc --noEmit && tsc -p server/tsconfig.json",
+    "build:cf": "next build && node scripts/csp.mjs"
   },
   "dependencies": {
     "next": "16.4.3",
@@ -14,6 +17,7 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.14",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

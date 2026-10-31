@@ -257,3 +257,13 @@ footer a{display:inline-block;padding:14px 4px}
 .igp-feat b{font:400 26px/1.1 var(--d);text-transform:uppercase;letter-spacing:.01em}
 .igp-feat span{color:var(--mute);font-size:14.5px}
 .igp-feat .btn{margin-top:8px;pointer-events:none}
+
+/* página de pago */
+.pay{max-width:520px;margin:0 auto;padding:max(40px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:grid;gap:14px}
+.pay h1{font-size:clamp(32px,8vw,46px)}
+.pay-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:14px}
+.pay-card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+.pay-card dt{font:500 12px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--cy)}
+.pay-card dd{margin:0;font-weight:600;text-align:right}
+.pay-card #pay-monto{font:400 32px var(--d)}
+.pay-nota{font-size:13px;color:var(--mute)}.pay-nota a{color:var(--cy);text-decoration:underline}

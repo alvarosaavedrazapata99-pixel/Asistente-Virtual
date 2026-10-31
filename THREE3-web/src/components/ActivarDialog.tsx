@@ -41,6 +41,9 @@ export function ActivarDialog() {
         </label>
         <span className="err" id="e-acepto" data-err="acepto" role="alert" />
 
+        {process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY && (
+          <div className="cf-turnstile" data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY} data-theme="dark" data-appearance="interaction-only" />
+        )}
         <input className="trampa" name="web_url_trampa" tabIndex={-1} autoComplete="off" aria-hidden="true" />
         <button type="submit" className="btn">Preparar mi solicitud</button>
       </form>

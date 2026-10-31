@@ -64,7 +64,14 @@
   }
 
   const esCorreo = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  const esCelular = (v) => /^\+?[\d\s-]{9,15}$/.test(v) && v.replace(/\D/g, "").length >= 9;
+  // Peruano (9 dígitos que empiezan con 9, con o sin 51) o internacional con "+" (8 a 15 dígitos).
+  const esCelular = (v) => {
+    const t = v.trim();
+    let d = t.replace(/\D/g, "");
+    if (t.startsWith("+") && !d.startsWith("51")) return d.length >= 8 && d.length <= 15;
+    if (d.length === 11 && d.startsWith("51")) d = d.slice(2);
+    return /^9\d{8}$/.test(d);
+  };
 
   function mostrar(modo, textoEstado) {
     form.hidden = true;
@@ -101,7 +108,7 @@
     error("contacto", "");
     error("acepto", "");
     if (nombre.length < 2) { error("nombre", "Escribe tu nombre."); bien = false; }
-    if (!esCorreo(contacto) && !esCelular(contacto)) { error("contacto", "Escribe un correo válido o un celular de 9 dígitos."); bien = false; }
+    if (!esCorreo(contacto) && !esCelular(contacto)) { error("contacto", "Escribe un correo válido o un celular (si es de otro país, empieza con +)."); bien = false; }
     if (!campo("acepto").checked) { error("acepto", "Necesitamos tu autorización para responderte."); bien = false; }
     if (!bien) { form.querySelector('[aria-invalid="true"]').focus(); return; }
 
@@ -132,8 +139,10 @@
       utm_source: q.get("utm_source") || "", utm_medium: q.get("utm_medium") || "", utm_campaign: q.get("utm_campaign") || "",
       dispositivo: matchMedia("(pointer: coarse)").matches ? "movil" : "escritorio",
       web_url_trampa: campo("web_url_trampa") ? campo("web_url_trampa").value : "",
+      turnstile: (form.querySelector('[name="cf-turnstile-response"]') || {}).value || "",
     });
     enviando = false;
+    if (window.turnstile) try { window.turnstile.reset(); } catch {}
     if (bueno) mostrar("enviado", "Te responderemos para confirmar alcance, plazo y precio.");
     else mostrar("manual", "No pudimos enviarla automáticamente. Cópiala y envíala por Instagram.");
   });

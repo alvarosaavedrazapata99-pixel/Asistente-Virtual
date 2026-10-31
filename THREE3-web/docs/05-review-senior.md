@@ -52,3 +52,19 @@ Muy buena base visual y de producto para un MVP de captación; **todavía no es 
 - **Un competidor:** "los videos son animaciones, no demos reales del producto". Cuando haya casos, reemplazar por capturas reales.
 - **Un abogado:** textos con [COMPLETAR], consentimiento de datos, Libro de Reclamaciones, uso de IA y la frase de medición anónima.
 - **Un técnico:** que el formulario dependa de Apps Script y que el enlace de revisión no sea el producto real.
+
+## Seguimiento de las críticas (actualizado 31-oct-2026, noche)
+| # | Estado |
+|---|---|
+| 1 Promesas del hero | **Pendiente de tu aprobación**: sigue diciendo "1 clic" y "pago local" hasta que los pagos estén activos y probados |
+| 2 Endpoint sin protección | **Hecho en código y probado**: Turnstile en servidor, límite por IP, campo trampa, tope de tamaño (`/api/leads`). Falta desplegar con tus claves |
+| 3 Sheet como base de datos | **Hecho**: esquema Postgres con índices únicos y registro atómico, probado con 60 envíos simultáneos. Falta crear el proyecto en Supabase; el Sheet queda como vista |
+| 4 Cabeceras y CSP | **Hecho y verificado** en navegador real (0 violaciones en 5 páginas, escritorio y móvil). Faltan robots, sitemap, imagen para compartir y datos estructurados (al lanzar) |
+| 5 Presupuesto de JS | **Parcial**: la CI falla si se pasa de 190 KB; la meta de 170 KB sigue pendiente (hoy ≈185 KB) |
+| 6 CI | **Hecho**: `.github/workflows/ci.yml` (tipos, lint, 33 pruebas, build, CSP en navegador, presupuesto, gitleaks) |
+| 7 Doble implementación | Sin cambio (el enlace de revisión es provisional) |
+| 8 Teléfonos | **Hecho**: se aceptan celulares peruanos e internacionales con "+" |
+| 9 Contacto con dos identificadores | Sin cambio (limitación documentada) |
+| 10 Datos personales | Pendiente: política de retención y revisión de abogado |
+| 11 Static export | **Resuelto**: las funciones de Cloudflare conviven con la web estática |
+| 12 Monitoreo | Pendiente |

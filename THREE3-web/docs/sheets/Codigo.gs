@@ -8,9 +8,11 @@ var LEADS = (function () {
     var e = String(v == null ? "" : v).trim().toLowerCase().replace(/\s+/g, "");
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e) ? e : "";
   }
-  /** Celular peruano: solo dígitos, sin 51, 9 dígitos que empiezan con 9. */
+  /** Celular: peruano (9 dígitos que empiezan con 9, con o sin 51) o internacional con "+" (8 a 15 dígitos, formato E.164). */
   function normCel(v) {
-    var d = String(v == null ? "" : v).replace(/\D/g, "");
+    var crudo = String(v == null ? "" : v).trim();
+    var d = crudo.replace(/\D/g, "");
+    if (crudo.charAt(0) === "+" && d.indexOf("51") !== 0) return d.length >= 8 && d.length <= 15 ? "+" + d : "";
     if (d.length === 11 && d.indexOf("51") === 0) d = d.slice(2);
     return /^9\d{8}$/.test(d) ? d : "";
   }

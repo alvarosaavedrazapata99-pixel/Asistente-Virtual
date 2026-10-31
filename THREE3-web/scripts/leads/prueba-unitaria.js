@@ -10,6 +10,11 @@ assert.equal(L.normCel("987 654 321"), "987654321");
 assert.equal(L.normCel("51987654321"), "987654321");
 assert.equal(L.normCel("12345"), "");
 assert.equal(L.normCel("887654321"), ""); // no empieza con 9
+assert.equal(L.normCel("+34 612 345 678"), "+34612345678"); // otro país
+assert.equal(L.normCel("+1 (415) 555-0132"), "+14155550132");
+assert.equal(L.normCel("+51 987 654 321"), "987654321"); // Perú con +51 se normaliza igual
+assert.equal(L.normCel("612345678"), ""); // sin + y sin ser peruano: ambiguo, se rechaza
+assert.equal(L.normCel("+123"), "");
 // flujo
 const s = crearStore();
 const base = { nombre: "Ana  Pérez", email: "ANA@mail.com", servicio_id: "crm", consentimiento: true, idempotency_key: "k1" };

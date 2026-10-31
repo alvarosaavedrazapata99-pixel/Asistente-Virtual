@@ -179,6 +179,7 @@ export default function Home() {
       <ActivarDialog />
       <Script src="/activar.js" strategy="afterInteractive" />
       <Script src="/ui.js" strategy="afterInteractive" />
+      {process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />}
     </>
   );
 }
