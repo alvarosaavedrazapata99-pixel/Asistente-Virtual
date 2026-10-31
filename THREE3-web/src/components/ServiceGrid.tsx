@@ -14,7 +14,7 @@ export function ServiceGrid() {
       {servicios.map((s) => {
         const open = abierto === s.id;
         return (
-          <article key={s.id} className={`card${s.destacado ? " hot" : ""}${s.ancho ? " wide" : ""}${open ? " open" : ""}`}>
+          <article key={s.id} data-cat={s.categoria} className={`card${s.destacado ? " hot" : ""}${s.ancho ? " wide" : ""}${open ? " open" : ""}`}>
             <div className="vid">
               <LoopVideo base={`/videos/${s.video}`} poster={`/videos/posters/${s.video}.webp`} label={`Demostración animada de ${s.nombre}`} />
               <div className="pp" id={`panel-${s.id}`} aria-hidden={!open}>

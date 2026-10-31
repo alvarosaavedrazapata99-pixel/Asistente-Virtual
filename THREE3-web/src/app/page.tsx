@@ -29,12 +29,33 @@ export default function Home() {
           </a>
           <div className="links">
             <a href="#servicios">Servicios</a>
+            <a href="#proceso">Cómo trabajamos</a>
+            <a href="#personaje">Personaje 3D</a>
+            <a href="#videos">Videos</a>
+            <a href="#preguntas">Preguntas</a>
+          </div>
+          <div className="nav-act">
+            <a className="btn" href="#servicios" data-activar="">
+              <span className="lg">Activar un servicio</span>
+              <span className="sm">Activar</span>
+            </a>
+            <button type="button" className="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+        <div className="menu" id="menu" hidden>
+          <div className="w">
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Cómo trabajamos</a>
             <a href="#personaje">Tu personaje 3D</a>
             <a href="#videos">Videos</a>
             <a href="#instagram">Instagram</a>
-            <Link href="/legal">Legal</Link>
+            <a href="#preguntas">Preguntas frecuentes</a>
+            <Link href="/legal">Información legal</Link>
           </div>
-          <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
         </div>
       </nav>
 
@@ -55,14 +76,14 @@ export default function Home() {
               <a className="btn" href="#servicios">Ver servicios</a>
               <a className="btn ghost" href="#videos">Ver cómo funciona</a>
             </div>
-            <div className="proof">
-              <div><b>8</b>servicios en 1 clic</div>
-              <div><b>24/7</b>funcionando</div>
-              <div><b>PEN · USD</b>pago local</div>
-            </div>
           </div>
           <div className="hero-media">
             <LoopVideo base="/videos/hero_loop" poster="/videos/posters/hero_loop.webp" label="Tri, la mascota de THREE3, atendiendo a un cliente" />
+          </div>
+          <div className="proof">
+            <div><b>8</b>servicios en 1 clic</div>
+            <div><b>24/7</b>funcionando</div>
+            <div><b>PEN · USD</b>pago local</div>
           </div>
         </header>
       </div>
@@ -87,6 +108,12 @@ export default function Home() {
             </div>
             <p>Cada servicio muestra qué incluye, qué necesitamos de ti y cuánto demora, antes de pagar.</p>
           </Reveal>
+          <div className="chips" role="group" aria-label="Filtrar servicios">
+            <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+            <button type="button" data-filtro="automatizacion" aria-pressed="false">Automatización</button>
+            <button type="button" data-filtro="creativo" aria-pressed="false">Creativos</button>
+          </div>
+          <p className="sr" role="status" id="filtro-estado" />
           <ServiceGrid />
         </section>
       </div>
@@ -146,8 +173,12 @@ export default function Home() {
           </span>
         </footer>
       </div>
+      <div className="sticky-cta" id="sticky" hidden>
+        <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
+      </div>
       <ActivarDialog />
       <Script src="/activar.js" strategy="afterInteractive" />
+      <Script src="/ui.js" strategy="afterInteractive" />
     </>
   );
 }

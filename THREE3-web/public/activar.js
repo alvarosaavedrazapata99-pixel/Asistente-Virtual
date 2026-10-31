@@ -27,7 +27,8 @@
     form.hidden = false;
     if (servicio) campo("servicio").value = servicio;
     d.showModal();
-    campo("nombre").focus();
+    // En celular no se enfoca el campo: así no salta el teclado antes de leer el formulario.
+    if (matchMedia("(pointer: fine)").matches) campo("nombre").focus();
   }
 
   document.addEventListener("click", (e) => {

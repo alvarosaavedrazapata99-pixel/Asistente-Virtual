@@ -19,9 +19,9 @@ def fix(b):
     b=re.sub(r'(src|href|poster)="/(assets|videos)/',r'\1="\2/',b)
     b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/"','href="index.html"')
     return b
-JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()
+JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()+'\n'+open(ROOT+'/public/ui.js',encoding='utf8').read()
 GF='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">'
-index='<meta charset="utf-8">\n<title>THREE3</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+GF+'\n<style>'+css+'</style>\n'+fix(body(W+'/index.html'))+'\n<script>'+JS+'</script>\n'
+index='<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<title>THREE3</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+GF+'\n<style>'+css+'</style>\n'+fix(body(W+'/index.html'))+'\n<script>'+JS+'</script>\n'
 open(O+'/index.html','w',encoding='utf8').write(index)
 # /legal: documento completo, solo texto estático
 lh=open(W+'/legal.html',encoding='utf8').read()
