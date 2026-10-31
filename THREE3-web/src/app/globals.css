@@ -233,3 +233,7 @@ footer a{display:inline-block;padding:14px 4px}
 @media(max-width:560px){
   .dlg{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;max-height:92dvh;padding:22px max(16px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 }
+
+/* formulario: campo trampa para bots y estado "enviado" */
+.trampa{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.dlg [data-ok].enviado .solo-manual,.dlg [data-ok].enviado .dlg-pre{display:none}

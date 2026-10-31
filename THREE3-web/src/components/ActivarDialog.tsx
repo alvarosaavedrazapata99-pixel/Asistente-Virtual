@@ -3,7 +3,7 @@ import { INSTAGRAM_DM, servicios } from "@/lib/services";
 /** Formulario de solicitud. La lógica vive en /activar.js (se comparte con el enlace de revisión). */
 export function ActivarDialog() {
   return (
-    <dialog id="activar" className="dlg" aria-labelledby="activar-t">
+    <dialog id="activar" className="dlg" aria-labelledby="activar-t" data-endpoint={process.env.NEXT_PUBLIC_LEADS_ENDPOINT ?? ""}>
       <form noValidate>
         <div className="dlg-h">
           <h2 id="activar-t">Activa tu servicio</h2>
@@ -41,16 +41,17 @@ export function ActivarDialog() {
         </label>
         <span className="err" id="e-acepto" data-err="acepto" role="alert" />
 
+        <input className="trampa" name="web_url_trampa" tabIndex={-1} autoComplete="off" aria-hidden="true" />
         <button type="submit" className="btn">Preparar mi solicitud</button>
       </form>
 
       <div data-ok hidden>
         <h2 tabIndex={-1}>Tu solicitud está lista</h2>
-        <p className="dlg-s">Aún no se envía. Cópiala y pégala en un mensaje directo de Instagram para que la recibamos.</p>
+        <p className="dlg-s solo-manual">Aún no se envía. Cópiala y pégala en un mensaje directo de Instagram para que la recibamos.</p>
         <pre data-resumen className="dlg-pre" />
         <div className="cta">
-          <button type="button" className="btn" data-copiar>Copiar solicitud</button>
-          <a className="btn ghost" href={INSTAGRAM_DM} target="_blank" rel="noopener noreferrer">Abrir Instagram</a>
+          <button type="button" className="btn solo-manual" data-copiar>Copiar solicitud</button>
+          <a className="btn ghost solo-manual" href={INSTAGRAM_DM} target="_blank" rel="noopener noreferrer">Abrir Instagram</a>
           <button type="button" className="btn ghost" data-cerrar>Cerrar</button>
         </div>
         <p className="dlg-s" data-estado role="status" />

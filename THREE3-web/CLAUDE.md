@@ -15,3 +15,5 @@ Notas:
 - Decisiones: `docs/decisiones.md` (ADRs en `docs/adr/`). Videos: WebM siempre `yuv420p` (los del paquete venían en `gbrp`);
   recodificar con `ffmpeg -i x.mp4 -c:v libvpx-vp9 -pix_fmt yuv420p -b:v 0 -crf 34 -an x.webm`.
 - Al publicar, pasar en `files` todo el contenido de `.enlace/` (legal.html, assets/, videos/ incl. videos/posters/).
+- Leads: lógica anti-duplicados en `scripts/leads/core.js` (probar con `node scripts/leads/prueba-unitaria.js`); `docs/sheets/Codigo.gs` se genera con `node scripts/leads/build-apps-script.js`. Si cambias `core.js`, regenera y vuelve a pegar el script.
+- El formulario envía solo si existe `NEXT_PUBLIC_LEADS_ENDPOINT` (si no, modo copiar y enviar).

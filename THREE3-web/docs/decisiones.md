@@ -9,6 +9,8 @@
 | [0005](adr/0005-hero-video-oficial.md) | Hero con `hero_loop` como fondo | Aceptado |
 | [0006](adr/0006-formulario-interino.md) | Formulario Activar sin servidor (interino) | Aceptado como interino |
 | [0007](adr/0007-enlace-estatico.md) | Enlace de revisión estático, republicado tras cada cambio | Aceptado |
+| [0008](adr/0008-leads-sheet-interino.md) | Sheet maestro = vista de trabajo; base de datos real en Postgres cuando haya tráfico | **Propuesto** (necesita tu OK) |
+| [0009](adr/0009-dominio.md) | Dominio: three3agency.com (+ three3.pe); three3.com está ocupado | **Propuesto** (la compra es tuya) |
 
 ## Recomendaciones abiertas
 1. **Qué NO construir todavía:** pagos y facturación SUNAT (antes de validar precios), sandbox de juegos y render automático de Blender (primero a mano con plantilla), A/B, multi-idioma, panel de analítica propio.

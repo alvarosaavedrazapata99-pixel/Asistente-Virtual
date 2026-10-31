@@ -1,5 +1,5 @@
-/* Flujo "Activar": abre el formulario, valida y arma la solicitud lista para enviar.
-   Sin servidor todavía: la persona copia su solicitud y la envía por Instagram. */
+/* Flujo "Activar": abre el formulario, valida y envía la solicitud.
+   Con endpoint configurado (data-endpoint) la envía sola; sin endpoint, o si falla, deja la solicitud lista para copiar. */
 (() => {
   const d = document.getElementById("activar");
   if (!d || typeof d.showModal !== "function") return;
@@ -8,8 +8,13 @@
   const resumen = d.querySelector("[data-resumen]");
   const copiar = d.querySelector("[data-copiar]");
   const estado = d.querySelector("[data-estado]");
+  const titulo = ok.querySelector("h2");
+  const envio = form.querySelector('button[type="submit"]');
+  const endpoint = () => d.getAttribute("data-endpoint") || "";
   let ultimo = null;
   let mensaje = "";
+  let idem = "";
+  let enviando = false;
 
   const campo = (n) => form.elements[n];
   const error = (n, t) => {
@@ -18,6 +23,7 @@
     const c = campo(n);
     if (c) c.setAttribute("aria-invalid", t ? "true" : "false");
   };
+  const nuevaClave = () => (crypto.randomUUID ? crypto.randomUUID() : `k${Date.now()}${Math.random().toString(16).slice(2)}`);
 
   function abrir(servicio, disparador) {
     ultimo = disparador;
@@ -25,6 +31,10 @@
     ["nombre", "contacto", "acepto"].forEach((n) => error(n, ""));
     ok.hidden = true;
     form.hidden = false;
+    envio.disabled = false;
+    envio.textContent = "Preparar mi solicitud";
+    enviando = false;
+    idem = nuevaClave(); // misma clave si hace doble clic: el servidor ignora el reenvío
     if (servicio) campo("servicio").value = servicio;
     d.showModal();
     // En celular no se enfoca el campo: así no salta el teclado antes de leer el formulario.
@@ -45,8 +55,34 @@
   const esCorreo = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   const esCelular = (v) => /^\+?[\d\s-]{9,15}$/.test(v) && v.replace(/\D/g, "").length >= 9;
 
-  form.addEventListener("submit", (e) => {
+  function mostrar(modo, textoEstado) {
+    form.hidden = true;
+    ok.hidden = false;
+    ok.classList.toggle("enviado", modo === "enviado");
+    titulo.textContent = modo === "enviado" ? "Recibimos tu solicitud" : "Tu solicitud está lista";
+    estado.textContent = textoEstado || "";
+    resumen.textContent = mensaje;
+    titulo.focus();
+  }
+
+  async function enviar(payload) {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 20000);
+    try {
+      // text/plain evita la comprobación previa de CORS del navegador
+      const r = await fetch(endpoint(), { method: "POST", body: JSON.stringify(payload), headers: { "Content-Type": "text/plain;charset=utf-8" }, signal: ctl.signal });
+      const j = await r.json();
+      return j && j.ok === true;
+    } catch {
+      return false;
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (enviando) return;
     const nombre = campo("nombre").value.trim();
     const contacto = campo("contacto").value.trim();
     let bien = true;
@@ -59,21 +95,36 @@
     if (!bien) { form.querySelector('[aria-invalid="true"]').focus(); return; }
 
     const s = campo("servicio");
-    const nombreServicio = s.options[s.selectedIndex].text;
     const negocio = campo("negocio").value.trim();
     const detalle = campo("detalle").value.trim();
     mensaje = [
-      `Hola THREE3, quiero cotizar: ${nombreServicio}.`,
+      `Hola THREE3, quiero cotizar: ${s.options[s.selectedIndex].text}.`,
       `Nombre: ${nombre}`,
       negocio ? `Negocio: ${negocio}` : "",
       `Contacto: ${contacto}`,
       detalle ? `Detalle: ${detalle}` : "",
     ].filter(Boolean).join("\n");
-    resumen.textContent = mensaje;
-    estado.textContent = "";
-    form.hidden = true;
-    ok.hidden = false;
-    ok.querySelector("h2").focus();
+
+    if (!endpoint()) return mostrar("manual");
+
+    enviando = true;
+    envio.disabled = true;
+    envio.textContent = "Enviando…";
+    const q = new URLSearchParams(location.search);
+    const bueno = await enviar({
+      nombre, negocio, detalle,
+      email: esCorreo(contacto) ? contacto : "",
+      celular: esCorreo(contacto) ? "" : contacto,
+      servicio_id: s.value,
+      consentimiento: true,
+      idempotency_key: idem,
+      utm_source: q.get("utm_source") || "", utm_medium: q.get("utm_medium") || "", utm_campaign: q.get("utm_campaign") || "",
+      dispositivo: matchMedia("(pointer: coarse)").matches ? "movil" : "escritorio",
+      web_url_trampa: campo("web_url_trampa") ? campo("web_url_trampa").value : "",
+    });
+    enviando = false;
+    if (bueno) mostrar("enviado", "Te responderemos para confirmar alcance, plazo y precio.");
+    else mostrar("manual", "No pudimos enviarla automáticamente. Cópiala y envíala por Instagram.");
   });
 
   copiar.addEventListener("click", async () => {
