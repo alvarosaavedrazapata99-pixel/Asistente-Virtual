@@ -6,8 +6,12 @@ const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
+// Por seguridad, la web NO se indexa en Google hasta el lanzamiento: en producción se define NEXT_PUBLIC_NOINDEX=0.
+const noindex = process.env.NEXT_PUBLIC_NOINDEX !== "0";
+
 export const metadata: Metadata = {
   title: "THREE3 · Automatiza tu negocio",
+  robots: noindex ? { index: false, follow: false } : undefined,
   description: "Chatbot, CRM y captación de clientes conectados desde Instagram. Automatiza tu negocio y conecta cada cliente.",
 };
 
