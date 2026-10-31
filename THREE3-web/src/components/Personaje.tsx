@@ -172,7 +172,7 @@ export function Personaje() {
               <li><span>4</span><div><b>Entrega con licencia</b><small>PNG, video, modelo GLB y licencia comercial en PDF.</small></div></li>
             </ol>
             <div className="cta" style={{ marginTop: 22 }}>
-              <a className="btn" href="#final">Cotizar mi personaje</a>
+              <a className="btn" href="#final" data-activar="personaje">Cotizar mi personaje</a>
             </div>
           </div>
         </div>

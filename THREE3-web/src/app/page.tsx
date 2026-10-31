@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Script from "next/script";
+import { ActivarDialog } from "@/components/ActivarDialog";
+import { Faq, Proceso } from "@/components/Confianza";
 import { CircuitCanvas } from "@/components/CircuitCanvas";
 import { Instagram } from "@/components/Instagram";
 import { LoopVideo } from "@/components/LoopVideo";
@@ -32,7 +35,7 @@ export default function Home() {
             <a href="#instagram">Instagram</a>
             <Link href="/legal">Legal</Link>
           </div>
-          <a className="btn" href="#servicios">Activar un servicio</a>
+          <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
         </div>
       </nav>
 
@@ -96,6 +99,8 @@ export default function Home() {
         </section>
       </div>
 
+      <Proceso />
+
       <Personaje />
 
       <section id="videos">
@@ -125,12 +130,14 @@ export default function Home() {
 
       <Instagram />
 
+      <Faq />
+
       <section className="final" id="final">
         <div className="w">
           <span className="mono">Empieza hoy</span>
           <h2 style={{ marginTop: 12 }}>Tu negocio, automatizado y conectado</h2>
           <div className="cta" style={{ justifyContent: "center" }}>
-            <a className="btn" href="#servicios">Activar un servicio</a>
+            <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
             <a className="btn ghost" href="#videos">Ver cómo funciona</a>
           </div>
         </div>
@@ -147,6 +154,8 @@ export default function Home() {
           </span>
         </footer>
       </div>
+      <ActivarDialog />
+      <Script src="/activar.js" strategy="afterInteractive" />
     </>
   );
 }

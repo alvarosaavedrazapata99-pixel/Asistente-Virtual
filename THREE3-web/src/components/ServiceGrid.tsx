@@ -26,7 +26,7 @@ export function ServiceGrid() {
                     <li key={i}>{i}</li>
                   ))}
                 </ul>
-                <a className="btn" href={CONTACTO} tabIndex={open ? 0 : -1}>
+                <a className="btn" href={CONTACTO} data-activar={s.id} tabIndex={open ? 0 : -1}>
                   Activar
                 </a>
               </div>

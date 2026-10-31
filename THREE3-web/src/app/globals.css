@@ -141,3 +141,30 @@ footer{padding:46px 0 60px;border-top:1px solid var(--line);color:var(--mute);fo
 .igchip i{width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 8px var(--cy)}
 .rv{transition:opacity .7s,transform .7s}.rv.pre{opacity:0;transform:translateY(22px)}
 footer a{color:var(--mute)}footer a:hover{color:var(--fg)}
+
+/* confianza y formulario de solicitud */
+[hidden]{display:none!important}
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--cy);font:500 20px var(--m)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 18px 18px;color:var(--mute);font-size:15px}
+.dlg{width:min(520px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:24px;margin:auto}
+.dlg::backdrop{background:rgba(4,10,24,.78);backdrop-filter:blur(4px)}
+.dlg form{display:grid;gap:6px}
+.dlg-h{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.dlg h2{font-size:clamp(26px,5vw,34px)}
+.dlg-x{border:0;background:transparent;color:var(--mute);font-size:30px;line-height:1;cursor:pointer;padding:0 4px}
+.dlg-s{color:var(--mute);font-size:14.5px;margin:6px 0 12px}
+.dlg label{font:500 12px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-top:10px}
+.dlg label small{text-transform:none;letter-spacing:0;color:var(--mute)}
+.dlg input:not([type=checkbox]),.dlg select,.dlg textarea{width:100%;font:400 16px var(--b);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.dlg [aria-invalid="true"]{border-color:var(--or)}
+.dlg .err{color:var(--or);font-size:13px;min-height:0}
+.dlg label.chk{display:flex;gap:10px;align-items:start;text-transform:none;letter-spacing:0;font:400 14px/1.45 var(--b);color:var(--fg);margin-top:14px}
+.dlg label.chk input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--cy)}
+.dlg label.chk a{color:var(--cy);text-decoration:underline}
+.dlg form>.btn{margin-top:16px;justify-content:center}
+.dlg-pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font:400 13px/1.5 var(--m);margin:0 0 16px}

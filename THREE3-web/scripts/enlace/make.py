@@ -12,15 +12,16 @@ def body(path):
     h=open(path,encoding='utf8').read()
     b=re.search(r'<body[^>]*>(.*)</body>',h,re.S).group(1)
     b=re.sub(r'<script.*?</script>','',b,flags=re.S)
+    b=re.sub(r'<link[^>]*activar[^>]*>','',b)
     b=re.sub(r'<next-route-announcer.*?</next-route-announcer>','',b,flags=re.S)
     return b
 def fix(b):
     b=re.sub(r'(src|href)="/(assets|videos)/',r'\1="\2/',b)
     b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/"','href="index.html"')
     return b
-JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()
+JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()
 GF='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">'
-index='<title>THREE3</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+GF+'\n<style>'+css+'</style>\n'+fix(body(W+'/index.html'))+'\n<script>'+JS+'</script>\n'
+index='<meta charset="utf-8">\n<title>THREE3</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+GF+'\n<style>'+css+'</style>\n'+fix(body(W+'/index.html'))+'\n<script>'+JS+'</script>\n'
 open(O+'/index.html','w',encoding='utf8').write(index)
 # /legal: documento completo, solo texto estático
 lh=open(W+'/legal.html',encoding='utf8').read()
