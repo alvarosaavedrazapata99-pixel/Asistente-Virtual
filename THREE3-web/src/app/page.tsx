@@ -157,7 +157,7 @@ export default function Home() {
         </footer>
       </div>
       <div className="sticky-cta" id="sticky" hidden>
-        <AgendarBtn evento="sticky" corto="Agendar" />
+        <AgendarBtn evento="sticky" />
       </div>
       <ActivarDialog />
       <Script src="/activar.js" strategy="afterInteractive" />
