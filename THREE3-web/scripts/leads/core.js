@@ -1,7 +1,7 @@
 /* Núcleo anti-duplicados de leads. Mismo archivo en Node (pruebas y simulacro) y en Apps Script (Sheet maestro).
    Sin dependencias; sincrónico a propósito para correr dentro de un bloqueo. */
 var LEADS = (function () {
-  var SERVICIOS = ["sheets", "leads", "crm", "chatbot", "pack-automatiza", "personaje-basico", "personaje-completo", "videojuego"];
+  var SERVICIOS = ["diagnostico", "plan-inicial", "plan-profesional", "plan-avanzado", "modulo-leads-crm", "sheets", "leads", "crm", "chatbot", "pack-automatiza", "personaje-basico", "personaje-completo", "videojuego"];
 
   function normEmail(v) {
     var e = String(v == null ? "" : v).trim().toLowerCase().replace(/\s+/g, "");

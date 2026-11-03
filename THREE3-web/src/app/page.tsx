@@ -1,14 +1,15 @@
 import Link from "next/link";
 import Script from "next/script";
 import { ActivarDialog } from "@/components/ActivarDialog";
-import { Faq, Proceso } from "@/components/Confianza";
+import { AgendarBtn } from "@/components/AgendarBtn";
+import { Despues, Faq, Proceso } from "@/components/Confianza";
 import { Instagram } from "@/components/Instagram";
 import { LoopVideo } from "@/components/LoopVideo";
 import { Personaje } from "@/components/Personaje";
 import { Reveal } from "@/components/Reveal";
-import { ServiceGrid } from "@/components/ServiceGrid";
+import { Planes } from "@/components/Planes";
 
-const MARQUEE = ["Chatbot", "CRM", "Leads", "Sheets", "Videojuegos", "Personaje 3D", "Integraciones", "Automatización"];
+const MARQUEE = ["Bot con IA", "WhatsApp", "Leads", "CRM", "Reportes", "Seguimiento", "Personaje 3D", "Videojuegos"];
 
 const MURO = [
   { id: "conecta", t: "Así se conecta", d: "Del comentario en Instagram a la venta registrada" },
@@ -28,17 +29,14 @@ export default function Home() {
             THREE3
           </a>
           <div className="links">
-            <a href="#servicios">Servicios</a>
+            <a href="#planes">Planes</a>
             <a href="#proceso">Cómo trabajamos</a>
-            <a href="#personaje">Personaje 3D</a>
+            <a href="#despues">Después de tu bot</a>
             <a href="#videos">Videos</a>
             <a href="#preguntas">Preguntas</a>
           </div>
           <div className="nav-act">
-            <a className="btn" href="#servicios" data-activar="">
-              <span className="lg">Activar un servicio</span>
-              <span className="sm">Activar</span>
-            </a>
+            <AgendarBtn evento="nav" corto="Agendar" />
             <button type="button" className="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
               <span />
               <span />
@@ -48,8 +46,9 @@ export default function Home() {
         </div>
         <div className="menu" id="menu" hidden>
           <div className="w">
-            <a href="#servicios">Servicios</a>
+            <a href="#planes">Planes</a>
             <a href="#proceso">Cómo trabajamos</a>
+            <a href="#despues">Después de tu bot</a>
             <a href="#personaje">Tu personaje 3D</a>
             <a href="#videos">Videos</a>
             <a href="#instagram">Instagram</a>
@@ -64,26 +63,25 @@ export default function Home() {
         <header className="hero" id="top">
           <div className="hero-copy">
             <h1>
-              Automatiza tu negocio.
+              Un bot con IA que atiende
               <br />
-              <em>Conecta</em> cada cliente.
+              a tus clientes <em>por ti</em>.
             </h1>
             <p className="lead">
-              Chatbot, CRM y captación de leads que trabajan solos, más base de datos, videojuegos y personajes 3D para
-              que tu marca se vea distinta.
+              Respondemos consultas, registramos cada interesado y te damos reportes. Empiezas con un diagnóstico gratis de 20 a 30 minutos.
             </p>
             <div className="cta">
-              <a className="btn" href="#servicios">Ver servicios</a>
-              <a className="btn ghost" href="#videos">Ver cómo funciona</a>
+              <AgendarBtn evento="hero" />
+              <a className="btn ghost" href="#planes">Ver planes</a>
             </div>
           </div>
           <div className="hero-media">
             <LoopVideo base="/videos/hero_loop" poster="/videos/posters/hero_loop.webp" label="Tri, la mascota de THREE3, atendiendo a un cliente" />
           </div>
           <div className="proof">
-            <div><b>8</b>servicios en 1 clic</div>
-            <div><b>24/7</b>funcionando</div>
-            <div><b>PEN · USD</b>pago local</div>
+            <div><b>Gratis</b>diagnóstico de 20 a 30 min</div>
+            <div><b>S/ 2,000</b>pago inicial desde</div>
+            <div><b>Incluido</b>cuidado mensual</div>
           </div>
         </header>
       </div>
@@ -99,26 +97,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w">
-        <section id="servicios">
-          <Reveal className="sh">
-            <div>
-              <span className="mono">Catálogo</span>
-              <h2 style={{ marginTop: 10 }}>Todo lo que tu negocio necesita</h2>
-            </div>
-            <p>Cada servicio muestra qué incluye, qué necesitamos de ti y cuánto demora, antes de pagar.</p>
-          </Reveal>
-          <div className="chips" role="group" aria-label="Filtrar servicios">
-            <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
-            <button type="button" data-filtro="automatizacion" aria-pressed="false">Automatización</button>
-            <button type="button" data-filtro="creativo" aria-pressed="false">Creativos</button>
-          </div>
-          <p className="sr" role="status" id="filtro-estado" />
-          <ServiceGrid />
-        </section>
-      </div>
+      <Planes />
 
       <Proceso />
+
+      <Despues />
 
       <Personaje />
 
@@ -154,10 +137,10 @@ export default function Home() {
       <section className="final" id="final">
         <div className="w">
           <span className="mono">Empieza hoy</span>
-          <h2 style={{ marginTop: 12 }}>Tu negocio, automatizado y conectado</h2>
+          <h2 style={{ marginTop: 12 }}>Hablemos de tu negocio</h2>
           <div className="cta" style={{ justifyContent: "center" }}>
-            <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
-            <a className="btn ghost" href="#videos">Ver cómo funciona</a>
+            <AgendarBtn evento="final" />
+            <a className="btn ghost" href="#planes">Ver planes</a>
           </div>
         </div>
       </section>
@@ -168,13 +151,13 @@ export default function Home() {
         <footer>
           <span>© 2026 THREE3. Todos los derechos reservados.</span>
           <span>
-            <Link href="/legal#datos">Privacidad</Link> · <Link href="/legal#reclamos">Libro de Reclamaciones</Link> ·{" "}
-            <Link href="/legal#autor">Propiedad intelectual</Link> · <Link href="/legal">Información legal</Link>
+            <Link href="/legal#privacidad">Privacidad</Link> · <Link href="/legal#terminos">Términos</Link> ·{" "}
+            <Link href="/legal#consumidor">Consumidor</Link> · <Link href="/legal">Información legal</Link>
           </span>
         </footer>
       </div>
       <div className="sticky-cta" id="sticky" hidden>
-        <a className="btn" href="#servicios" data-activar="">Activar un servicio</a>
+        <AgendarBtn evento="sticky" corto="Agendar" />
       </div>
       <ActivarDialog />
       <Script src="/activar.js" strategy="afterInteractive" />

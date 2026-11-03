@@ -116,7 +116,7 @@
     const negocio = campo("negocio").value.trim();
     const detalle = campo("detalle").value.trim();
     mensaje = [
-      `Hola THREE3, quiero cotizar: ${s.options[s.selectedIndex].text}.`,
+      `Hola THREE3, quiero agendar mi diagnóstico. Me interesa: ${s.options[s.selectedIndex].text}.`,
       `Nombre: ${nombre}`,
       negocio ? `Negocio: ${negocio}` : "",
       `Contacto: ${contacto}`,
@@ -143,7 +143,7 @@
     });
     enviando = false;
     if (window.turnstile) try { window.turnstile.reset(); } catch {}
-    if (bueno) mostrar("enviado", "Te responderemos para confirmar alcance, plazo y precio.");
+    if (bueno) mostrar("enviado", "Te responderemos para coordinar tu diagnóstico gratis.");
     else mostrar("manual", "No pudimos enviarla automáticamente. Cópiala y envíala por Instagram.");
   });
 

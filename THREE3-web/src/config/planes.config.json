@@ -1,0 +1,12 @@
+{
+  "_nota": "Planes y precios propuestos por el dueño (3-nov-2026), en soles. Todos se muestran con 'desde'. El alcance exacto de cada plan se define en el diagnóstico.",
+  "moneda": "PEN",
+  "mensualidad_incluye": ["Plataforma", "IA", "Vigilancia", "Copias de seguridad", "Horas de mejora", "Reporte"],
+  "aclaracion": "No incluye el costo de mensajes de WhatsApp, que cobra Meta directamente a la tarjeta del cliente, ni dominio y hosting.",
+  "planes": [
+    { "id": "plan-inicial", "nombre": "Inicial", "inicial": 2000, "mensual": 450, "resumen": "Tu primer bot para atender y captar clientes." },
+    { "id": "plan-profesional", "nombre": "Profesional", "inicial": 4000, "mensual": 750, "resumen": "Un bot con más capacidad para tu negocio.", "destacado": true },
+    { "id": "plan-avanzado", "nombre": "Avanzado", "inicial": 7500, "mensual": 1200, "resumen": "Un bot a medida, con conexiones a tus sistemas." },
+    { "id": "modulo-leads-crm", "nombre": "Módulo de leads y CRM", "inicial": 900, "mensual": 250, "resumen": "Cada interesado registrado y con su seguimiento. Se suma a tu bot.", "modulo": true }
+  ]
+}

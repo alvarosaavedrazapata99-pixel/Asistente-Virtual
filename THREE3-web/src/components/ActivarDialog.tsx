@@ -1,4 +1,5 @@
-import { INSTAGRAM_DM, servicios } from "@/lib/services";
+import { opciones } from "@/lib/planes";
+import { INSTAGRAM_DM } from "@/lib/services";
 
 /** Formulario de solicitud. La lógica vive en /activar.js (se comparte con el enlace de revisión). */
 export function ActivarDialog() {
@@ -6,14 +7,14 @@ export function ActivarDialog() {
     <dialog id="activar" className="dlg" aria-labelledby="activar-t" data-endpoint={process.env.NEXT_PUBLIC_LEADS_ENDPOINT ?? ""}>
       <form noValidate>
         <div className="dlg-h">
-          <h2 id="activar-t">Activa tu servicio</h2>
+          <h2 id="activar-t">Agenda tu diagnóstico</h2>
           <button type="button" className="dlg-x" data-cerrar aria-label="Cerrar">×</button>
         </div>
-        <p className="dlg-s">Cuéntanos lo básico. Te respondemos para confirmar alcance, plazo y precio antes de que pagues.</p>
+        <p className="dlg-s">Cuéntanos lo básico. Te respondemos para coordinar tu diagnóstico gratis de 20 a 30 minutos. No pagas nada en este paso.</p>
 
-        <label htmlFor="f-servicio">Servicio</label>
-        <select id="f-servicio" name="servicio" defaultValue={servicios[0].id}>
-          {servicios.map((s) => (
+        <label htmlFor="f-servicio">Qué te interesa</label>
+        <select id="f-servicio" name="servicio" defaultValue={opciones[0].id}>
+          {opciones.map((s) => (
             <option key={s.id} value={s.id}>{s.nombre}</option>
           ))}
         </select>

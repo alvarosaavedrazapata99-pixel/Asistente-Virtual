@@ -28,7 +28,7 @@
       const f = chip.dataset.filtro;
       chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
       let n = 0;
-      $$("#servicios .card").forEach((card) => {
+      $$("#planes .card").forEach((card) => {
         const ver = f === "todos" || card.dataset.cat === f;
         card.hidden = !ver;
         if (ver) n++;
