@@ -1,5 +1,7 @@
 (()=>{
 const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// videos livianos en celular o con ahorro de datos
+(()=>{const c=navigator.connection;if(matchMedia('(max-width:640px)').matches||(c&&c.saveData))document.querySelectorAll('video source').forEach(x=>{x.src=x.getAttribute('src').replace(/(\.(webm|mp4))$/,'_sm$1');x.parentNode.load()})})();
 // videos: solo se reproducen cuando son visibles
 const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{})}else v.pause()}),{threshold:.4});
 if(!rm)document.querySelectorAll('video').forEach(v=>io.observe(v));

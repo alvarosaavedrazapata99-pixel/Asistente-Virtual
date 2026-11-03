@@ -306,3 +306,7 @@ footer a{display:inline-block;padding:14px 4px}
 .after h3{font:400 15px/1.3 var(--d)}
 .after p{color:var(--mute);font-size:14.5px}
 .cta-centro{display:flex;justify-content:center;margin-top:28px}
+
+/* /legal: solo texto, sin animación */
+html:has(.legal-plain){scroll-behavior:auto}
+.legal-plain,.legal-plain *{animation:none!important;transition:none!important}

@@ -17,10 +17,22 @@ const suscribir = (cb: () => void) => {
   return () => mq.removeEventListener("change", cb);
 };
 
+const MQ_CEL = "(max-width: 640px)";
+const suscribirLigero = (cb: () => void) => {
+  const mq = matchMedia(MQ_CEL);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const esLigero = () => {
+  const c = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  return matchMedia(MQ_CEL).matches || c?.saveData === true;
+};
+
 /** Video en bucle, mudo; solo se reproduce cuando está visible y no hay prefers-reduced-motion. */
 export function LoopVideo({ base, poster, label }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const reducido = useSyncExternalStore(suscribir, () => matchMedia(MQ).matches, () => false);
+  const ligero = useSyncExternalStore(suscribirLigero, esLigero, () => false); // versión _sm en celular o con ahorro de datos
   const [sonando, setSonando] = useState(false);
 
   useEffect(() => {
@@ -32,7 +44,7 @@ export function LoopVideo({ base, poster, label }: Props) {
     );
     io.observe(v);
     return () => io.disconnect();
-  }, [reducido]);
+  }, [reducido, ligero]);
 
   const alternar = () => {
     const v = ref.current;
@@ -46,9 +58,9 @@ export function LoopVideo({ base, poster, label }: Props) {
 
   return (
     <>
-    <video ref={ref} muted loop playsInline preload="none" poster={poster} aria-label={label}>
-      <source src={`${base}.webm`} type="video/webm" />
-      <source src={`${base}.mp4`} type="video/mp4" />
+    <video key={ligero ? "sm" : "lg"} ref={ref} muted loop playsInline preload="none" poster={poster} aria-label={label}>
+      <source src={`${base}${ligero ? "_sm" : ""}.webm`} type="video/webm" />
+      <source src={`${base}${ligero ? "_sm" : ""}.mp4`} type="video/mp4" />
     </video>
     {reducido && (
       <button type="button" className="vplay" onClick={alternar} aria-label={sonando ? "Pausar video" : "Reproducir video"}>

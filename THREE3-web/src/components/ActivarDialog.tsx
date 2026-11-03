@@ -37,7 +37,7 @@ export function ActivarDialog() {
           <input id="f-acepto" name="acepto" type="checkbox" aria-describedby="e-acepto" />
           <span>
             Autorizo que THREE3 use estos datos solo para responder mi solicitud. Revisa la{" "}
-            <a href="/legal#datos" target="_blank" rel="noopener">información sobre datos personales</a>.
+            <a href="/legal#privacidad" target="_blank" rel="noopener">información sobre datos personales</a>.
           </span>
         </label>
         <span className="err" id="e-acepto" data-err="acepto" role="alert" />

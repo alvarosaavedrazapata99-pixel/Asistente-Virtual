@@ -7,7 +7,7 @@ shutil.rmtree(O,ignore_errors=True); os.makedirs(O)
 shutil.copytree(W+'/assets',O+'/assets'); shutil.copytree(W+'/videos',O+'/videos')
 css=''.join(open(f,encoding='utf8').read() for f in sorted(glob.glob(W+'/_next/static/chunks/*.css')))
 css=re.sub(r'@font-face\{[^}]*\}','',css)          # fuentes: se cargan desde Google Fonts
-css=":root{--font-anton:'Anton';--font-bricolage:'Bricolage Grotesque';--font-jetbrains:'JetBrains Mono'}"+css
+css=":root{--font-michroma:'Michroma';--font-inter:'Inter'}"+css
 def body(path):
     h=open(path,encoding='utf8').read()
     b=re.search(r'<body[^>]*>(.*)</body>',h,re.S).group(1)
@@ -20,7 +20,7 @@ def fix(b):
     b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/?','href="index.html?').replace('href="/"','href="index.html"')
     return b
 JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()+'\n'+open(ROOT+'/public/ui.js',encoding='utf8').read()
-GF='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=JetBrains+Mono:wght@400;500&display=swap">'
+GF='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Michroma&display=swap">'
 index='<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<title>THREE3</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+GF+'\n<style>'+css+'</style>\n'+fix(body(W+'/index.html'))+'\n<script>'+JS+'</script>\n'
 open(O+'/index.html','w',encoding='utf8').write(index)
 # /legal: documento completo, solo texto estático
