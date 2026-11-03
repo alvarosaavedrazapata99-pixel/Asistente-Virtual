@@ -30,9 +30,9 @@ for (const [nombre, ctxo] of [["escritorio", { viewport: { width: 1280, height: 
     await p.addInitScript(() => { window.__v = []; document.addEventListener("securitypolicyviolation", (e) => window.__v.push(`${e.violatedDirective} ${e.blockedURI}`)); });
     p.on("pageerror", (e) => errs.push(String(e).slice(0, 100)));
     await p.goto("http://localhost:3950" + ruta, { waitUntil: "networkidle" });
-    if (ruta === "/") { await p.click("nav .btn"); await p.waitForTimeout(300); await p.keyboard.press("Escape"); await p.evaluate(() => document.querySelector("#servicios").scrollIntoView()); await p.click("#servicios .foot button >> nth=0"); await p.waitForTimeout(400); }
+    if (ruta === "/") { await p.click("nav .btn"); await p.waitForTimeout(300); await p.keyboard.press("Escape"); await p.evaluate(() => document.querySelector("#planes").scrollIntoView()); await p.click("#planes .plan .btn >> nth=0"); await p.waitForTimeout(400); }
     const v = await p.evaluate(() => window.__v); viol.push(...v);
-    const hidratada = ruta === "/" ? await p.evaluate(() => document.querySelectorAll(".card.open").length === 1 && document.getElementById("activar") !== null) : true;
+    const hidratada = ruta === "/" ? await p.evaluate(() => document.getElementById("activar") !== null && document.getElementById("activar").open) : true;
     const csp = await (await p.request.get("http://localhost:3950" + ruta.split("?")[0])).headers()["content-security-policy"];
     const ok = viol.length === 0 && errs.length === 0 && hidratada && !!csp;
     if (!ok) fallos++;

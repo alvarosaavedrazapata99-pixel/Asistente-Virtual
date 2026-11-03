@@ -1,3 +1,4 @@
+import { modoMercadoPago } from "../../server/pagos/modo.ts";
 import { almacenSupabase } from "../../server/pagos/almacen-supabase.ts";
 import type { DepLeads } from "../../server/leads/registrar.ts";
 import type { DepPagos } from "../../server/pagos/manejadores.ts";
@@ -11,7 +12,8 @@ export type Env = {
   SUPABASE_SERVICE_KEY: string;
   MP_ACCESS_TOKEN: string;
   MP_WEBHOOK_SECRET: string;
-  MP_SANDBOX?: string;
+  MP_MODO?: string;
+  MP_PRODUCCION_APROBADA?: string;
   ADMIN_TOKEN: string;
   TURNSTILE_SECRET: string;
   LIMITES?: { get(k: string): Promise<string | null>; put(k: string, v: string, o?: { expirationTtl?: number }): Promise<void> };
@@ -23,7 +25,7 @@ export const limitadorDe = (env: Env): Contador => (env.LIMITES ? contadorKV(env
 export function depPagos(env: Env): DepPagos {
   return {
     almacen: almacenSupabase({ url: env.SUPABASE_URL, claveServicio: env.SUPABASE_SERVICE_KEY }),
-    mp: { accessToken: env.MP_ACCESS_TOKEN, webhookSecret: env.MP_WEBHOOK_SECRET, siteUrl: env.SITE_URL, sandbox: env.MP_SANDBOX === "1" },
+    mp: { accessToken: env.MP_ACCESS_TOKEN, webhookSecret: env.MP_WEBHOOK_SECRET, siteUrl: env.SITE_URL, sandbox: modoMercadoPago(env) === "prueba" },
     limitador: limitadorDe(env),
     adminToken: env.ADMIN_TOKEN,
   };

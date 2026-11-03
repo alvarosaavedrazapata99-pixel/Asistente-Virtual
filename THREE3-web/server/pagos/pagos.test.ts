@@ -216,3 +216,11 @@ test("almacén Supabase: cabeceras, rutas y detección de repetidos", async () =
   assert.equal((llamadas[0].init.headers as Record<string, string>)["apikey"], "SERVICIO");
   assert.match(llamadas[1].url, /ordenes\?id=eq\.ord_1&estado=eq\.creado$/);
 });
+
+import { modoMercadoPago } from "./modo.ts";
+test("Mercado Pago: prueba salvo aprobación explícita doble", () => {
+  assert.equal(modoMercadoPago({}), "prueba");
+  assert.equal(modoMercadoPago({ MP_MODO: "produccion" }), "prueba");
+  assert.equal(modoMercadoPago({ MP_PRODUCCION_APROBADA: "si" }), "prueba");
+  assert.equal(modoMercadoPago({ MP_MODO: "produccion", MP_PRODUCCION_APROBADA: "si" }), "produccion");
+});

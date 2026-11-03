@@ -49,7 +49,8 @@ export async function crearPreferencia(cfg: ConfigMP, orden: Orden, token: strin
   });
   if (!r.ok) throw new Error(`mp_preferencia_${r.status}`);
   const j = (await r.json()) as { id: string; init_point: string; sandbox_init_point?: string };
-  return { id: j.id, init_point: cfg.sandbox && j.sandbox_init_point ? j.sandbox_init_point : j.init_point };
+  if (cfg.sandbox && !j.sandbox_init_point) throw new Error("modo de prueba activo pero Mercado Pago no devolvió sandbox_init_point"); // nunca caer a producción
+  return { id: j.id, init_point: cfg.sandbox ? (j.sandbox_init_point as string) : j.init_point };
 }
 
 /** La verdad del pago se consulta siempre a Mercado Pago desde el servidor; nunca se confía en el cuerpo del aviso. */

@@ -59,7 +59,8 @@ sequenceDiagram
 | `SUPABASE_SERVICE_KEY` | **secreto** | clave `service_role` (nunca la pública) |
 | `MP_ACCESS_TOKEN` | **secreto** | Access Token de Mercado Pago |
 | `MP_WEBHOOK_SECRET` | **secreto** | clave secreta del webhook |
-| `MP_SANDBOX` | texto | `1` mientras pruebas |
+| `MP_MODO` | texto | `prueba` (por defecto). Pasa a producción solo con `produccion` **y** `MP_PRODUCCION_APROBADA=si` |
+| `MP_PRODUCCION_APROBADA` | texto | `si` solo cuando el dueño apruebe cobrar dinero real. Sin él, todo queda en modo de prueba |
 | `ADMIN_TOKEN` | **secreto** | una clave larga aleatoria (solo tú la conoces) |
 | `TURNSTILE_SECRET` | **secreto** | clave secreta de Turnstile |
 | `NEXT_PUBLIC_TURNSTILE_SITEKEY` | texto (se compila) | clave pública de Turnstile |
