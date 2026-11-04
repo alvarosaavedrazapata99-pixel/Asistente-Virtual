@@ -1,3 +1,4 @@
+import { cabecerasSupabase } from "./cabeceras-supabase.ts";
 import type { Almacen, Estado, NuevaOrden, Orden, PagoRegistro } from "./tipos.ts";
 
 type Cfg = { url: string; claveServicio: string; fetch?: typeof fetch };
@@ -6,7 +7,7 @@ type Cfg = { url: string; claveServicio: string; fetch?: typeof fetch };
 export function almacenSupabase(cfg: Cfg): Almacen {
   const f = cfg.fetch ?? fetch;
   const base = `${cfg.url.replace(/\/$/, "")}/rest/v1`;
-  const cab = (extra: Record<string, string> = {}) => ({ apikey: cfg.claveServicio, Authorization: `Bearer ${cfg.claveServicio}`, "Content-Type": "application/json", ...extra });
+  const cab = (extra: Record<string, string> = {}) => cabecerasSupabase(cfg.claveServicio, extra);
   const enc = encodeURIComponent;
 
   async function pedir(ruta: string, init: RequestInit): Promise<unknown[]> {

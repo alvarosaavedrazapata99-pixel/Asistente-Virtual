@@ -224,3 +224,13 @@ test("Mercado Pago: prueba salvo aprobación explícita doble", () => {
   assert.equal(modoMercadoPago({ MP_PRODUCCION_APROBADA: "si" }), "prueba");
   assert.equal(modoMercadoPago({ MP_MODO: "produccion", MP_PRODUCCION_APROBADA: "si" }), "produccion");
 });
+
+import { cabecerasSupabase } from "./cabeceras-supabase.ts";
+test("Supabase: llave nueva sb_ solo en apikey; llave antigua también como Bearer", () => {
+  const nueva = cabecerasSupabase("sb_secret_abc");
+  assert.equal(nueva.apikey, "sb_secret_abc");
+  assert.equal(nueva.Authorization, undefined);
+  const vieja = cabecerasSupabase("eyJhbGciOi.x.y", { Prefer: "return=minimal" });
+  assert.equal(vieja.Authorization, "Bearer eyJhbGciOi.x.y");
+  assert.equal(vieja.Prefer, "return=minimal");
+});

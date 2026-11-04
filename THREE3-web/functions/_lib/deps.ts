@@ -1,4 +1,5 @@
 import { modoMercadoPago } from "../../server/pagos/modo.ts";
+import { cabecerasSupabase } from "../../server/pagos/cabeceras-supabase.ts";
 import { almacenSupabase } from "../../server/pagos/almacen-supabase.ts";
 import type { DepLeads } from "../../server/leads/registrar.ts";
 import type { DepPagos } from "../../server/pagos/manejadores.ts";
@@ -39,7 +40,7 @@ export function depLeads(env: Env): DepLeads {
     registrar: async (p) => {
       const r = await fetch(base, {
         method: "POST",
-        headers: { apikey: env.SUPABASE_SERVICE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`, "Content-Type": "application/json" },
+        headers: cabecerasSupabase(env.SUPABASE_SERVICE_KEY),
         body: JSON.stringify({ p }),
       });
       if (!r.ok) throw new Error(`supabase_${r.status}`);
