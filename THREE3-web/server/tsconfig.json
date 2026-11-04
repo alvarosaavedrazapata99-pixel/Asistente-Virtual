@@ -14,5 +14,5 @@
     "skipLibCheck": true,
     "erasableSyntaxOnly": true
   },
-  "include": ["./**/*.ts", "../functions/**/*.ts", "../scripts/leads/core.d.ts"]
+  "include": ["./**/*.ts", "../functions/**/*.ts", "../worker/**/*.ts", "../scripts/leads/core.d.ts"]
 }
