@@ -36,7 +36,7 @@
 Hecho: planes en soles con aclaración Meta/dominio/hosting, "Cómo trabajamos", "Después de tu bot", botón ámbar, paleta y fuentes nuevas, /legal solo texto (privacidad, términos, consumidor, derechos), videos livianos `_sm`, Mercado Pago forzado a prueba, CSP 0 violaciones, sin desborde horizontal en móvil/escritorio, enlace de revisión republicado.
 Pendiente:
 - Número de WhatsApp en `empresa.config.json` (hasta entonces el botón abre el formulario).
-- Datos legales (razón social, RUC, domicilio, correo) y revisión de abogado de /legal.
+- Datos legales (razón social, RUC, domicilio; correo ya puesto: three.3agencyweb@gmail.com) y revisión de abogado de /legal.
 - Actualizar pestaña "Servicios" del Sheet y regenerar/pegar `docs/sheets/Codigo.gs` (core.js cambió).
 - JS de la página ≈190 KB gzip (meta 170 KB); videos de svc_* no usados en la home aún sin `_sm`.
 - Conexiones reales (Cloudflare, Supabase, Mercado Pago, Turnstile) sin probar: requieren tus cuentas.
