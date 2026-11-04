@@ -43,5 +43,5 @@ Pendiente:
 - Lighthouse real, robots/sitemap/OG.
 
 ## Despliegue en Cloudflare (en curso)
-- Proyecto Workers `three3-web` conectado al repo; rama de producción `three3-web-carga`, raíz `THREE3-web`, build `npm run build:cf`, deploy `npx wrangler deploy` (usa `wrangler.jsonc` + `worker/index.ts`).
+- (arreglo: src/lib ya está en GitHub) Proyecto Workers `three3-web` conectado al repo; rama de producción `three3-web-carga`, raíz `THREE3-web`, build `npm run build:cf`, deploy `npx wrangler deploy` (usa `wrangler.jsonc` + `worker/index.ts`).
 - Falta: secretos en Cloudflare (SUPABASE_URL, SUPABASE_SERVICE_KEY, TURNSTILE_SECRET, ADMIN_TOKEN, MP_ACCESS_TOKEN de prueba, MP_WEBHOOK_SECRET, SITE_URL, ENTORNO) y conectar el dominio three3agency.com.
