@@ -7,5 +7,11 @@
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
   },
+  "keep_vars": true,
+  "vars": {
+    "ENTORNO": "produccion",
+    "SITE_URL": "https://www.three3agency.com",
+    "SUPABASE_URL": "https://etpxphnlvcrmelxkszat.supabase.co"
+  },
   "observability": { "enabled": true }
 }
