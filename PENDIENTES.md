@@ -60,3 +60,4 @@ Pendiente:
 ## Presentación y precios (5 nov)
 - `/presentacion`: presentación de 8 diapositivas (general). Desde `/admin`, el botón "Presentar" de cada solicitud abre la versión personalizada (nombre, negocio, lo que escribió y plan sugerido). Los datos viajan en sessionStorage de esa pestaña, nunca en la URL. "Guardar PDF" imprime una diapositiva por página.
 - Precios en la home: por defecto bajo el botón "Ver inversión" de cada plan. Para mostrarlos siempre: `mostrar_precios: "abierto"` en `THREE3-web/src/config/planes.config.json`.
+- Demo interactiva en la home (`#demo`, "Pruébalo tú mismo"): bot simulado con 3 negocios de ejemplo → registro en un mini CRM → reporte. Todo en el navegador (`public/demo.js`), sin red ni IA. Mejora futura: sustituir por IA real vía `/api/demo-chat` cuando el bot de Meta esté encendido (con límite por IP y Turnstile).

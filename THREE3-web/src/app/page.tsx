@@ -3,6 +3,7 @@ import Script from "next/script";
 import { ActivarDialog } from "@/components/ActivarDialog";
 import { AgendarBtn } from "@/components/AgendarBtn";
 import { Despues, Faq, Proceso } from "@/components/Confianza";
+import { Demo } from "@/components/Demo";
 import { Instagram } from "@/components/Instagram";
 import { LoopVideo } from "@/components/LoopVideo";
 import { Personaje } from "@/components/Personaje";
@@ -47,6 +48,7 @@ export default function Home() {
         </div>
         <div className="menu" id="menu" hidden>
           <div className="w">
+            <a href="#demo">Pruébalo</a>
             <a href="#planes">Planes</a>
             <a href="#proceso">Cómo trabajamos</a>
             <a href="#despues">Después de tu bot</a>
@@ -97,6 +99,8 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      <Demo />
 
       <Planes />
 
