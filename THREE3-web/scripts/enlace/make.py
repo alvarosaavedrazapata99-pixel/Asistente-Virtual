@@ -17,6 +17,7 @@ def body(path):
     return b
 def fix(b):
     b=re.sub(r'(src|href|poster)="/(assets|videos)/',r'\1="\2/',b)
+    b=re.sub(r'href="/mas/([a-z]+)"',r'href="mas-\1.html"',b).replace('href="/#videos"','href="index.html#videos"').replace('href="/#planes"','href="index.html#planes"')
     b=b.replace('href="/legal#','href="legal.html#').replace('href="/legal"','href="legal.html"').replace('href="/?','href="index.html?').replace('href="/"','href="index.html"')
     return b
 JS=open(os.path.join(HERE,'site.js'),encoding='utf8').read()+'\n'+open(ROOT+'/public/activar.js',encoding='utf8').read()+'\n'+open(ROOT+'/public/ui.js',encoding='utf8').read()+'\n'+open(ROOT+'/public/demo.js',encoding='utf8').read()
@@ -44,3 +45,10 @@ igdoc=' '*pagina_ig(W+'/ig.html','ig.html')
 for f in sorted(glob.glob(W+'/ig/*.html')):
     pagina_ig(f,'ig-'+os.path.basename(f))
 print(len(index),len(doc),sorted(os.listdir(O)))
+
+# /mas/*: páginas de detalle de "Mira cómo funciona"
+MJ=open(ROOT+'/public/mas.js',encoding='utf8').read().replace('/videos/','videos/')
+for f in glob.glob(W+'/mas/*.html'):
+    n=os.path.basename(f)[:-5]
+    pg='<!doctype html><html lang="es-PE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>THREE3 '+n+'</title>'+GF+'<style>'+css+'</style></head><body>'+fix(body(f)).replace('href="/diagnostico"','href="index.html#planes"')+'<script>'+MJ+'</script></body></html>'
+    open(O+'/mas-'+n+'.html','w',encoding='utf8').write(pg)
