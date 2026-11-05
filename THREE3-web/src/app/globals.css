@@ -539,3 +539,66 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .demo-prio.pMedia{color:var(--am);border-color:var(--am)}
 .demo-prio.pBaja{color:var(--ice);border-color:var(--ice)}
 .demo-valor{color:var(--ice)}
+
+/* ===== chat de la demo con aspecto y movimiento de conversación de WhatsApp ===== */
+.wa{--wa-fondo:#0b141a;--wa-barra:#1f2c34;--wa-entra:#202c33;--wa-sale:#005c4b;--wa-texto:#e9edef;--wa-tenue:#8696a0;--wa-verde:#00a884;--wa-azul:#53bdeb;
+  width:min(100%,560px);margin:0 auto;height:min(78dvh,600px);display:flex;flex-direction:column;border-radius:14px;overflow:hidden;background:var(--wa-fondo);border:1px solid #1f2c34;color:var(--wa-texto)}
+.wa-h{display:flex;gap:12px;align-items:center;padding:10px 14px;background:var(--wa-barra)}
+.wa-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:17px;color:#fff;flex:none}
+.wa-id b{display:block;font-size:16px;font-weight:600;line-height:1.2}
+.wa-id small{font-size:12.5px;color:var(--wa-tenue);transition:color .2s}
+.wa-id small.esc{color:var(--wa-verde)}
+.wa-cuerpo{flex:1;overflow-y:auto;padding:12px 10px 10px;display:flex;flex-direction:column;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px;scroll-behavior:smooth}
+.wa-fecha{align-self:center;background:var(--wa-barra);color:var(--wa-tenue);font:600 11.5px var(--b);padding:5px 12px;border-radius:8px;text-transform:uppercase;margin-bottom:8px}
+.wa-aviso{align-self:center;background:#182229;color:#ffd279;font-size:12px;line-height:1.35;padding:8px 12px;border-radius:8px;text-align:center;margin-bottom:10px;max-width:92%}
+.wa .demo-log{display:flex;flex-direction:column;gap:3px;height:auto;overflow:visible;padding:0;background:none;border:0;border-radius:0}
+.wa .demo-msg{position:relative;max-width:82%;padding:6px 9px 6px 10px;border-radius:8px;font-size:14.5px;line-height:1.35;color:var(--wa-texto);white-space:pre-line;overflow-wrap:anywhere}
+.wa .demo-msg.bot{align-self:flex-start;background:var(--wa-entra)}
+.wa .demo-msg.user{align-self:flex-end;background:var(--wa-sale)}
+.wa .demo-msg.cola{margin-top:8px}
+.wa .demo-msg.cola.bot{border-top-left-radius:0}
+.wa .demo-msg.cola.user{border-top-right-radius:0}
+.wa .demo-msg.cola::before{content:"";position:absolute;top:0;width:9px;height:13px;background:inherit}
+.wa .demo-msg.cola.bot::before{left:-8px;clip-path:polygon(100% 0,0 0,100% 100%)}
+.wa .demo-msg.cola.user::before{right:-8px;clip-path:polygon(0 0,100% 0,0 100%)}
+.wa-h2{float:right;margin:9px -2px -4px 14px;font-size:11px;line-height:1;color:var(--wa-tenue);display:inline-flex;align-items:center;gap:3px}
+.wa .demo-msg.user .wa-h2{color:rgba(233,237,239,.65)}
+.wa-tick{display:inline-flex;opacity:0;color:var(--wa-tenue);transition:color .3s,opacity .2s}
+.wa .demo-msg.user .wa-tick{color:rgba(233,237,239,.6)}
+.wa-tick.e,.wa-tick.d,.wa-tick.l{opacity:1}
+.wa-tick.e path:nth-child(2){display:none}
+.wa .demo-msg.user .wa-tick.l{color:var(--wa-azul)}
+.wa .demo-typing{padding:10px 12px;font-style:normal;opacity:1}
+.wa-puntos{display:inline-flex;gap:4px;align-items:center;height:12px}
+.wa-puntos i{width:7px;height:7px;border-radius:50%;background:var(--wa-tenue);opacity:.6}
+/* botones de respuesta rápida, como los de WhatsApp Business */
+.wa .demo-chips{display:flex;flex-direction:column;gap:6px;margin:8px 0 0;align-items:stretch;max-width:82%;align-self:flex-start}
+.wa .demo-chip{background:var(--wa-entra);color:var(--wa-azul);border:0;border-radius:8px;padding:11px 14px;min-height:44px;font:500 14.5px var(--b);text-align:center;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.35);transition:background .15s,transform .1s}
+.wa .demo-chip:hover{background:#2a3942}
+.wa .demo-chip:active{transform:scale(.97)}
+.wa .demo-chip-main{color:var(--wa-verde);font-weight:700}
+.wa .demo-chip-sub{border:1px dashed #2f4350}
+/* barra de escritura */
+.wa-in{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--wa-barra)}
+.wa-in[hidden]{display:none}
+.wa-in input{flex:1;min-width:0;background:#2a3942;color:var(--wa-texto);border:0;border-radius:22px;padding:12px 16px;font-size:16px}
+.wa-in input::placeholder{color:var(--wa-tenue)}
+.wa-in input:focus-visible{outline:2px solid var(--wa-verde)}
+.wa-in button{flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--wa-verde);color:#0b141a;display:grid;place-items:center;cursor:pointer}
+.wa-pie span{flex:1;background:#2a3942;color:var(--wa-tenue);border-radius:22px;padding:12px 16px;font-size:14px}
+@media (max-width:640px){.wa{height:min(80dvh,620px);border-radius:12px}.wa .demo-msg,.wa .demo-chips{max-width:88%}}
+
+@media (prefers-reduced-motion:no-preference){
+  @keyframes wa-entra{from{opacity:0;transform:scale(.82) translateY(8px)}}
+  @keyframes wa-salta{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+  .wa .demo-msg{animation:wa-entra .24s cubic-bezier(.2,.9,.3,1.25)}
+  .wa .demo-msg.bot{transform-origin:0 0}
+  .wa .demo-msg.user{transform-origin:100% 0}
+  .wa .demo-typing{animation:wa-entra .2s ease-out}
+  .wa-puntos i{animation:wa-salta 1.2s ease-in-out infinite}
+  .wa-puntos i:nth-child(2){animation-delay:.16s}.wa-puntos i:nth-child(3){animation-delay:.32s}
+  .wa .demo-chip{animation:wa-entra .3s cubic-bezier(.2,.9,.3,1.2) backwards}
+  .wa .demo-chip:nth-child(2){animation-delay:.05s}.wa .demo-chip:nth-child(3){animation-delay:.1s}.wa .demo-chip:nth-child(4){animation-delay:.15s}
+  .wa .demo-chip:nth-child(5){animation-delay:.2s}.wa .demo-chip:nth-child(6){animation-delay:.25s}.wa .demo-chip:nth-child(7){animation-delay:.3s}
+  .wa-in button{transition:transform .15s,background .15s}.wa-in button:active{transform:scale(.9)}
+}

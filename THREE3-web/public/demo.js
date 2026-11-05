@@ -6,7 +6,11 @@
   if (!app) return;
   const $ = (id) => document.getElementById(id);
   const log = $("demo-log"), chips = $("demo-chips"), form = $("demo-form"), entrada = $("demo-in"), etiqueta = $("demo-lbl");
-  const libre = $("demo-libre"), libreIn = $("demo-libre-in");
+  const libre = $("demo-libre"), libreIn = $("demo-libre-in"), cuerpo = $("demo-body"), pie = $("wa-pie"), estadoWa = $("wa-est");
+  const baja = () => { cuerpo.scrollTop = cuerpo.scrollHeight; };
+  const hora = () => new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit", hour12: false });
+  // qué barra de escritura se ve: ninguna (solo botones), libre (texto libre con IA) o dato (nombre o celular)
+  function entradaModo(m) { form.hidden = m !== "dato"; libre.hidden = m !== "libre"; pie.hidden = m !== "ninguna"; }
   let ia = false; // se activa si el servidor informa que la demo con IA está encendida
   const hist = []; // conversación visible, para dar contexto a la IA
   const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -33,7 +37,7 @@
       ] },
     },
     dental: {
-      nombre: "Clínica Dental Sonrisa", grupo: "Comercio y servicios", etiqueta: "Clínica dental",
+      nombre: "Clínica Dental Sonrisa", grupo: "Salud, bienestar y educación", etiqueta: "Clínica dental",
       saludo: "¡Hola! Soy el asistente virtual (IA) de Clínica Dental Sonrisa. ¿En qué te ayudo?",
       temas: [
         { id: "Servicios", chip: "Servicios", resp: "Hacemos limpieza, ortodoncia, blanqueamiento, implantes y atención de urgencias.", seguir: [
@@ -202,6 +206,126 @@
         { k: "Inicio", q: "¿Cuándo necesitas la cobertura?", o: [op("Lo antes posible", 3), op("Este mes", 2), op("Estoy comparando", 0)] },
       ] },
     },
+    viajes: {
+      nombre: "Viajes Horizonte", grupo: "Comercio y servicios", etiqueta: "Agencia de viajes",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Viajes Horizonte. ¿En qué te ayudo?",
+      temas: [
+        { id: "Destinos", chip: "Destinos", resp: "Armamos viajes por el Perú (Cusco, norte, selva) y al extranjero, para familias, parejas y grupos." },
+        { id: "Paquetes", chip: "Qué incluye un paquete", resp: "Depende del destino: pasajes, alojamiento, traslados y tours. Te detallamos cada servicio en la cotización." },
+        { id: "Documentos", chip: "Documentos para viajar", resp: "Para viajes nacionales basta tu DNI. Para el extranjero depende del país; te indicamos los requisitos al cotizar." },
+        { id: "Pagos", chip: "Formas de pago", resp: "Puedes pagar en cuotas según el paquete. Las condiciones exactas las confirma tu asesor." },
+      ],
+      flujo: { id: "Cotizaciones", chip: "Cotizar un viaje", cierre: "cotización solicitada", pasos: [
+        { k: "Destino", q: "¿A dónde quieres viajar?", o: [op("Cusco y Machu Picchu", 2, 3200), op("Playa del norte", 2, 2400), op("Selva", 1, 2800), op("Internacional", 3, 7500)] },
+        { k: "Viajeros", q: "¿Cuántas personas viajan?", o: [op("1", 1), op("2", 2), op("3 a 5", 3), op("Grupo (6+)", 3)] },
+        { k: "Cuándo", q: "¿Para cuándo?", o: [op("Este mes", 3), op("En 3 meses", 2), op("Aún no lo defino", 0)] },
+      ] },
+    },
+    eventos: {
+      nombre: "Banquetes y Eventos Aurora", grupo: "Comercio y servicios", etiqueta: "Eventos y banquetes",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Banquetes y Eventos Aurora. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Ofrecemos banquete, local, decoración, música y coordinación, según el tipo de evento." },
+        { id: "Capacidad", chip: "Capacidad de los salones", resp: "Tenemos salones para grupos pequeños y eventos grandes. Te confirmamos disponibilidad al cotizar." },
+        { id: "Menús", chip: "Menús", resp: "Armamos menús criollos, internacionales y buffet. Podemos adaptarlos a dietas especiales." },
+        { id: "Reservas", chip: "Cómo reservar la fecha", resp: "Se separa la fecha con un adelanto. Las condiciones las explica tu asesor en la propuesta." },
+      ],
+      flujo: { id: "Cotizaciones", chip: "Cotizar un evento", cierre: "cotización solicitada", pasos: [
+        { k: "Tipo de evento", q: "¿Qué evento quieres organizar?", o: [op("Boda", 3, 18000), op("Cumpleaños o familiar", 1, 5000), op("Evento corporativo", 3, 25000), op("Otro", 1, 4000)] },
+        { k: "Invitados", q: "¿Cuántos invitados?", o: [op("Hasta 50", 1), op("51 a 150", 2), op("151 a 300", 3), op("Más de 300", 3)] },
+        { k: "Fecha", q: "¿Para cuándo es?", o: [op("En el próximo mes", 3), op("En 3 a 6 meses", 2), op("Aún sin fecha", 0)] },
+      ] },
+    },
+    clinica: {
+      nombre: "Clínica Salud Integral", grupo: "Salud, bienestar y educación", etiqueta: "Clínica y laboratorio",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Clínica Salud Integral. No doy diagnósticos; te ayudo con citas e información. ¿En qué te ayudo?",
+      temas: [
+        { id: "Especialidades", chip: "Especialidades", resp: "Contamos con medicina general, pediatría, ginecología, traumatología y otras especialidades." },
+        { id: "Laboratorio", chip: "Laboratorio y resultados", resp: "Atendemos exámenes con orden médica y entregamos los resultados por correo o en la clínica." },
+        { id: "Seguros", chip: "Seguros aceptados", resp: "Trabajamos con varias aseguradoras. Dime cuál es la tuya y una persona confirma la cobertura." },
+        { id: "Horarios", chip: "Horarios", resp: "Consultas de lunes a sábado. Emergencias, las 24 horas." },
+      ],
+      flujo: { id: "Citas", chip: "Solicitar una cita", cierre: "cita solicitada", pasos: [
+        { k: "Especialidad", q: "¿Qué especialidad necesitas?", o: [op("Medicina general", 1, 120), op("Pediatría", 2, 150), op("Ginecología", 2, 180), op("Traumatología", 2, 200)] },
+        { k: "Modalidad", q: "¿Cómo prefieres atenderte?", o: [op("Presencial", 2), op("Videoconsulta", 1)] },
+        { k: "Cuándo", q: "¿Cuándo la necesitas?", o: [op("Hoy", 3), op("Esta semana", 2), op("Más adelante", 0)] },
+      ] },
+    },
+    veterinaria: {
+      nombre: "Veterinaria Huellitas", grupo: "Salud, bienestar y educación", etiqueta: "Veterinaria",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Veterinaria Huellitas. ¿En qué te ayudo con tu mascota?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Consulta, vacunas, desparasitación, baño y cirugías, para perros y gatos." },
+        { id: "Vacunas", chip: "Vacunas", resp: "El calendario depende de la edad y la especie. Lo revisa el veterinario en la consulta." },
+        { id: "Urgencias", chip: "Es una urgencia", resp: "Si tu mascota está grave, ven de inmediato. Te paso con una persona para orientarte ahora." },
+        { id: "Horarios", chip: "Horarios", resp: "Atendemos todos los días. Urgencias con cita prioritaria." },
+      ],
+      flujo: { id: "Citas", chip: "Agendar una cita", cierre: "cita solicitada", pasos: [
+        { k: "Mascota", q: "¿Qué mascota tienes?", o: [op("Perro", 1), op("Gato", 1), op("Otro", 1)] },
+        { k: "Motivo", q: "¿Cuál es el motivo?", o: [op("Control", 1, 80), op("Vacunas", 1, 120), op("Urgencia", 3, 250), op("Baño y cuidado", 1, 60)] },
+        { k: "Cuándo", q: "¿Cuándo quieres venir?", o: [op("Hoy", 3), op("Esta semana", 2), op("Más adelante", 0)] },
+      ] },
+    },
+    gimnasio: {
+      nombre: "Gimnasio PowerFit", grupo: "Salud, bienestar y educación", etiqueta: "Gimnasio",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de PowerFit. ¿En qué te ayudo?",
+      temas: [
+        { id: "Membresías", chip: "Planes y membresías", resp: "Tenemos planes mensual, trimestral y anual. Los precios los confirma recepción al inscribirte." },
+        { id: "Clases", chip: "Clases", resp: "Ofrecemos clases de spinning, funcional y yoga, además de la sala de máquinas." },
+        { id: "Horarios", chip: "Horarios", resp: "Abrimos de lunes a sábado temprano hasta la noche, y los domingos medio día." },
+        { id: "Entrenador", chip: "Entrenador personal", resp: "Puedes sumar un entrenador con un plan según tu objetivo. Se coordina con una evaluación inicial." },
+      ],
+      flujo: { id: "Inscripciones", chip: "Quiero inscribirme", cierre: "inscripción solicitada", pasos: [
+        { k: "Objetivo", q: "¿Cuál es tu objetivo?", o: [op("Bajar de peso", 2), op("Ganar músculo", 2), op("Salud y movilidad", 1), op("Rendimiento deportivo", 2)] },
+        { k: "Plan", q: "¿Qué plan te interesa?", o: [op("Mensual", 1, 120), op("Trimestral", 2, 330), op("Anual", 3, 1100)] },
+        { k: "Inicio", q: "¿Cuándo quieres empezar?", o: [op("Hoy", 3), op("Esta semana", 2), op("Próximo mes", 0)] },
+      ] },
+    },
+    academia: {
+      nombre: "Colegio y Academia Nuevo Saber", grupo: "Salud, bienestar y educación", etiqueta: "Colegio y academia",
+      saludo: "¡Hola! Soy el asistente virtual (IA) del Colegio y Academia Nuevo Saber. ¿En qué te ayudo?",
+      temas: [
+        { id: "Niveles", chip: "Niveles y programas", resp: "Tenemos inicial, primaria, secundaria y preparación preuniversitaria." },
+        { id: "Admisión", chip: "Proceso de admisión", resp: "Incluye entrevista familiar y evaluación diagnóstica. Te explicamos los pasos y fechas en la visita." },
+        { id: "Pensiones", chip: "Pensiones", resp: "Las pensiones varían por nivel. Un asesor te envía el detalle y las formas de pago." },
+        { id: "Visitas", chip: "Visita guiada", resp: "Coordinamos visitas para conocer las instalaciones y conversar con la coordinación." },
+      ],
+      flujo: { id: "Matrículas", chip: "Pedir información de matrícula", cierre: "información solicitada", pasos: [
+        { k: "Nivel", q: "¿Para qué nivel?", o: [op("Inicial", 2, 6000), op("Primaria", 2, 8000), op("Secundaria", 2, 9000), op("Preuniversitario", 2, 3500)] },
+        { k: "Año de ingreso", q: "¿Para cuándo es el ingreso?", o: [op("Este año", 3), op("El próximo año", 2), op("Aún no lo sé", 0)] },
+        { k: "Visita", q: "¿Quieres visitar el colegio?", o: [op("Sí, agendar visita", 3), op("Solo información", 1)] },
+      ] },
+    },
+    juridico: {
+      nombre: "Estudio Jurídico Lex", grupo: "Empresas y servicios profesionales", etiqueta: "Estudio jurídico",
+      saludo: "¡Hola! Soy el asistente virtual (IA) del Estudio Jurídico Lex. No doy asesoría legal por chat; te ayudo a coordinar una consulta. ¿En qué te ayudo?",
+      temas: [
+        { id: "Áreas", chip: "Áreas de práctica", resp: "Atendemos derecho civil, laboral, comercial y de familia, para personas y empresas." },
+        { id: "Primera consulta", chip: "Primera consulta", resp: "Es una reunión para entender tu caso. Los honorarios se informan antes de empezar." },
+        { id: "Confidencialidad", chip: "Confidencialidad", resp: "Lo que nos cuentas es confidencial. Para el chat te pedimos solo datos básicos." },
+        { id: "Empresas", chip: "Asesoría para empresas", resp: "Ofrecemos contratos, cumplimiento laboral y asesoría permanente con planes mensuales." },
+      ],
+      flujo: { id: "Consultas", chip: "Solicitar una consulta", cierre: "consulta solicitada", pasos: [
+        { k: "Área", q: "¿Qué tipo de caso es?", o: [op("Civil", 1, 2500), op("Laboral", 2, 3000), op("Comercial o contratos", 2, 5000), op("Familia", 1, 2000)] },
+        { k: "Plazo", q: "¿Hay algún plazo corriendo?", o: [op("Sí, es urgente", 3), op("No, pero pronto", 2), op("Solo consulto", 0)] },
+        { k: "Quién consulta", q: "¿Consultas como persona o como empresa?", o: [op("Persona", 1), op("Empresa", 3)] },
+      ] },
+    },
+    constructora: {
+      nombre: "Constructora Cumbre", grupo: "Empresas y servicios profesionales", etiqueta: "Constructora",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Constructora Cumbre. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Hacemos obras civiles, remodelaciones, construcción de viviendas y supervisión de obra." },
+        { id: "Proyectos", chip: "Proyectos realizados", resp: "Tenemos obras residenciales y comerciales. Te enviamos un portafolio con tu cotización." },
+        { id: "Plazos", chip: "Plazos de obra", resp: "El plazo depende del alcance. Lo definimos por escrito en la propuesta, con cronograma." },
+        { id: "Garantía", chip: "Garantía", resp: "Entregamos garantía de obra según el contrato. El detalle se firma en la propuesta." },
+      ],
+      flujo: { id: "Cotizaciones", chip: "Cotizar una obra", cierre: "cotización solicitada", pasos: [
+        { k: "Tipo de obra", q: "¿Qué obra necesitas?", o: [op("Remodelación", 2, 60000), op("Vivienda nueva", 3, 350000), op("Edificio o local comercial", 3, 900000), op("Obra industrial", 3, 1500000)] },
+        { k: "Área", q: "¿Qué área aproximada?", o: [op("Hasta 100 m²", 1), op("100 a 500 m²", 2), op("500 a 2000 m²", 3), op("Más de 2000 m²", 3)] },
+        { k: "Inicio", q: "¿Cuándo quieres empezar?", o: [op("En el próximo mes", 3), op("En 3 a 6 meses", 2), op("Aún evaluando", 0)] },
+      ] },
+    },
   };
 
   let clave = "restaurante", modo = "menu", pasoIdx = 0, datos = {}, puntos = 0, valor = 0, nombre = "";
@@ -212,37 +336,55 @@
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
   const espera = (ms) => new Promise((r) => setTimeout(r, reducido ? 0 : ms));
 
+  const TICK = '<svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true"><path d="M1.5 9.5l3.5 3.5L11.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11.5l1.5 1.5 7-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  let ultimoRol = "";
   function burbuja(rol, texto) {
     if (rol === "user" || !texto.endsWith("…")) hist.push({ rol: rol === "user" ? "usuario" : "bot", texto });
-    const b = el("div", "demo-msg " + rol, texto);
+    const b = el("div", "demo-msg " + rol + (ultimoRol !== rol ? " cola" : ""));
+    ultimoRol = rol;
+    b.append(el("span", "wa-t", texto));
+    const h = el("span", "wa-h2", hora());
+    if (rol === "user") {
+      const tk = el("i", "wa-tick"); tk.innerHTML = TICK; h.append(tk);
+      // enviado → entregado → leído (azul), como en WhatsApp
+      const paso = (c, ms) => setTimeout(() => { tk.className = "wa-tick " + c; }, reducido ? 0 : ms);
+      paso("e", 0); paso("d", 450); paso("l", 1000);
+    }
+    b.append(h);
     log.append(b);
-    log.scrollTop = log.scrollHeight;
+    baja();
+  }
+  function tipeo() {
+    estadoWa.textContent = "escribiendo…"; estadoWa.classList.add("esc");
+    const t = el("div", "demo-msg bot demo-typing" + (ultimoRol !== "bot" ? " cola" : ""));
+    const pts = el("span", "wa-puntos"); pts.append(el("i"), el("i"), el("i")); t.append(pts);
+    log.append(t); baja();
+    return { quitar() { t.remove(); estadoWa.textContent = "Asistente virtual con IA"; estadoWa.classList.remove("esc"); } };
   }
   async function bot(texto) {
-    chips.replaceChildren(); form.hidden = true; libre.hidden = true;
-    const t = el("div", "demo-msg bot demo-typing", "escribiendo…");
-    log.append(t); log.scrollTop = log.scrollHeight;
-    await espera(650);
-    t.remove();
+    chips.replaceChildren(); entradaModo("ninguna");
+    const t = tipeo();
+    await espera(Math.min(1500, 500 + texto.length * 9));
+    t.quitar();
     burbuja("bot", texto);
   }
   function chip(texto, fn, cls) {
     const b = el("button", "demo-chip" + (cls ? " " + cls : ""), texto);
     b.type = "button";
     b.addEventListener("click", () => { burbuja("user", texto); fn(); });
-    chips.append(b);
+    chips.append(b); baja();
   }
 
   async function menu(msg, seguir) {
     modo = "menu";
     if (msg) await bot(msg);
-    chips.replaceChildren(); form.hidden = true;
+    chips.replaceChildren();
     const n = NEG[clave];
     if (seguir) for (const s of seguir) chip(s.chip, async () => { stats.temas[s.chip] = (stats.temas[s.chip] || 0) + 1; await menu(s.resp); }, "demo-chip-sub");
     for (const t of n.temas) chip(t.chip, async () => { stats.temas[t.id] = (stats.temas[t.id] || 0) + 1; await menu(t.resp, t.seguir); });
     chip(n.flujo.chip, () => iniciarFlujo(), "demo-chip-main");
     chip("Hablar con una persona", async () => { stats.derivadas++; const l = leads[leads.length - 1]; if (l) l.humano = true; await menu("Claro. Aviso a una persona del equipo para que te contacte. Mientras, puedo seguir ayudándote por aquí."); });
-    libre.hidden = !ia;
+    entradaModo(ia ? "libre" : "ninguna");
     pintar();
   }
 
@@ -260,8 +402,8 @@
     for (const [t, pt, v] of p.o) chip(t, async () => { datos[p.k] = t; puntos += pt; valor += v; pasoIdx++; if (pasoIdx < f.pasos.length) await preguntar(); else { modo = "nombre"; await bot("Perfecto, con eso ya puedo registrar tu solicitud. ¿Cuál es tu nombre?"); pedir("Tu nombre", "Ej.: Ana"); } });
   }
   function pedir(rotulo, ejemplo) {
-    chips.replaceChildren(); libre.hidden = true;
-    etiqueta.textContent = rotulo; entrada.placeholder = ejemplo; entrada.value = ""; form.hidden = false;
+    chips.replaceChildren(); entradaModo("dato");
+    etiqueta.textContent = rotulo; entrada.placeholder = ejemplo; entrada.value = "";
     entrada.focus({ preventScroll: true });
   }
 
@@ -290,9 +432,8 @@
     libreIn.value = "";
     burbuja("user", v);
     stats.temas["Pregunta libre"] = (stats.temas["Pregunta libre"] || 0) + 1;
-    chips.replaceChildren(); libre.hidden = true;
-    const t = el("div", "demo-msg bot demo-typing", "escribiendo…");
-    log.append(t); log.scrollTop = log.scrollHeight;
+    chips.replaceChildren(); entradaModo("ninguna");
+    const t = tipeo();
     let texto = "Ahora no puedo responder. Prueba con los botones o agenda tu diagnóstico gratis.";
     try {
       const r = await fetch("/api/demo-chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ negocio: clave, mensajes: hist.slice(-8) }) });
@@ -300,7 +441,7 @@
       if (r.ok && j.texto) texto = j.texto;
       else if (r.status === 429) texto = "Llegaste al límite de la demostración por hoy. Agenda tu diagnóstico gratis para verlo con tu negocio.";
     } catch {}
-    t.remove();
+    t.quitar();
     burbuja("bot", texto);
     await menu();
   });
@@ -355,7 +496,11 @@
   function negocio(k) {
     clave = k; reiniciar();
     document.querySelectorAll("[data-neg]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.neg === k)));
-    log.replaceChildren(); chips.replaceChildren(); hist.length = 0;
+    log.replaceChildren(); chips.replaceChildren(); hist.length = 0; ultimoRol = "";
+    $("wa-nom").textContent = NEG[k].nombre;
+    const av = $("wa-av"); av.textContent = NEG[k].etiqueta.trim().charAt(0).toUpperCase();
+    let h = 0; for (const c of k) h = (h * 31 + c.charCodeAt(0)) % 360; av.style.background = `hsl(${h} 45% 36%)`;
+    cuerpo.scrollTop = 0;
     burbuja("bot", NEG[k].saludo);
     menu(); pintar();
   }
@@ -367,5 +512,5 @@
   document.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => pestaña(b.dataset.tab)));
   negocio("restaurante");
   // ¿La demo con IA real está encendida? Si no, solo se usan los botones.
-  fetch("/api/demo-chat").then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && j.activo) { ia = true; if (modo === "menu") libre.hidden = false; } }).catch(() => {});
+  fetch("/api/demo-chat").then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && j.activo) { ia = true; if (modo === "menu") entradaModo("libre"); } }).catch(() => {});
 })();
