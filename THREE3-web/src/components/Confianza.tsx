@@ -3,7 +3,7 @@ import { ACLARACION } from "@/lib/planes";
 import { AgendarBtn } from "./AgendarBtn";
 import { Reveal } from "./Reveal";
 
-const PASOS = [
+export const PASOS = [
   { t: "Diagnóstico gratis", d: "Hablamos de 20 a 30 minutos para entender tu negocio, tus consultas y lo que quieres lograr. No cuesta nada." },
   { t: "Propuesta", d: "Te enviamos por escrito el alcance, el plazo y el precio. Tú decides si seguimos." },
   { t: "Implementación", d: "Construimos y configuramos tu bot con la información de tu negocio." },
@@ -11,7 +11,7 @@ const PASOS = [
   { t: "Cuidado mensual", d: "Plataforma, IA, vigilancia, copias de seguridad, horas de mejora y un reporte cada mes." },
 ];
 
-const DESPUES = [
+export const DESPUES = [
   { t: "Reportes", d: "Mira cuántas consultas llegan, qué preguntan y cuáles terminan en venta." },
   { t: "Leads y CRM", d: "Cada interesado queda registrado y con su seguimiento." },
   { t: "Seguimiento automático", d: "Recordatorios y mensajes a tiempo, siempre con el permiso del cliente." },

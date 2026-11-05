@@ -40,6 +40,14 @@
       sel.disabled = false;
     });
     t.append(sel);
+    const pres = el("button", "btn ghost", "Presentar");
+    pres.type = "button";
+    pres.addEventListener("click", () => {
+      // Los datos viajan solo dentro de esta pestaña (sessionStorage); nunca en la dirección.
+      try { sessionStorage.setItem("deck", JSON.stringify({ nombre: c.nombre || "", negocio: c.negocio || "", detalle: l.detalle || "", servicio: l.servicio_id })); } catch {}
+      location.href = "/presentacion";
+    });
+    t.append(pres);
     return t;
   }
 

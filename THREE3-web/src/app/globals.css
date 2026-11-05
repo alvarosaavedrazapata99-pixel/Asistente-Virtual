@@ -320,3 +320,33 @@ html:has(.legal-plain){scroll-behavior:auto}
 .adm-card h2{font-size:18px;margin:0}
 .adm-card p{margin:0;overflow-wrap:anywhere}
 .adm-card a{color:var(--cy)}
+
+/* precio bajo un clic */
+.inversion{border:1px solid var(--line);border-radius:12px;background:rgba(25,227,255,.04)}
+.inversion summary{cursor:pointer;list-style:none;padding:12px 14px;font:600 14px var(--b);color:var(--cy);display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.inversion summary::-webkit-details-marker{display:none}
+.inversion summary::after{content:"+";font-size:18px}
+.inversion[open] summary::after{content:"–"}
+.inversion .precio{padding:0 14px 14px;border:0}
+
+/* presentación */
+html:has(.deck){scroll-snap-type:y mandatory}
+.deck-top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;background:rgba(4,8,20,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.deck-top .brand{font:400 15px var(--d);color:var(--fg);text-decoration:none}
+.deck-cnt{font:500 13px var(--m);color:var(--mute)}
+.slide{min-height:100dvh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:84px max(16px,6vw) 84px;max-width:1100px;margin:0 auto}
+.slide[hidden]{display:none}
+.slide h1{font-size:clamp(28px,6vw,60px)}
+.slide h2{font-size:clamp(24px,4.4vw,42px)}
+.slide em{color:var(--cy);font-style:normal}
+.deck-list{margin:0;padding-left:20px;display:grid;gap:12px;font-size:clamp(16px,2.4vw,22px);color:var(--fg)}
+.slide blockquote{margin:0;padding:16px 20px;border-left:3px solid var(--cy);background:var(--panel);border-radius:0 12px 12px 0;font-size:clamp(16px,2.4vw,22px);white-space:pre-wrap;overflow-wrap:anywhere}
+.deck-planes{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.deck-nav{position:fixed;bottom:14px;right:14px;z-index:5;display:flex;gap:8px}
+.deck-nav .btn{min-width:48px;min-height:48px;justify-content:center;background:rgba(4,8,20,.85)}
+@media print{
+  html:has(.deck){scroll-snap-type:none}
+  .deck-top,.deck-nav{display:none}
+  .slide{min-height:auto;page-break-after:always;break-after:page;padding:40px 24px}
+  body{background:#fff}
+}

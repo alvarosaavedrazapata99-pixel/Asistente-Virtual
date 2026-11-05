@@ -56,3 +56,7 @@ Pendiente:
 - Panel privado de solicitudes: `/admin` (pide `ADMIN_TOKEN`; ver y cambiar estado: nueva/contactada/cotizada/aceptada/perdida). API: `/api/admin/leads`. No está enlazado desde ninguna página.
 - `robots.txt` y `sitemap.xml` listos: hoy bloquean todo (noindex) hasta poner `NEXT_PUBLIC_NOINDEX=0` en Builds al lanzar.
 - Lighthouse móvil (5 nov, local, simulado): Rendimiento 77, Accesibilidad 100, Buenas prácticas 100, SEO 66 (solo por `noindex`, se resuelve al lanzar). LCP 5,5 s y bloqueo total 190 ms: el JS pesa ~188 KB gzip (Lighthouse estima 173 KB sin usar). Mejora pendiente: reducir JS de la home (pasar secciones a componentes de servidor/diferir `LoopVideo` y `Reveal`) y medir el LCP real en el dominio publicado.
+
+## Presentación y precios (5 nov)
+- `/presentacion`: presentación de 8 diapositivas (general). Desde `/admin`, el botón "Presentar" de cada solicitud abre la versión personalizada (nombre, negocio, lo que escribió y plan sugerido). Los datos viajan en sessionStorage de esa pestaña, nunca en la URL. "Guardar PDF" imprime una diapositiva por página.
+- Precios en la home: por defecto bajo el botón "Ver inversión" de cada plan. Para mostrarlos siempre: `mostrar_precios: "abierto"` en `THREE3-web/src/config/planes.config.json`.

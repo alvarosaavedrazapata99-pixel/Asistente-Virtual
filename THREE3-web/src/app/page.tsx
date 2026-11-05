@@ -8,6 +8,7 @@ import { LoopVideo } from "@/components/LoopVideo";
 import { Personaje } from "@/components/Personaje";
 import { Reveal } from "@/components/Reveal";
 import { Planes } from "@/components/Planes";
+import { PRECIOS_BAJO_CLIC } from "@/lib/planes";
 
 const MARQUEE = ["Bot con IA", "WhatsApp", "Leads", "CRM", "Reportes", "Seguimiento", "Personaje 3D", "Videojuegos"];
 
@@ -80,7 +81,7 @@ export default function Home() {
           </div>
           <div className="proof">
             <div><b>Gratis</b>diagnóstico de 20 a 30 min</div>
-            <div><b>S/ 2,000</b>pago inicial desde</div>
+            {PRECIOS_BAJO_CLIC ? <div><b>Por escrito</b>propuesta antes de pagar</div> : <div><b>S/ 2,000</b>pago inicial desde</div>}
             <div><b>Incluido</b>cuidado mensual</div>
           </div>
         </header>

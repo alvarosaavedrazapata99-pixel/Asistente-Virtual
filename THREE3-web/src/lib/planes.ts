@@ -15,6 +15,8 @@ export type Plan = {
 export const planes: Plan[] = config.planes;
 export const mensualidadIncluye: string[] = config.mensualidad_incluye;
 export const ACLARACION: string = config.aclaracion;
+/** "bajo_clic": el precio se despliega con «Ver inversión». "abierto": siempre visible. */
+export const PRECIOS_BAJO_CLIC: boolean = config.mostrar_precios !== "abierto";
 
 const pen = (n: number) => `S/ ${n.toLocaleString("en-US")}`;
 export const soles = pen;

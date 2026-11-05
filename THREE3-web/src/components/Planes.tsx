@@ -1,4 +1,4 @@
-import { ACLARACION, mensualidadIncluye, planes, soles } from "@/lib/planes";
+import { ACLARACION, mensualidadIncluye, PRECIOS_BAJO_CLIC, planes, soles } from "@/lib/planes";
 import { AgendarBtn } from "./AgendarBtn";
 import { Reveal } from "./Reveal";
 
@@ -21,18 +21,30 @@ export function Planes() {
               {p.destacado ? <span className="etq">Más elegido para empezar</span> : p.modulo ? <span className="etq">Se suma a tu bot</span> : <span className="etq">Plan</span>}
               <h3>{p.modulo ? p.nombre : `Plan ${p.nombre}`}</h3>
               <p className="resumen">{p.resumen}</p>
-              <div className="precio">
-                <small>Desde</small>
-                <b>{soles(p.inicial)} <span>pago inicial</span></b>
-                <span className="mes">+ {soles(p.mensual)} al mes</span>
-              </div>
+              {PRECIOS_BAJO_CLIC ? (
+                <details className="inversion">
+                  <summary>Ver inversión</summary>
+                  <div className="precio">
+                    <small>Desde</small>
+                    <b>{soles(p.inicial)} <span>pago inicial</span></b>
+                    <span className="mes">+ {soles(p.mensual)} al mes</span>
+                    <p className="nota-precio">{ACLARACION}</p>
+                  </div>
+                </details>
+              ) : (
+                <div className="precio">
+                  <small>Desde</small>
+                  <b>{soles(p.inicial)} <span>pago inicial</span></b>
+                  <span className="mes">+ {soles(p.mensual)} al mes</span>
+                </div>
+              )}
               <ul>
                 {COMUN.map((x) => (
                   <li key={x}>{x}</li>
                 ))}
               </ul>
               <AgendarBtn className="btn ghost" texto="Agendar diagnóstico" evento={`plan:${p.id}`} servicio={p.id} />
-              <p className="nota-precio">{ACLARACION}</p>
+              {!PRECIOS_BAJO_CLIC && <p className="nota-precio">{ACLARACION}</p>}
             </article>
           ))}
         </Reveal>
