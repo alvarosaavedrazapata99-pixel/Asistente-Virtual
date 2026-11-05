@@ -1,9 +1,0 @@
-{
-  "_nota": "Galería de trabajos reales. Para agregar uno: copia la imagen a public/galeria/ (formato .webp, ~1200 px de ancho) o un video a public/videos/ (con su versión _sm y póster), y agrega una línea aquí. tipo: personaje | juego. Usa imagen O video (nombre base sin extensión).",
-  "items": [
-    { "tipo": "personaje", "titulo": "Tri, la mascota de THREE3", "detalle": "Render final hecho en Blender", "imagen": "/assets/tri-render.webp" },
-    { "tipo": "personaje", "titulo": "Tri · boceto aprobado", "detalle": "Aprobamos la forma antes de modelar", "imagen": "/assets/tri-boceto.webp" },
-    { "tipo": "personaje", "titulo": "Tri en acción", "detalle": "Animación lista para tus redes", "video": "hero_loop" },
-    { "tipo": "juego", "titulo": "Videojuego a medida", "detalle": "Un juego propio para tu marca", "video": "svc_juego" }
-  ]
-}

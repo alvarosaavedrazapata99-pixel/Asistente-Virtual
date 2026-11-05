@@ -342,6 +342,126 @@
         { k: "Inicio", q: "¿Cuándo quieres empezar?", o: [op("En el próximo mes", 3), op("En 3 a 6 meses", 2), op("Aún evaluando", 0)] },
       ] },
     },
+    pasteleria: {
+      nombre: "Pastelería Dulce Hogar", grupo: "Comercio y servicios", etiqueta: "Pastelería",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Pastelería Dulce Hogar. ¿En qué te ayudo?",
+      temas: [
+        { id: "Productos", chip: "Ver productos", resp: "Hacemos tortas personalizadas, cupcakes, postres individuales y mesas de dulces." },
+        { id: "Pedidos", chip: "¿Con cuánta anticipación?", resp: "Para tortas personalizadas pedimos al menos 3 días; para pedidos grandes, una semana." },
+        { id: "Entrega", chip: "Entregas y recojo", resp: "Entregamos en la zona y también puedes recoger en tienda. El costo del delivery se confirma al registrar el pedido." },
+        { id: "Alergias", chip: "Opciones sin gluten o sin azúcar", resp: "Algunas opciones se pueden adaptar; una persona del equipo confirma ingredientes antes de que pagues." },
+      ],
+      flujo: { id: "Pedidos", chip: "Pedir una torta", cierre: "pedido registrado", pasos: [
+        { k: "Ocasión", q: "¿Para qué ocasión es?", o: [op("Cumpleaños", 1, 180), op("Boda o aniversario", 2, 450), op("Evento de empresa", 3, 900), op("Solo un antojo", 0, 60)] },
+        { k: "Porciones", q: "¿Para cuántas personas?", o: [op("Hasta 10", 1), op("11 a 30", 2), op("Más de 30", 3)] },
+        { k: "Cuándo", q: "¿Para cuándo la necesitas?", o: [op("Esta semana", 3), op("En 2 semanas", 2), op("Aún no sé", 0)] },
+      ] },
+    },
+    muebles: {
+      nombre: "Muebles y Diseño Casa Nova", grupo: "Comercio y servicios", etiqueta: "Muebles y decoración",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Muebles y Diseño Casa Nova. ¿En qué te ayudo?",
+      temas: [
+        { id: "Catálogo", chip: "Ver catálogo", resp: "Tenemos muebles de catálogo para sala, comedor y dormitorio, y también fabricación a medida." },
+        { id: "Medida", chip: "Muebles a medida", resp: "Hacemos cocinas, closets y muebles de oficina según tus medidas. Un asesor visita o revisa tu plano para cotizar." },
+        { id: "Entregas", chip: "Entrega e instalación", resp: "Entregamos e instalamos en Lima; el plazo depende del mueble y se confirma en la cotización." },
+        { id: "Pagos", chip: "Formas de pago", resp: "Aceptamos transferencia, tarjeta y pago en cuotas con adelanto; las condiciones están en la cotización." },
+      ],
+      flujo: { id: "Cotizar", chip: "Cotizar un mueble", cierre: "cotización solicitada", pasos: [
+        { k: "Tipo", q: "¿Qué necesitas?", o: [op("Un mueble de catálogo", 1, 900), op("Closet o cocina a medida", 3, 4500), op("Muebles para oficina", 3, 8000), op("Solo estoy mirando", 0, 0)] },
+        { k: "Cuándo", q: "¿Para cuándo lo quieres?", o: [op("Este mes", 3), op("En 2 o 3 meses", 2), op("Sin fecha", 0)] },
+        { k: "Medidas", q: "¿Tienes medidas o plano?", o: [op("Sí", 2), op("No, necesito visita", 1)] },
+      ] },
+    },
+    estetica: {
+      nombre: "Clínica Estética Aura", grupo: "Salud, bienestar y educación", etiqueta: "Cirugía plástica y estética",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Clínica Estética Aura. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Ofrecemos tratamientos faciales y corporales, y procedimientos de cirugía estética con evaluación previa." },
+        { id: "Evaluación", chip: "Primera evaluación", resp: "Toda cirugía comienza con una consulta de evaluación con el especialista. Ahí se explican opciones, riesgos y tiempos." },
+        { id: "Recuperación", chip: "Recuperación", resp: "El tiempo de recuperación depende del procedimiento y de cada persona; lo explica el especialista en la consulta." },
+        { id: "Financiamiento", chip: "Formas de pago", resp: "Tenemos opciones de pago en cuotas; un asesor te explica las condiciones por escrito." },
+      ],
+      flujo: { id: "Citas", chip: "Agendar una evaluación", cierre: "evaluación solicitada", pasos: [
+        { k: "Interés", q: "¿Qué te interesa?", o: [op("Tratamiento facial", 1, 600), op("Tratamiento corporal", 2, 1800), op("Cirugía estética", 3, 9000), op("Aún no lo sé", 1, 0)] },
+        { k: "Cuándo", q: "¿Cuándo te gustaría la consulta?", o: [op("Esta semana", 3), op("Este mes", 2), op("Más adelante", 0)] },
+        { k: "Primera vez", q: "¿Ya te evaluaste antes?", o: [op("Es mi primera vez", 1), op("Ya fui a otra clínica", 1)] },
+      ] },
+    },
+    salon: {
+      nombre: "Spa y Salón Bella Vida", grupo: "Salud, bienestar y educación", etiqueta: "Salón de belleza y spa",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Spa y Salón Bella Vida. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Hacemos corte, color, peinados, manicure, pedicure, masajes y tratamientos faciales." },
+        { id: "Precios", chip: "Precios", resp: "Los precios dependen del servicio y del largo del cabello; te confirmamos al reservar." },
+        { id: "Horarios", chip: "Horarios", resp: "Atendemos de lunes a sábado de 9:00 a. m. a 8:00 p. m., y domingos medio día." },
+        { id: "Promos", chip: "Paquetes y promociones", resp: "Tenemos paquetes para novias, cumpleaños y de varias sesiones. Una persona te envía el detalle." },
+      ],
+      flujo: { id: "Citas", chip: "Reservar una cita", cierre: "cita solicitada", pasos: [
+        { k: "Servicio", q: "¿Qué servicio quieres?", o: [op("Corte o peinado", 1, 80), op("Color o tratamiento", 2, 260), op("Uñas", 1, 90), op("Masaje o spa", 2, 180), op("Novia o evento", 3, 600)] },
+        { k: "Cuándo", q: "¿Cuándo quieres venir?", o: [op("Hoy", 3), op("Esta semana", 2), op("Otro día", 0)] },
+        { k: "Profesional", q: "¿Tienes preferencia de profesional?", o: [op("Sí", 1), op("No, la disponible", 1)] },
+      ] },
+    },
+    psicologia: {
+      nombre: "Centro de Psicología Equilibrio", grupo: "Salud, bienestar y educación", etiqueta: "Psicología y terapia",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Centro de Psicología Equilibrio. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Ofrecemos terapia individual, de pareja, familiar y para adolescentes, en modalidad presencial o virtual." },
+        { id: "Primera sesión", chip: "Primera sesión", resp: "La primera sesión es de conocimiento: se conversa lo que te trae y se propone un plan." },
+        { id: "Privacidad", chip: "Confidencialidad", resp: "Lo que conversas con tu terapeuta es confidencial. El asistente solo coordina citas." },
+        { id: "Urgencia", chip: "Es urgente", resp: "Si estás en una situación de riesgo, llama de inmediato a una línea de emergencia; una persona del equipo también te contactará lo antes posible." },
+      ],
+      flujo: { id: "Citas", chip: "Agendar una cita", cierre: "cita solicitada", pasos: [
+        { k: "Para quién", q: "¿Para quién es la terapia?", o: [op("Para mí", 1, 160), op("Mi pareja y yo", 2, 240), op("Mi familia", 2, 260), op("Mi hijo o hija", 2, 180)] },
+        { k: "Modalidad", q: "¿Cómo prefieres?", o: [op("Presencial", 1), op("Virtual", 1)] },
+        { k: "Cuándo", q: "¿Cuándo quieres empezar?", o: [op("Esta semana", 3), op("Este mes", 2), op("Solo consulto", 0)] },
+      ] },
+    },
+    optica: {
+      nombre: "Óptica Visión Clara", grupo: "Salud, bienestar y educación", etiqueta: "Óptica y optometría",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Óptica Visión Clara. ¿En qué te ayudo?",
+      temas: [
+        { id: "Examen", chip: "Examen de la vista", resp: "Hacemos examen visual con optómetra, con cita previa. Si tienes receta médica, tráela." },
+        { id: "Monturas", chip: "Monturas y lentes", resp: "Tenemos monturas y lentes para uso diario, trabajo en pantalla y sol, con distintos tratamientos." },
+        { id: "Contacto", chip: "Lentes de contacto", resp: "Adaptamos lentes de contacto previa evaluación del optómetra." },
+        { id: "Plazos", chip: "¿Cuánto demoran?", resp: "Los lentes con medida demoran de 2 a 5 días según el tipo; te confirmamos al registrar el pedido." },
+      ],
+      flujo: { id: "Citas", chip: "Reservar un examen", cierre: "cita solicitada", pasos: [
+        { k: "Necesito", q: "¿Qué necesitas?", o: [op("Examen de la vista", 2, 40), op("Lentes nuevos", 3, 380), op("Lentes de contacto", 2, 220), op("Solo consulto precios", 0, 0)] },
+        { k: "Cuándo", q: "¿Cuándo vendrías?", o: [op("Hoy", 3), op("Esta semana", 2), op("Otro día", 0)] },
+        { k: "Receta", q: "¿Tienes receta?", o: [op("Sí", 2), op("No, necesito examen", 1)] },
+      ] },
+    },
+    arquitectura: {
+      nombre: "Estudio de Arquitectura Trazo", grupo: "Empresas y servicios profesionales", etiqueta: "Arquitectura y diseño",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Estudio de Arquitectura Trazo. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Hacemos diseño arquitectónico, planos, licencias, interiorismo y supervisión de obra." },
+        { id: "Proceso", chip: "¿Cómo trabajamos?", resp: "Primero una reunión para entender tu proyecto, luego una propuesta con alcance, plazos y honorarios por escrito." },
+        { id: "Portafolio", chip: "Ver portafolio", resp: "Te enviamos proyectos similares al tuyo con la propuesta." },
+        { id: "Licencias", chip: "Licencias y trámites", resp: "Podemos encargarnos de los trámites; los plazos dependen de la municipalidad." },
+      ],
+      flujo: { id: "Cotizar", chip: "Cotizar un proyecto", cierre: "propuesta solicitada", pasos: [
+        { k: "Proyecto", q: "¿Qué quieres hacer?", o: [op("Casa nueva", 3, 12000), op("Remodelación", 2, 5000), op("Local comercial", 3, 9000), op("Solo diseño de interiores", 1, 2500)] },
+        { k: "Terreno", q: "¿Ya tienes terreno o local?", o: [op("Sí", 2), op("Estoy buscando", 1)] },
+        { k: "Cuándo", q: "¿Cuándo quieres empezar?", o: [op("Este mes", 3), op("En 3 meses", 2), op("Sin fecha", 0)] },
+      ] },
+    },
+    marketing: {
+      nombre: "Agencia Impulso Digital", grupo: "Empresas y servicios profesionales", etiqueta: "Agencia de marketing",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Agencia Impulso Digital. ¿En qué te ayudo?",
+      temas: [
+        { id: "Servicios", chip: "Servicios", resp: "Manejamos redes sociales, publicidad digital, páginas web y contenido para empresas." },
+        { id: "Resultados", chip: "¿Qué resultados puedo esperar?", resp: "No prometemos cifras fijas: definimos objetivos medibles y te enviamos un reporte mensual." },
+        { id: "Contrato", chip: "Contrato y pagos", resp: "Trabajamos con plan mensual; las condiciones van por escrito en la propuesta." },
+        { id: "Casos", chip: "Ver casos", resp: "Te compartimos casos de negocios parecidos al tuyo con la propuesta." },
+      ],
+      flujo: { id: "Cotizar", chip: "Pedir una propuesta", cierre: "propuesta solicitada", pasos: [
+        { k: "Necesito", q: "¿Qué necesitas?", o: [op("Manejo de redes", 2, 1200), op("Publicidad pagada", 3, 2500), op("Página web", 3, 3500), op("Todo el paquete", 3, 6000)] },
+        { k: "Presupuesto", q: "¿Cuál es tu presupuesto mensual?", o: [op("Menos de S/ 1,000", 0), op("S/ 1,000 a 3,000", 2), op("Más de S/ 3,000", 3)] },
+        { k: "Cuándo", q: "¿Cuándo quieres empezar?", o: [op("Este mes", 3), op("Próximo mes", 2), op("Solo consulto", 0)] },
+      ] },
+    },
   };
 
   let clave = "restaurante", modo = "menu", pasoIdx = 0, datos = {}, puntos = 0, valor = 0, nombre = "";
@@ -500,12 +620,15 @@
 
   // Selector de negocio: agrupado y generado desde los datos
   const sel = $("demo-neg");
-  const grupos = [...new Set(Object.values(NEG).map((n) => n.grupo))];
+  // de más a menos probable que lo necesiten (consultas repetidas, ticket alto, ventas por chat)
+  const PRIORIDAD_RUBRO = ["tiendavirtual","restaurante","ropa","pasteleria","hotel","viajes","eventos","muebles","estetica","dental","clinica","salon","psicologia","optica","veterinaria","gimnasio","academia","inmobiliaria","autos","seguros","contable","juridico","constructora","arquitectura","marketing","logistica","software","instituto","ferreteria"];
+  const claves = Object.keys(NEG).sort((a, b) => PRIORIDAD_RUBRO.indexOf(a) - PRIORIDAD_RUBRO.indexOf(b));
+  const grupos = [...new Set(claves.map((k) => NEG[k].grupo))];
   for (const g of grupos) {
     const bloque = el("div", "demo-grupo");
     bloque.append(el("span", "demo-grupo-t", g));
     const fila = el("div", "demo-grupo-f");
-    for (const [k, n] of Object.entries(NEG)) if (n.grupo === g) { const b = el("button", null, n.etiqueta); b.type = "button"; b.dataset.neg = k; b.setAttribute("aria-pressed", "false"); b.addEventListener("click", () => negocio(k)); fila.append(b); }
+    for (const k of claves) { const n = NEG[k]; if (n.grupo === g) { const b = el("button", null, n.etiqueta); b.type = "button"; b.dataset.neg = k; b.setAttribute("aria-pressed", "false"); b.addEventListener("click", () => negocio(k)); fila.append(b); } }
     bloque.append(fila); sel.append(bloque);
   }
 

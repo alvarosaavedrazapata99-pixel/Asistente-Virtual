@@ -30,6 +30,14 @@
     { id: "ferreteria", etiqueta: "Ferretería industrial", grupo: G3, dolores: ["Cotizaciones de materiales lentas", "Clientes recurrentes sin seguimiento", "Consultas repetidas de stock", "Pedidos por varios canales"] },
     { id: "autos", etiqueta: "Concesionaria y taller", grupo: G3, dolores: ["Interesados en prueba de manejo sin seguimiento", "Recordatorios de mantenimiento", "Consultas repetidas de financiamiento", "Clientes de flota sin ejecutivo asignado"] },
     { id: "seguros", etiqueta: "Corredora de seguros", grupo: G3, dolores: ["Cotizaciones que se enfrían", "Renovaciones olvidadas", "Consultas repetidas de coberturas", "Seguimiento a clientes de empresas"] },
+    { id: "pasteleria", etiqueta: "Pastelería", grupo: G1, dolores: ["Pedidos que se pierden en chats", "Preguntas repetidas de sabores y precios", "Fechas que se cruzan", "Clientes que no confirman"] },
+    { id: "muebles", etiqueta: "Muebles y decoración", grupo: G1, dolores: ["Cotizaciones lentas", "Clientes que preguntan y desaparecen", "Medidas y pedidos por chats sueltos", "Seguimiento de entregas"] },
+    { id: "estetica", etiqueta: "Cirugía plástica y estética", grupo: G2, dolores: ["Consultas de precio sin agendar evaluación", "Pacientes que no vuelven tras preguntar", "Citas que se cancelan", "Seguimiento posterior a tratamientos"] },
+    { id: "salon", etiqueta: "Salón de belleza y spa", grupo: G2, dolores: ["Citas por mensaje desordenadas", "Clientas que no llegan sin recordatorio", "Preguntas repetidas de precios", "Horarios llenos y vacíos mal repartidos"] },
+    { id: "psicologia", etiqueta: "Psicología y terapia", grupo: G2, dolores: ["Citas y reprogramaciones manuales", "Consultas fuera de horario", "Primeras sesiones sin confirmar", "Información por canales sueltos"] },
+    { id: "optica", etiqueta: "Óptica y optometría", grupo: G2, dolores: ["Preguntas repetidas de precios y plazos", "Exámenes sin agendar", "Recordatorios de controles", "Pedidos de lentes por chats sueltos"] },
+    { id: "arquitectura", etiqueta: "Arquitectura y diseño", grupo: G3, dolores: ["Cotizaciones lentas", "Prospectos sin calificar", "Seguimiento a propuestas enviadas", "Información de proyectos dispersa"] },
+    { id: "marketing", etiqueta: "Agencia de marketing", grupo: G3, dolores: ["Prospectos sin calificar", "Propuestas que se enfrían", "Preguntas repetidas de servicios", "Reportes manuales a clientes"] },
     { id: "otro", etiqueta: "Otro rubro", grupo: G3, dolores: ["Preguntas repetidas de clientes", "Consultas fuera de horario", "Interesados sin seguimiento", "Información dispersa entre chats"] },
   ];
 

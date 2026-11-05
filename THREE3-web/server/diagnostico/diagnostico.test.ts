@@ -9,8 +9,8 @@ import { contadorMemoria } from "../seguridad/limitador.ts";
 const bien = { canales: ["whatsapp", "instagram"], consultas: "c3", respuesta: "r3", fuera: "f3", registro: "g4", atiende: "a1", dolores: ["x0", "x2"], meta: "m1", urgencia: "u1", inversion: "i3", decide: "d1" };
 const fria = { ...bien, consultas: "c1", respuesta: "r1", fuera: "f1", registro: "g1", atiende: "a3", urgencia: "u3", inversion: "i1", decide: "d3", canales: ["presencial"] };
 
-test("núcleo: hay 22 rubros con 4 problemas típicos y las preguntas comunes", () => {
-  assert.equal(DIAG.RUBROS.length, 22);
+test("núcleo: hay 30 rubros con 4 problemas típicos y las preguntas comunes", () => {
+  assert.equal(DIAG.RUBROS.length, 30);
   for (const r of DIAG.RUBROS) assert.equal(r.dolores.length, 4);
   assert.ok(DIAG.rubro("tiendavirtual"));
   assert.equal(DIAG.PREGUNTAS.length, 11);

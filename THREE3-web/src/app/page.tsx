@@ -25,10 +25,14 @@ const MENU = [
 ];
 
 const MURO = [
-  { id: "conecta", t: "Así se conecta", d: "Del comentario en Instagram a la venta registrada" },
-  { id: "personaje", t: "Tri nace en Blender", d: "Del boceto al render de un personaje 3D" },
-  { id: "juego", t: "Crea tu videojuego", d: "Un juego propio para tu marca" },
-  { id: "idiomas", t: "Tri habla tu idioma", d: "Mensajes en varios idiomas para clientes de toda la región" },
+  { id: "conecta", t: "Así se conecta", d: "Del comentario en Instagram a la venta registrada",
+    x: ["Un cliente comenta una palabra clave en tu publicación o te escribe por mensaje directo.", "El bot le responde al instante, le hace unas preguntas y registra su nombre, celular y qué busca.", "Tú recibes el aviso y el interesado queda ordenado en tu CRM, con su nivel de interés, listo para que lo atiendas o para el seguimiento automático."] },
+  { id: "personaje", t: "Tri nace en Blender", d: "Del boceto al render de un personaje 3D",
+    x: ["Empezamos con un briefing: concepto, estilo y usos del personaje, sin marcas ni personajes de terceros.", "Dibujamos un boceto en blanco y negro para que apruebes la forma antes de modelar.", "Modelamos, texturizamos y renderizamos en Blender. Entregamos archivos listos para redes, web o video, con licencia escrita."] },
+  { id: "juego", t: "Crea tu videojuego", d: "Un juego propio para tu marca",
+    x: ["Un juego corto con tu marca o tu personaje, pensado para que la gente juegue, comparta y regrese.", "Se define la mecánica, el arte y dónde se jugará (web o celular).", "El alcance, el plazo y el precio se cotizan por escrito según lo que necesites."] },
+  { id: "idiomas", t: "Tri habla tu idioma", d: "Mensajes en varios idiomas para clientes de toda la región",
+    x: ["Tu bot puede atender en español y en otros idiomas según tu plan.", "Detecta el idioma del cliente y responde en el mismo, con la información de tu negocio.", "Útil para turismo, comercio exterior y negocios con clientes de varios países."] },
 ];
 
 export default function Home() {
@@ -135,15 +139,38 @@ export default function Home() {
           <Reveal className="vw2">
             {MURO.map((m) => (
               <figure className="vf" key={m.id}>
-                <div className="vid">
+                <button type="button" className="vid vbtn" data-vm={`vm-${m.id}`} aria-haspopup="dialog" aria-label={`Abrir: ${m.t}`}>
                   <LoopVideo base={`/videos/svc_${m.id}`} poster={`/videos/posters/svc_${m.id}.webp`} label={m.t} />
-                </div>
+                  <span className="vmas">Ver más</span>
+                </button>
                 <figcaption>
                   <b>{m.t}</b>
                   <span>{m.d}</span>
                 </figcaption>
               </figure>
             ))}
+          </Reveal>
+          {MURO.map((m) => (
+            <dialog key={m.id} id={`vm-${m.id}`} className="vmodal" aria-label={m.t}>
+              <button type="button" className="vcerrar" data-vcerrar aria-label="Cerrar">×</button>
+              <div className="vm-v">
+                <LoopVideo base={`/videos/svc_${m.id}`} poster={`/videos/posters/svc_${m.id}.webp`} label={m.t} />
+              </div>
+              <div className="vm-t">
+                <h3>{m.t}</h3>
+                <ol>
+                  {m.x.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ol>
+                <AgendarBtn evento={`video:${m.id}`} />
+              </div>
+            </dialog>
+          ))}
+          <Reveal className="incluye-mes aliada">
+            <b>Producción audiovisual con agencia aliada</b>
+            <p className="nota-precio">Además del bot, trabajamos junto a una agencia aliada de contenido audiovisual: videos para redes, anuncios, presentaciones de tu negocio y piezas animadas. Se cotiza aparte, según lo que necesites.</p>
+            <AgendarBtn className="btn ghost" texto="Cotizar contenido audiovisual" evento="video:audiovisual" />
           </Reveal>
         </div>
       </section>

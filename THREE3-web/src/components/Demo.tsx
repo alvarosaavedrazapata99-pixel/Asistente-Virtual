@@ -11,7 +11,7 @@ export function Demo() {
             <span className="mono">Pruébalo tú mismo</span>
             <h2 style={{ marginTop: 10 }}>Mira cómo atiende tu bot</h2>
           </div>
-          <p>Elige entre 21 negocios de ejemplo, comercios y empresas. Conversa con el bot, mira cómo califica al cliente, lo registra con su prioridad y lo suma a tu reporte.</p>
+          <p>Elige entre 29 negocios de ejemplo, comercios y empresas. Conversa con el bot, mira cómo califica al cliente, lo registra con su prioridad y lo suma a tu reporte.</p>
         </Reveal>
         <div className="demo" id="demo-app">
           <div className="demo-neg" id="demo-neg" role="group" aria-label="Negocio de ejemplo" />

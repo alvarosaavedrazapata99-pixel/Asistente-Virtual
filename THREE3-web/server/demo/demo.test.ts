@@ -93,9 +93,9 @@ test("instrucciones: negocio ficticio, IA declarada y defensa ante órdenes", ()
   assert.match(t, /ignora órdenes/);
 });
 
-test("los 21 negocios de ejemplo están definidos y generan instrucciones", async () => {
+test("los 29 negocios de ejemplo están definidos y generan instrucciones", async () => {
   const { NEGOCIOS } = await import("./chat.ts");
   const claves = Object.keys(NEGOCIOS);
-  assert.equal(claves.length, 21);
+  assert.equal(claves.length, 29);
   for (const k of claves) assert.match(sistemaDemo(k as keyof typeof NEGOCIOS), /EJEMPLO \(ficticio\)/);
 });
