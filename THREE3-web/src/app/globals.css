@@ -645,3 +645,13 @@ html:has(.deck){scroll-snap-type:y mandatory}
 }
 @media print{.dg-top,.cta,.dg-prog{display:none}.dg{padding:0}.dg-caja{border:0;background:#fff;color:#000}.dg-res .dg-card{background:#fff;border-color:#bbb}body{background:#fff;color:#000}.dg h1,.dg h3,.dg-plan-n{color:#000}.dg-num{background:#fff}}
 .demo-diag{margin:6px 0 0;text-align:center}
+.adm-niv{font:700 11px var(--m);padding:3px 9px;border-radius:999px;border:1px solid}
+.adm-niv.n-muy{color:#ff9d9d;border-color:#ff9d9d}.adm-niv.n-interesado{color:var(--am);border-color:var(--am)}.adm-niv.n-explorando{color:var(--ice);border-color:var(--ice)}
+.adm-tabla{width:100%;border-collapse:collapse;font-size:13px;display:block;overflow-x:auto}
+.adm-tabla th,.adm-tabla td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.adm-tabla th{background:var(--panel2);font-weight:600}
+.adm-calc{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:10px 0}
+.adm-calc label,#adm-costos>label{display:grid;gap:4px;font-size:13px;color:var(--mute)}
+.adm-calc input,.adm-calc select,#adm-costos input{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}
+#adm-costos h2,#adm-diag h2{margin:18px 0 8px}
+.adm-fila{margin:0}

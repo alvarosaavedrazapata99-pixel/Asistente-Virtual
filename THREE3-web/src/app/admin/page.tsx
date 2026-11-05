@@ -17,9 +17,13 @@ export default function Admin() {
       <p id="adm-estado" className="mute" role="status" />
       <div className="adm-tabs" id="adm-tabs" role="tablist" hidden>
         <button type="button" role="tab" aria-selected="true" data-seccion="sol" className="btn ghost">Solicitudes</button>
+        <button type="button" role="tab" aria-selected="false" data-seccion="diag" className="btn ghost">Diagnósticos</button>
         <button type="button" role="tab" aria-selected="false" data-seccion="cli" className="btn ghost">Clientes del bot</button>
+        <button type="button" role="tab" aria-selected="false" data-seccion="costos" className="btn ghost">Costos</button>
       </div>
       <div id="adm-lista" />
+      <section id="adm-diag" hidden />
+      <section id="adm-costos" hidden />
       <section id="adm-cli" hidden>
         <p className="mute">Cada cliente es un chat con IA que pegas en su página con una línea de código. Solo funciona en los dominios que registres.</p>
         <button type="button" className="btn" id="adm-cli-nuevo">+ Nuevo cliente</button>
@@ -53,6 +57,8 @@ export default function Admin() {
       </section>
       <Script src="/admin.js" strategy="afterInteractive" />
       <Script src="/admin-clientes.js" strategy="afterInteractive" />
+      <Script src="/costos-core.js" strategy="afterInteractive" />
+      <Script src="/admin-extra.js" strategy="afterInteractive" />
     </main>
   );
 }

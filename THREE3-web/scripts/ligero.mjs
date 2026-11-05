@@ -15,7 +15,7 @@ const porPagina = (ruta) => {
   if (ruta === "pagar.html" || ruta.startsWith("pagar/")) return [{ src: "/pagar.js" }];
   if (ruta === "diagnostico.html") return [{ src: "/diagnostico-core.js" }, { src: "/diagnostico.js" }];
   if (ruta === "presentacion.html") return [{ src: "/presentacion.js" }];
-  if (ruta === "admin.html") return [{ src: "/admin.js" }, { src: "/admin-clientes.js" }];
+  if (ruta === "admin.html") return [{ src: "/admin.js" }, { src: "/admin-clientes.js" }, { src: "/costos-core.js" }, { src: "/admin-extra.js" }];
   return [];
 };
 

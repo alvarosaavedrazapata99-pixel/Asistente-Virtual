@@ -8,11 +8,12 @@
   const tabs = $("adm-tabs"), lista = $("adm-cli-lista"), form = $("adm-cli-form"), msg = $("adm-cli-msg"), leads = $("adm-cli-leads");
   let editando = false;
 
+  const SECCIONES = { sol: "adm-lista", diag: "adm-diag", cli: "adm-cli", costos: "adm-costos" };
   function seccion(s) {
     tabs.querySelectorAll("[data-seccion]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.seccion === s)));
-    $("adm-lista").hidden = s !== "sol";
-    $("adm-cli").hidden = s !== "cli";
+    for (const [k, id] of Object.entries(SECCIONES)) $(id).hidden = k !== s;
     if (s === "cli") cargar();
+    document.dispatchEvent(new CustomEvent("adm:seccion", { detail: s }));
   }
 
   async function cargar() {
