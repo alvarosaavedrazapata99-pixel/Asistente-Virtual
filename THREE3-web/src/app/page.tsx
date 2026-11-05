@@ -165,6 +165,8 @@ export default function Home() {
         <AgendarBtn evento="sticky" />
       </div>
       <ActivarDialog />
+      {/* Bot propio de THREE3: solo aparece cuando el cliente "three3" existe y está activo en la base */}
+      <Script src="/widget.js" data-cliente="three3" strategy="afterInteractive" />
       <Script src="/activar.js" strategy="afterInteractive" />
       <Script src="/ui.js" strategy="afterInteractive" />
       {process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />}

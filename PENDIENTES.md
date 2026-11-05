@@ -63,3 +63,5 @@ Pendiente:
 - Demo interactiva en la home (`#demo`, "Pruébalo tú mismo"): bot simulado con 3 negocios de ejemplo → registro en un mini CRM → reporte. Todo en el navegador (`public/demo.js`), sin red ni IA. Mejora futura: sustituir por IA real vía `/api/demo-chat` cuando el bot de Meta esté encendido (con límite por IP y Turnstile).
 - Demo con IA real lista y apagada (`/api/demo-chat`, 63 pruebas). Para encender: `ANTHROPIC_API_KEY` (secreto) + `DEMO_IA_ACTIVA=si`; crear KV `LIMITES` y límite de gasto en Anthropic (ver `THREE3-web/docs/bot-meta.md`).
 - Siguiente producto: bot incrustable para páginas de clientes (`<script src=".../widget.js" data-negocio="...">`). No construido.
+- Bot incrustable para clientes (`<script src=".../widget.js" data-cliente="id">`): construido y probado (76 pruebas + navegador entre dos orígenes). Falta: ejecutar `0003_widget.sql` en Supabase, crear la fila `three3` (bot propio) y de cada cliente, y encender IA (`ANTHROPIC_API_KEY` + `WIDGET_IA_ACTIVA=si`). Guía: `THREE3-web/docs/widget.md`.
+- Mejora futura: panel en `/admin` para crear clientes del widget y ver sus leads sin SQL.
