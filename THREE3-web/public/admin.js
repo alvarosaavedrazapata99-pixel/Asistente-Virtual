@@ -62,6 +62,7 @@
       estado.textContent = j.leads.length ? j.leads.length + " solicitudes (las 100 más recientes)" : "Aún no hay solicitudes.";
       for (const l of j.leads) lista.append(tarjeta(l));
       form.hidden = true;
+      document.dispatchEvent(new CustomEvent("adm:ok"));
     } catch { estado.textContent = "No se pudo cargar. Intenta de nuevo."; }
   }
 

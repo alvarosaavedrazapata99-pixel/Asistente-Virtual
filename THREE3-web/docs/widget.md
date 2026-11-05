@@ -19,7 +19,10 @@ Un cliente pega **una línea** en su página y le aparece un chat con IA que con
 - El texto del visitante nunca va en la URL.
 - Los datos de contacto se guardan en `leads_cliente` (RLS, solo servidor). **El cliente es responsable del tratamiento de sus datos:** conviene que su página tenga política de privacidad y mencionar a THREE3 como proveedor.
 
-## Alta de un cliente (5 minutos)
+## Panel en `/admin` (sin SQL)
+Entra a `/admin` con tu `ADMIN_TOKEN` → pestaña **Clientes del bot**: crear y editar clientes (nombre, lo que sabe el bot, saludo, color, WhatsApp, dominios permitidos, tope diario, activo), copiar el fragmento de código y ver los clientes potenciales de cada uno. API: `/api/admin/clientes` (solo con la clave de administración; valida dominios sin ruta, color, límites). Requiere haber ejecutado `0003_widget.sql` una vez.
+
+## Alta de un cliente por SQL (alternativa)
 1. Supabase → SQL Editor, una sola vez: ejecutar `supabase/migrations/0003_widget.sql`.
 2. Crear al cliente (con `activo = false` hasta probarlo):
 ```sql

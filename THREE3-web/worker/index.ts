@@ -6,6 +6,7 @@ import { onRequest as meta } from "../functions/api/meta.ts";
 import { onRequest as pagosCrear } from "../functions/api/pagos/crear.ts";
 import { onRequest as pagosWebhook } from "../functions/api/pagos/webhook.ts";
 import { onRequest as pagosOrden } from "../functions/api/pagos/orden.ts";
+import { onRequest as adminClientes } from "../functions/api/admin/clientes.ts";
 import { onRequest as adminLeads } from "../functions/api/admin/leads.ts";
 import { onRequest as adminOrdenes } from "../functions/api/admin/ordenes.ts";
 import type { Env } from "../functions/_lib/deps.ts";
@@ -21,6 +22,7 @@ const RUTAS: Record<string, Ruta> = {
   "/api/pagos/orden": pagosOrden,
   "/api/admin/ordenes": adminOrdenes,
   "/api/admin/leads": adminLeads,
+  "/api/admin/clientes": adminClientes,
 };
 
 export default {
