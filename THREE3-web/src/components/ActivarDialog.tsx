@@ -52,13 +52,13 @@ export function ActivarDialog() {
       <div data-ok hidden>
         <h2 tabIndex={-1}>Tu solicitud está lista</h2>
         <p className="dlg-s solo-manual">Aún no se envía. Cópiala y pégala en un mensaje directo de Instagram para que la recibamos.</p>
+        <p className="dlg-s" data-estado role="status" />
         <pre data-resumen className="dlg-pre" />
         <div className="cta">
           <button type="button" className="btn solo-manual" data-copiar>Copiar solicitud</button>
           <a className="btn ghost solo-manual" href={INSTAGRAM_DM} target="_blank" rel="noopener noreferrer">Abrir Instagram</a>
           <button type="button" className="btn ghost" data-cerrar>Cerrar</button>
         </div>
-        <p className="dlg-s" data-estado role="status" />
       </div>
     </dialog>
   );
