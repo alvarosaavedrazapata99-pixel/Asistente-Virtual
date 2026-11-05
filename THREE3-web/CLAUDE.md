@@ -19,3 +19,12 @@ Notas:
 - El formulario envía solo si existe `NEXT_PUBLIC_LEADS_ENDPOINT` (si no, modo copiar y enviar).
 - Simulación del enlace de Instagram (artefacto aparte): `python3 scripts/simulacion-ig/construir.py` (requiere `.enlace/` ya construido con `scripts/enlace/build.sh`); se republica tras cambios en `/ig`.
 - Servidor: `server/` (pagos, seguridad, leads; TypeScript ejecutable por Node) y `functions/` (Cloudflare Pages Functions). Pruebas: `npm test`. Tipos: `npm run typecheck`. CSP: `npm run build:cf` y `node scripts/probar-csp.mjs`. Migración: `supabase/migrations/`. Guía de claves: `docs/pagos-seguridad.md`. NUNCA poner secretos en el código ni en variables `NEXT_PUBLIC_*`.
+
+## Despliegue y operación (actual)
+- Producción: Cloudflare Workers `three3-web` (dominio `www.three3agency.com`), rama `three3-web-carga`, raíz `THREE3-web`, build `npm run build:cf`, deploy `npx wrangler deploy` (usa `wrangler.jsonc` + `worker/index.ts`; `/api/*` lo atiende el Worker, el resto sale de `out/`).
+- Variables no secretas van en `wrangler.jsonc` (`vars`); los secretos SOLO en el panel de Cloudflare (Settings → Runtime variables and secrets). Variables `NEXT_PUBLIC_*` van en Settings → Builds.
+- Base de datos: Supabase `three3-web` (migraciones en `supabase/migrations/`, se ejecutan a mano en el SQL Editor). Llave nueva `sb_secret_…` solo en cabecera `apikey` (`server/pagos/cabeceras-supabase.ts`).
+- WhatsApp de contacto: `src/config/empresa.config.json` (campo `whatsapp`). Bot de Meta: `docs/bot-meta.md` (apagado hasta `BOT_ACTIVO=si`).
+- `.gitignore` raíz usa `/lib/` (no `lib/`): `src/lib/` DEBE estar versionado.
+- Pagos: Mercado Pago solo en modo prueba salvo `MP_MODO=produccion` y `MP_PRODUCCION_APROBADA=si`.
+- Pendientes y decisiones del dueño: `PENDIENTES.md` en la raíz del repo.
