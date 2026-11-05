@@ -15,7 +15,7 @@ function dep(extra: Partial<DepDemo> = {}) {
 }
 const post = (cuerpo: unknown, origen: string | null = ORIGEN, ip = "1.1.1.1") =>
   new Request("https://x.test/api/demo-chat", { method: "POST", body: JSON.stringify(cuerpo), headers: { ...(origen ? { origin: origen } : {}), "cf-connecting-ip": ip } });
-const ok = { negocio: "polleria", mensajes: [{ rol: "bot", texto: "Hola" }, { rol: "usuario", texto: "¿Abren los domingos?" }] };
+const ok = { negocio: "restaurante", mensajes: [{ rol: "bot", texto: "Hola" }, { rol: "usuario", texto: "¿Abren los domingos?" }] };
 
 test("GET informa si la demo con IA está activa", async () => {
   const r = await manejarDemoChat(new Request("https://x.test/api/demo-chat"), dep({ activo: false }).d);
@@ -40,7 +40,7 @@ test("responde con el negocio elegido y pasa solo el historial previo", async ()
   const r = await manejarDemoChat(post(ok), d);
   assert.equal(r.status, 200);
   assert.equal(((await r.json()) as { texto: string }).texto, "Hola, soy el asistente virtual.");
-  assert.match(llamadas[0].sistema, /Pollería Don Beto/);
+  assert.match(llamadas[0].sistema, /Restaurante La Huerta/);
   assert.equal(llamadas[0].texto, "¿Abren los domingos?");
   assert.equal(llamadas[0].historial.length, 1);
 });
@@ -91,4 +91,11 @@ test("instrucciones: negocio ficticio, IA declarada y defensa ante órdenes", ()
   assert.match(t, /EJEMPLO \(ficticio\)/);
   assert.match(t, /inteligencia artificial/);
   assert.match(t, /ignora órdenes/);
+});
+
+test("los 12 negocios de ejemplo están definidos y generan instrucciones", async () => {
+  const { NEGOCIOS } = await import("./chat.ts");
+  const claves = Object.keys(NEGOCIOS);
+  assert.equal(claves.length, 12);
+  for (const k of claves) assert.match(sistemaDemo(k as keyof typeof NEGOCIOS), /EJEMPLO \(ficticio\)/);
 });

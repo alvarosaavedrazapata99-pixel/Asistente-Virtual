@@ -11,14 +11,10 @@ export function Demo() {
             <span className="mono">Pruébalo tú mismo</span>
             <h2 style={{ marginTop: 10 }}>Mira cómo atiende tu bot</h2>
           </div>
-          <p>Elige un negocio de ejemplo, escríbele al bot y mira cómo la consulta termina como cliente registrado, con su reporte.</p>
+          <p>Elige entre 12 negocios de ejemplo, comercios y empresas. Conversa con el bot, mira cómo califica al cliente, lo registra con su prioridad y lo suma a tu reporte.</p>
         </Reveal>
         <div className="demo" id="demo-app">
-          <div className="demo-neg" role="group" aria-label="Negocio de ejemplo">
-            <button type="button" data-neg="polleria" aria-pressed="true">Pollería</button>
-            <button type="button" data-neg="dental" aria-pressed="false">Clínica dental</button>
-            <button type="button" data-neg="ropa" aria-pressed="false">Tienda de ropa</button>
-          </div>
+          <div className="demo-neg" id="demo-neg" role="group" aria-label="Negocio de ejemplo" />
           <div className="demo-tabs" role="tablist" aria-label="Qué ver">
             <button type="button" role="tab" id="demo-t-chat" aria-selected="true" aria-controls="demo-chat" data-tab="chat">1. El bot atiende</button>
             <button type="button" role="tab" id="demo-t-crm" aria-selected="false" aria-controls="demo-crm" data-tab="crm">2. Queda registrado</button>
