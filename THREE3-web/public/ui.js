@@ -115,13 +115,3 @@
     if (final) new IntersectionObserver(([e]) => { enFinal = e.isIntersecting; pintar(); }).observe(final);
   }
 })();
-
-// ventanas de "Mira cómo funciona": abrir con clic, cerrar con × o tocando fuera
-(function () {
-  document.addEventListener("click", function (e) {
-    var t = e.target.closest ? e.target.closest("[data-vm]") : null;
-    if (t) { var d = document.getElementById(t.getAttribute("data-vm")); if (d && d.showModal) d.showModal(); return; }
-    if (e.target.closest && e.target.closest("[data-vcerrar]")) { var m = e.target.closest("dialog"); if (m) m.close(); return; }
-    if (e.target.classList && e.target.classList.contains("vmodal")) e.target.close();
-  });
-})();

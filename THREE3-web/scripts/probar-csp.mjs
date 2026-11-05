@@ -25,7 +25,7 @@ const srv = http.createServer((req, res) => {
 await new Promise((r) => srv.listen(3950, r));
 const b = await chromium.launch(); let fallos = 0;
 for (const [nombre, ctxo] of [["escritorio", { viewport: { width: 1280, height: 900 } }], ["movil", devices["iPhone 13"]]]) {
-  for (const ruta of ["/", "/legal", "/ig", "/ig/pack", "/pagar?o=ord_prueba123&t=x"]) {
+  for (const ruta of ["/", "/legal", "/mas/juego", "/ig", "/ig/pack", "/pagar?o=ord_prueba123&t=x"]) {
     const ctx = await b.newContext(ctxo); const p = await ctx.newPage(); const viol = [], errs = [];
     await p.addInitScript(() => { window.__v = []; document.addEventListener("securitypolicyviolation", (e) => window.__v.push(`${e.violatedDirective} ${e.blockedURI}`)); });
     p.on("pageerror", (e) => errs.push(String(e).slice(0, 100)));
