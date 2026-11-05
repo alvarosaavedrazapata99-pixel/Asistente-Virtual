@@ -13,6 +13,17 @@ import { PRECIOS_BAJO_CLIC } from "@/lib/planes";
 
 const MARQUEE = ["Bot con IA", "WhatsApp", "Leads", "CRM", "Reportes", "Seguimiento", "Personaje 3D", "Videojuegos"];
 
+/** Menú: cada sección tiene un video corto (versión liviana) que se ve al pasar el cursor o al abrir el menú en el celular. */
+const MENU = [
+  { href: "#demo", t: "Pruébalo", d: "Chatea con un bot de ejemplo", v: "svc_chatbot", escritorio: true },
+  { href: "#planes", t: "Planes", d: "Elige cómo empezar", v: "svc_sheets", escritorio: true },
+  { href: "#proceso", t: "Cómo trabajamos", d: "Cinco pasos, sin sorpresas", v: "svc_conecta", escritorio: true },
+  { href: "#despues", t: "Después de tu bot", d: "Reportes, CRM y más canales", v: "svc_crm", escritorio: true },
+  { href: "#personaje", t: "Personaje 3D", d: "Del boceto al render", v: "svc_personaje", escritorio: false },
+  { href: "#videos", t: "Videos", d: "Mira cómo funciona", v: "svc_juego", escritorio: true },
+  { href: "#preguntas", t: "Preguntas", d: "Antes de decidir", v: "svc_idiomas", escritorio: true },
+];
+
 const MURO = [
   { id: "conecta", t: "Así se conecta", d: "Del comentario en Instagram a la venta registrada" },
   { id: "personaje", t: "Tri nace en Blender", d: "Del boceto al render de un personaje 3D" },
@@ -23,7 +34,12 @@ const MURO = [
 export default function Home() {
   return (
     <>
+      <div className="progreso" aria-hidden="true" />
       <nav aria-label="Principal">
+        <div className="navprev" id="navprev" hidden aria-hidden="true">
+          <video muted loop playsInline preload="none" />
+          <p />
+        </div>
         <div className="w nav-in">
           <a className="brand" href="#top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -31,11 +47,9 @@ export default function Home() {
             THREE3
           </a>
           <div className="links">
-            <a href="#planes">Planes</a>
-            <a href="#proceso">Cómo trabajamos</a>
-            <a href="#despues">Después de tu bot</a>
-            <a href="#videos">Videos</a>
-            <a href="#preguntas">Preguntas</a>
+            {MENU.filter((m) => m.escritorio).map((m) => (
+              <a key={m.href} href={m.href} data-prev={m.v} data-desc={m.d}>{m.t}</a>
+            ))}
           </div>
           <div className="nav-act">
             <AgendarBtn evento="nav" corto="Agendar" />
@@ -48,15 +62,14 @@ export default function Home() {
         </div>
         <div className="menu" id="menu" hidden>
           <div className="w">
-            <a href="#demo">Pruébalo</a>
-            <a href="#planes">Planes</a>
-            <a href="#proceso">Cómo trabajamos</a>
-            <a href="#despues">Después de tu bot</a>
-            <a href="#personaje">Tu personaje 3D</a>
-            <a href="#videos">Videos</a>
-            <a href="#instagram">Instagram</a>
-            <a href="#preguntas">Preguntas frecuentes</a>
-            <Link href="/legal">Información legal</Link>
+            {MENU.map((m, i) => (
+              <a key={m.href} href={m.href} className="mi" style={{ "--i": i } as React.CSSProperties}>
+                <video className="mthumb" muted loop playsInline preload="none" data-v={m.v} aria-hidden="true" tabIndex={-1} />
+                <span><b>{m.t}</b><small>{m.d}</small></span>
+              </a>
+            ))}
+            <a href="#instagram" className="mi mi-s" style={{ "--i": MENU.length } as React.CSSProperties}><span><b>Instagram</b></span></a>
+            <Link href="/legal" className="mi mi-s" style={{ "--i": MENU.length + 1 } as React.CSSProperties}><span><b>Información legal</b></span></Link>
           </div>
         </div>
       </nav>

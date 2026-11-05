@@ -380,3 +380,43 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .demo-barra i{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--bl),var(--cy))}
 .demo-nota{font-size:13px}
 @media (max-width:640px){.demo-cols{grid-template-columns:1fr}.demo{padding:12px}}
+
+/* ===== menús animados ===== */
+.progreso{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;background:linear-gradient(90deg,var(--bl),var(--cy));transform:scaleX(0);transform-origin:left;pointer-events:none}
+@supports (animation-timeline:scroll()){
+  @media (prefers-reduced-motion:no-preference){.progreso{animation:prog linear both;animation-timeline:scroll(root)}}
+}
+@keyframes prog{to{transform:scaleX(1)}}
+@supports not (animation-timeline:scroll()){.progreso{display:none}}
+
+.links a{position:relative;border-bottom:0;transition:color .2s}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:2px;border-radius:2px;background:var(--cy);transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.links a:hover::after,.links a:focus-visible::after,.links a[aria-current="true"]::after{transform:scaleX(1)}
+
+.navprev{position:absolute;top:100%;margin-top:6px;width:240px;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 22px 44px -18px rgba(0,0,0,.7);overflow:hidden;opacity:0;transform:translateY(6px) scale(.98);transition:opacity .18s,transform .18s;pointer-events:none;z-index:60}
+.navprev.on{opacity:1;transform:none}
+.navprev video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--bg)}
+.navprev p{margin:0;padding:10px 12px;font-size:13px;color:var(--mute)}
+@media(max-width:760px){.navprev{display:none}}
+
+.menu .mi{gap:14px;padding-block:8px}
+.mthumb{flex:none;width:84px;height:48px;border-radius:10px;object-fit:cover;background:var(--panel);border:1px solid var(--line)}
+.mi b{display:block;font-weight:600}
+.mi small{display:block;color:var(--mute);font-size:13px;margin-top:2px}
+.mi-s{min-height:44px}
+@media (prefers-reduced-motion:no-preference){
+  .menu:not([hidden]){animation:menuin .22s ease-out}
+  .menu:not([hidden]) .mi{animation:miin .38s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
+  @keyframes menuin{from{opacity:0;transform:translateY(-8px)}}
+  @keyframes miin{from{opacity:0;transform:translateX(-14px)}}
+  .btn.amb{animation:pulso 3.6s ease-in-out 1.5s infinite}
+  @keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(255,179,0,0)}50%{box-shadow:0 0 0 7px rgba(255,179,0,.16)}}
+  .burger span{transition:transform .25s,opacity .2s}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .plan,.after article,.demo-card,.vf{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s}
+  .plan:hover,.after article:hover,.vf:hover{transform:translateY(-4px);border-color:var(--cy);box-shadow:0 18px 40px -24px var(--cy)}
+}

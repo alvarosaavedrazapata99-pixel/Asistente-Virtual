@@ -3,13 +3,62 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
+  // Videos livianos del menú: se cargan solo cuando se necesitan (cursor encima o menú abierto), y no con ahorro de datos
+  const conexion = navigator.connection;
+  const ahorro = !!(conexion && conexion.saveData);
+  const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const poner = (video, v) => {
+    if (video.dataset.listo === v) return;
+    video.dataset.listo = v;
+    video.poster = `/videos/posters/${v}.webp`;
+    if (ahorro || reducido) return; // solo la imagen fija
+    video.replaceChildren();
+    for (const [t, u] of [["video/webm", `/videos/${v}_sm.webm`], ["video/mp4", `/videos/${v}_sm.mp4`]]) {
+      const so = document.createElement("source");
+      so.src = u; so.type = t; video.append(so);
+    }
+    video.load();
+  };
+  const mover = (video, jugar) => { if (ahorro || reducido) return; if (jugar) video.play().catch(() => {}); else video.pause(); };
+
   // Menú móvil
   const burger = $("#burger");
   const menu = $("#menu");
+  let miniaturas = false;
+  const abrirMiniaturas = (abrir) => {
+    const vs = $$(".mthumb", menu);
+    if (abrir && !miniaturas) { vs.forEach((v) => poner(v, v.dataset.v)); miniaturas = true; }
+    vs.forEach((v) => mover(v, abrir));
+  };
+
+  // Vista previa con video al pasar el cursor por el menú de escritorio
+  const prev = $("#navprev");
+  if (prev && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const pv = $("video", prev), txt = $("p", prev);
+    let t;
+    const mostrar = (a) => {
+      clearTimeout(t);
+      poner(pv, a.dataset.prev);
+      txt.textContent = a.dataset.desc || "";
+      const r = a.getBoundingClientRect();
+      prev.style.left = Math.max(12, Math.min(innerWidth - 252, r.left + r.width / 2 - 120)) + "px";
+      prev.hidden = false;
+      requestAnimationFrame(() => prev.classList.add("on"));
+      mover(pv, true);
+    };
+    const ocultar = () => { t = setTimeout(() => { prev.classList.remove("on"); prev.hidden = true; mover(pv, false); }, 120); };
+    $$(".links a[data-prev]").forEach((a) => {
+      a.addEventListener("mouseenter", () => mostrar(a));
+      a.addEventListener("focus", () => mostrar(a));
+      a.addEventListener("mouseleave", ocultar);
+      a.addEventListener("blur", ocultar);
+    });
+  }
   const setMenu = (abrir) => {
     menu.hidden = !abrir;
     burger.setAttribute("aria-expanded", String(abrir));
     burger.setAttribute("aria-label", abrir ? "Cerrar menú" : "Abrir menú");
+    abrirMiniaturas(abrir);
   };
   if (burger && menu) {
     burger.addEventListener("click", () => setMenu(menu.hidden));
