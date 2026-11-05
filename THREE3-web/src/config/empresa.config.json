@@ -1,8 +1,9 @@
 {
-  "_nota": "Datos reales de la empresa. Mientras un campo esté vacío, /legal muestra [COMPLETAR]. whatsapp: solo dígitos con código de país (ej. 51987654321).",
+  "_nota": "Datos reales de la empresa. Mientras un campo esté vacío, /legal muestra [COMPLETAR]. whatsapp: solo dígitos con código de país. whatsapp_activo: poner true SOLO cuando el número ya responda en WhatsApp; mientras sea false, el botón abre el formulario.",
   "razon_social": "",
   "ruc": "",
   "domicilio": "",
   "correo": "three.3agencyweb@gmail.com",
-  "whatsapp": "51922075014"
+  "whatsapp": "51922075014",
+  "whatsapp_activo": false
 }

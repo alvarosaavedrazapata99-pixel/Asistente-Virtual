@@ -31,8 +31,9 @@ export const opciones: Opcion[] = [
 /** Mensaje inicial de WhatsApp. No contiene datos personales. */
 export const MENSAJE_DIAGNOSTICO = "Hola THREE3, quiero agendar mi diagnóstico gratis de 20 a 30 minutos.";
 
-/** Enlace de WhatsApp con mensaje inicial. Devuelve "" mientras no haya número configurado. */
+/** Enlace de WhatsApp con mensaje inicial. Devuelve "" mientras no haya número o `whatsapp_activo` sea false (entonces el botón abre el formulario). */
 export function enlaceWhatsApp(mensaje: string = MENSAJE_DIAGNOSTICO): string {
+  if (!empresa.whatsapp_activo) return "";
   const numero = empresa.whatsapp.replace(/\D/g, "");
   return numero ? `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}` : "";
 }

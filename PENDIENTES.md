@@ -50,3 +50,8 @@ Pendiente:
 - Código listo y probado (48 pruebas): `server/bot/`, ruta `/api/meta`, doc en `THREE3-web/docs/bot-meta.md`.
 - Falta (solo tú): WhatsApp Business activo en el iPhone; cuenta de Meta for Developers + verificación; llave de Anthropic; ejecutar `0002_bot.sql` en Supabase; cargar variables y poner `BOT_ACTIVO=si`.
 - Pendiente de código: aviso al dueño cuando alguien pide un humano.
+
+## Actualización (5 nov)
+- WhatsApp: el número 51922075014 está guardado pero `whatsapp_activo: false` en `THREE3-web/src/config/empresa.config.json` (posible baja de la línea; Entel). Mientras sea false, el botón ámbar abre el formulario (que sí guarda en Supabase). Cuando el número responda en WhatsApp: ponerlo en `true` (o pedirlo a Claude) y se activa el enlace.
+- Panel privado de solicitudes: `/admin` (pide `ADMIN_TOKEN`; ver y cambiar estado: nueva/contactada/cotizada/aceptada/perdida). API: `/api/admin/leads`. No está enlazado desde ninguna página.
+- `robots.txt` y `sitemap.xml` listos: hoy bloquean todo (noindex) hasta poner `NEXT_PUBLIC_NOINDEX=0` en Builds al lanzar.
