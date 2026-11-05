@@ -27,6 +27,11 @@ export function Demo() {
           <div id="demo-chat" role="tabpanel" aria-labelledby="demo-t-chat">
             <div className="demo-log" id="demo-log" role="log" aria-live="polite" />
             <div className="demo-chips" id="demo-chips" />
+            <form className="demo-form" id="demo-libre" hidden>
+              <label className="sr" htmlFor="demo-libre-in">Escríbele al bot lo que quieras</label>
+              <input id="demo-libre-in" autoComplete="off" maxLength={300} placeholder="O escríbele lo que quieras…" />
+              <button type="submit" className="btn">Enviar</button>
+            </form>
             <form className="demo-form" id="demo-form" hidden>
               <label className="sr" htmlFor="demo-in" id="demo-lbl">Tu respuesta</label>
               <input id="demo-in" autoComplete="off" maxLength={60} />

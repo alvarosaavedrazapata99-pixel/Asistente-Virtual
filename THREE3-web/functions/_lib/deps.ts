@@ -3,6 +3,7 @@ import { cabecerasSupabase } from "../../server/pagos/cabeceras-supabase.ts";
 import { almacenBot } from "../../server/bot/almacen-bot.ts";
 import { instrucciones, responderConModelo, type PlanesConfig } from "../../server/bot/cerebro.ts";
 import { enviarTexto } from "../../server/bot/meta.ts";
+import type { DepDemo } from "../../server/demo/chat.ts";
 import type { DepBot } from "../../server/bot/manejador.ts";
 import planes from "../../src/config/planes.config.json" with { type: "json" };
 import { almacenSupabase } from "../../server/pagos/almacen-supabase.ts";
@@ -22,6 +23,7 @@ export type Env = {
   MP_PRODUCCION_APROBADA?: string;
   ADMIN_TOKEN: string;
   TURNSTILE_SECRET: string;
+  DEMO_IA_ACTIVA?: string; // "si" enciende la demo con IA real en la web
   BOT_ACTIVO?: string; // "si" enciende el bot; cualquier otro valor lo deja apagado
   BOT_MODELO?: string;
   META_APP_SECRET?: string;
@@ -77,5 +79,17 @@ export function depBot(env: Env): DepBot {
     responder: (h, t) => responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo: env.BOT_MODELO || "claude-haiku-5-5" }, sistema, h, t),
     enviar: (canal, para, texto) => enviarTexto(envio, canal, para, texto),
     textoHumano: `Gracias por escribir a THREE3. Una persona del equipo te contactará pronto. Si prefieres, escríbenos directo aquí: ${humano}`,
+  };
+}
+
+export function depDemo(env: Env): DepDemo {
+  const sitio = (env.SITE_URL || "https://www.three3agency.com").replace(/\/$/, "");
+  const sinWww = sitio.replace("://www.", "://");
+  const conWww = sitio.includes("://www.") ? sitio : sitio.replace("://", "://www.");
+  return {
+    activo: env.DEMO_IA_ACTIVA === "si" && !!env.ANTHROPIC_API_KEY,
+    limitador: limitadorDe(env),
+    origenesPermitidos: [...new Set([sitio, sinWww, conWww])],
+    responder: (sistema, h, t) => responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo: env.BOT_MODELO || "claude-haiku-5-5" }, sistema, h, t),
   };
 }

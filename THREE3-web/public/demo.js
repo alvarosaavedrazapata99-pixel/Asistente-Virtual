@@ -4,6 +4,9 @@
   if (!app) return;
   const $ = (id) => document.getElementById(id);
   const log = $("demo-log"), chips = $("demo-chips"), form = $("demo-form"), entrada = $("demo-in"), etiqueta = $("demo-lbl");
+  const libre = $("demo-libre"), libreIn = $("demo-libre-in");
+  let ia = false; // se activa si el servidor informa que la demo con IA está encendida
+  const hist = []; // conversación visible, para dar contexto a la IA
   const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const NEG = {
@@ -47,12 +50,13 @@
   const espera = (ms) => new Promise((r) => setTimeout(r, reducido ? 0 : ms));
 
   function burbuja(rol, texto) {
+    if (!texto.endsWith("…") || rol === "user") hist.push({ rol: rol === "user" ? "usuario" : "bot", texto });
     const b = el("div", "demo-msg " + rol, texto);
     log.append(b);
     log.scrollTop = log.scrollHeight;
   }
   async function bot(texto) {
-    chips.replaceChildren(); form.hidden = true;
+    chips.replaceChildren(); form.hidden = true; libre.hidden = true;
     const t = el("div", "demo-msg bot demo-typing", "escribiendo…");
     log.append(t); log.scrollTop = log.scrollHeight;
     await espera(650);
@@ -75,10 +79,11 @@
     for (const t of n.temas) chip(t.chip, async () => { stats.temas[t.id] = (stats.temas[t.id] || 0) + 1; await menu(t.resp); });
     chip(n.accion.chip, async () => { stats.temas[n.accion.id] = (stats.temas[n.accion.id] || 0) + 1; paso = "nombre"; await bot("¡Perfecto! ¿Cuál es tu nombre?"); pedir("Tu nombre", "Ej.: Ana"); });
     chip("Hablar con una persona", async () => { stats.derivadas++; const l = leads[leads.length - 1]; if (l) l.humano = true; await menu("Claro. Aviso a una persona del equipo para que te contacte. Mientras, puedo seguir ayudándote por aquí."); });
+    libre.hidden = !ia;
     pintar();
   }
   function pedir(rotulo, ejemplo) {
-    chips.replaceChildren();
+    chips.replaceChildren(); libre.hidden = true;
     etiqueta.textContent = rotulo; entrada.placeholder = ejemplo; entrada.value = ""; form.hidden = false;
     entrada.focus({ preventScroll: true });
   }
@@ -95,6 +100,28 @@
       await menu(`Listo, ${nombre}. Quedaste registrado y una persona te contactará. Ve al paso 2 para ver cómo quedó tu registro.`);
       const t = document.querySelector('[data-tab="crm"]'); t.classList.add("nuevo");
     }
+  });
+
+  libre.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const v = libreIn.value.trim().slice(0, 300);
+    if (!v || paso !== "menu") return;
+    libreIn.value = "";
+    burbuja("user", v);
+    stats.temas["Pregunta libre"] = (stats.temas["Pregunta libre"] || 0) + 1;
+    chips.replaceChildren(); libre.hidden = true;
+    const t = el("div", "demo-msg bot demo-typing", "escribiendo…");
+    log.append(t); log.scrollTop = log.scrollHeight;
+    let texto = "Ahora no puedo responder. Prueba con los botones o agenda tu diagnóstico gratis.";
+    try {
+      const r = await fetch("/api/demo-chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ negocio: clave, mensajes: hist.slice(-8) }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.texto) texto = j.texto;
+      else if (r.status === 429) texto = "Llegaste al límite de la demostración por hoy. Agenda tu diagnóstico gratis para verlo con tu negocio.";
+    } catch {}
+    t.remove();
+    burbuja("bot", texto);
+    await menu();
   });
 
   const COLS = ["Nueva", "Contactada", "Cerrada"];
@@ -128,7 +155,7 @@
   function negocio(k) {
     clave = k; reiniciar();
     document.querySelectorAll("[data-neg]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.neg === k)));
-    log.replaceChildren(); chips.replaceChildren();
+    log.replaceChildren(); chips.replaceChildren(); hist.length = 0;
     burbuja("bot", NEG[k].saludo);
     menu(); pintar();
   }
@@ -140,4 +167,6 @@
   document.querySelectorAll("[data-neg]").forEach((b) => b.addEventListener("click", () => negocio(b.dataset.neg)));
   document.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => pestaña(b.dataset.tab)));
   negocio("polleria");
+  // ¿La demo con IA real está encendida? Si no, solo se usan los botones.
+  fetch("/api/demo-chat").then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && j.activo) { ia = true; if (paso === "menu") libre.hidden = false; } }).catch(() => {});
 })();

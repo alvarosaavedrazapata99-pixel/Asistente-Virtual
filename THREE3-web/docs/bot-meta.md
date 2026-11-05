@@ -35,3 +35,9 @@ Estado: **construido y probado con simulaciones; apagado** hasta cargar las llav
 - Solo texto. Imágenes, audios y reacciones se ignoran.
 - Responder libremente solo es posible dentro de las 24 h posteriores al último mensaje de la persona (regla de Meta).
 - No avisa todavía al dueño cuando alguien pide un humano (pendiente: aviso por correo o WhatsApp).
+
+## Demo con IA real en la web (`/api/demo-chat`)
+Apagada por defecto. Para encenderla: cargar `ANTHROPIC_API_KEY` (secreto) y `DEMO_IA_ACTIVA=si` (texto) en Cloudflare. La demo de la home muestra entonces una caja "escríbele lo que quieras"; si está apagada, solo se ven los botones.
+- Protecciones: solo acepta peticiones desde tu propio dominio, 20 consultas por IP por hora, tope global de 400 consultas por día, mensajes de máx. 300 caracteres y 8 turnos de historial.
+- IMPORTANTE: sin un KV de Cloudflare (binding `LIMITES`) los contadores son por instancia y el tope diario no es exacto. Crear un KV `LIMITES` (Workers & Pages → KV) y añadirlo en Bindings. Además, fijar un límite de gasto mensual en la consola de Anthropic.
+- Negocios de ejemplo (ficticios): `server/demo/chat.ts`.
