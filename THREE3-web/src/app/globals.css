@@ -660,3 +660,20 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .vid-banner{position:relative;margin:0 0 22px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);aspect-ratio:16/9;max-width:1000px}
 .vid-banner video{display:block;width:100%;height:100%;object-fit:cover}
 @media (hover:hover) and (prefers-reduced-motion:no-preference){.vid-banner{transition:box-shadow .3s,border-color .3s}.vid-banner:hover{border-color:var(--cy);box-shadow:0 24px 60px -30px var(--cy)}}
+
+/* galería y ayuda junto a las preguntas */
+.galeria{margin-top:34px}
+.gal-t{font:400 22px var(--d);margin:0 0 14px}
+.gal-g{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.gal-i{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.gal-m{position:relative;aspect-ratio:4/3;background:var(--bg);overflow:hidden}
+.gal-m img,.gal-m video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gal-i:hover .gal-m img,.gal-i:hover .gal-m video{transform:scale(1.05)}
+.gal-e{position:absolute;left:10px;top:10px;font:600 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:rgba(4,8,20,.8);color:var(--cy);padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
+.gal-i figcaption{padding:14px;display:grid;gap:3px}.gal-i figcaption span{font-size:14px;color:var(--mute)}
+.faq-lay{display:grid;gap:24px;grid-template-columns:minmax(0,1fr) 300px;align-items:start}
+.faq-aside{position:sticky;top:96px;background:linear-gradient(180deg,#0d1a36,#0a1328);border:1px solid var(--line);border-radius:20px;padding:20px;text-align:center;display:grid;gap:10px;justify-items:center}
+.faq-aside img{width:200px;height:auto;filter:drop-shadow(0 12px 28px rgba(25,227,255,.35))}
+.faq-aside p{margin:0;color:var(--mute);font-size:14.5px}
+@media (min-width:761px) and (prefers-reduced-motion:no-preference){.faq-aside img{animation:flota 5s ease-in-out infinite}@keyframes flota{50%{transform:translateY(-8px)}}}
+@media (max-width:860px){.faq-lay{grid-template-columns:1fr}.faq-aside{position:static}}

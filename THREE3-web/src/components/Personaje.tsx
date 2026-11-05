@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Galeria } from "./Galeria";
 import { LoopVideo } from "./LoopVideo";
 import { Reveal } from "./Reveal";
 
@@ -181,6 +182,7 @@ export function Personaje() {
           </div>
         </div>
         <Camino />
+        <Galeria />
       </div>
     </section>
   );

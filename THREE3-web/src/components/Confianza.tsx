@@ -104,6 +104,7 @@ export function Faq() {
             ¿Algo más? Escríbenos o revisa la <Link href="/legal" style={{ color: "var(--cy)" }}>información legal</Link>.
           </p>
         </Reveal>
+        <div className="faq-lay">
         <Reveal className="faq">
           {FAQ.map((f) => (
             <details key={f.q}>
@@ -112,6 +113,14 @@ export function Faq() {
             </details>
           ))}
         </Reveal>
+          <aside className="faq-aside">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/tri-render.webp" alt="Tri, el asistente de THREE3, con un signo de pregunta" width={220} height={220} loading="lazy" decoding="async" />
+            <b>¿Te quedó una duda?</b>
+            <p>Haz el diagnóstico gratis y mira tu resultado al instante, o escríbenos y te respondemos.</p>
+            <AgendarBtn evento="faq" />
+          </aside>
+        </div>
       </div>
     </section>
   );
