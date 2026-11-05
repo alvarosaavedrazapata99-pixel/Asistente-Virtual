@@ -32,7 +32,8 @@ export function instrucciones(c: PlanesConfig, whatsappHumano: string): string {
   ].join("\n");
 }
 
-export type ConfigModelo = { clave: string; modelo: string; fetch?: typeof fetch };
+export type Uso = { entrada: number; salida: number; cache: number };
+export type ConfigModelo = { clave: string; modelo: string; fetch?: typeof fetch; /** se llama con los tokens reales de cada consulta (para medir el costo por cliente) */ alUsar?: (u: Uso) => void | Promise<void> };
 
 /** Consulta la API de Anthropic. Devuelve el texto de la respuesta o lanza un error. */
 export async function responderConModelo(cfg: ConfigModelo, sistema: string, historial: Turno[], nuevo: string): Promise<string> {
@@ -52,10 +53,12 @@ export async function responderConModelo(cfg: ConfigModelo, sistema: string, his
   const r = await f("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": cfg.clave, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
-    body: JSON.stringify({ model: cfg.modelo, max_tokens: 400, system: sistema, messages: limpios }),
+    // effort "low": en Haiku 5.5 el pensamiento viene activo por defecto y se cobra como salida; para chat de atención conviene poco. max_tokens da margen para ese pensamiento.
+    body: JSON.stringify({ model: cfg.modelo, max_tokens: 1024, output_config: { effort: "low" }, system: sistema, messages: limpios }),
   });
   if (!r.ok) throw new Error(`modelo_${r.status}`);
-  const j = (await r.json()) as { content?: { type: string; text?: string }[] };
+  const j = (await r.json()) as { content?: { type: string; text?: string }[]; usage?: { input_tokens?: number; output_tokens?: number; cache_read_input_tokens?: number } };
+  if (cfg.alUsar && j.usage) { try { await cfg.alUsar({ entrada: j.usage.input_tokens ?? 0, salida: j.usage.output_tokens ?? 0, cache: j.usage.cache_read_input_tokens ?? 0 }); } catch { /* medir no debe romper la respuesta */ } }
   const texto = (j.content ?? []).filter((b) => b.type === "text").map((b) => b.text ?? "").join("").trim();
   if (!texto) throw new Error("modelo_vacio");
   return texto;

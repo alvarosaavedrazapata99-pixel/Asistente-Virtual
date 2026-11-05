@@ -3,11 +3,17 @@ import { cabecerasSupabase } from "../../server/pagos/cabeceras-supabase.ts";
 import { almacenBot } from "../../server/bot/almacen-bot.ts";
 import { instrucciones, responderConModelo, type PlanesConfig } from "../../server/bot/cerebro.ts";
 import { enviarTexto } from "../../server/bot/meta.ts";
+import { almacenDiagnostico } from "../../server/diagnostico/almacen.ts";
+import { correoAviso, correoCliente, enviarCorreo } from "../../server/diagnostico/correo.ts";
+import type { DepDiagnostico } from "../../server/diagnostico/registrar.ts";
+import empresa from "../../src/config/empresa.config.json" with { type: "json" };
+import { registrarUso } from "../../server/uso/uso.ts";
 import { almacenWidget } from "../../server/widget/almacen.ts";
 import type { DepWidget } from "../../server/widget/chat.ts";
 import type { DepDemo } from "../../server/demo/chat.ts";
 import type { DepBot } from "../../server/bot/manejador.ts";
 import planes from "../../src/config/planes.config.json" with { type: "json" };
+const planesConfig = planes;
 import { almacenSupabase } from "../../server/pagos/almacen-supabase.ts";
 import type { DepLeads } from "../../server/leads/registrar.ts";
 import type { DepPagos } from "../../server/pagos/manejadores.ts";
@@ -25,6 +31,9 @@ export type Env = {
   MP_PRODUCCION_APROBADA?: string;
   ADMIN_TOKEN: string;
   TURNSTILE_SECRET: string;
+  RESEND_API_KEY?: string; // para enviar los correos del diagnóstico (https://resend.com)
+  EMAIL_REMITENTE?: string; // ej.: THREE3 <diagnostico@three3agency.com> (dominio verificado en Resend)
+  AVISO_EMAIL?: string; // a dónde te avisa cada diagnóstico nuevo
   WIDGET_IA_ACTIVA?: string; // "si" permite que los bots de clientes respondan con IA
   DEMO_IA_ACTIVA?: string; // "si" enciende la demo con IA real en la web
   BOT_ACTIVO?: string; // "si" enciende el bot; cualquier otro valor lo deja apagado
@@ -79,7 +88,7 @@ export function depBot(env: Env): DepBot {
     verifyToken: env.META_VERIFY_TOKEN ?? "",
     limitador: limitadorDe(env),
     ...almacen,
-    responder: (h, t) => responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo: env.BOT_MODELO || "claude-haiku-5-5" }, sistema, h, t),
+    responder: (h, t) => { const modelo = env.BOT_MODELO || "claude-haiku-5-5"; const uso = registrarUso({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY }); return responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo, alUsar: (u) => uso("bot", "", modelo, u) }, sistema, h, t); },
     enviar: (canal, para, texto) => enviarTexto(envio, canal, para, texto),
     textoHumano: `Gracias por escribir a THREE3. Una persona del equipo te contactará pronto. Si prefieres, escríbenos directo aquí: ${humano}`,
   };
@@ -93,7 +102,7 @@ export function depDemo(env: Env): DepDemo {
     activo: env.DEMO_IA_ACTIVA === "si" && !!env.ANTHROPIC_API_KEY,
     limitador: limitadorDe(env),
     origenesPermitidos: [...new Set([sitio, sinWww, conWww])],
-    responder: (sistema, h, t) => responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo: env.BOT_MODELO || "claude-haiku-5-5" }, sistema, h, t),
+    responder: (sistema, h, t) => { const modelo = env.BOT_MODELO || "claude-haiku-5-5"; const uso = registrarUso({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY }); return responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo, alUsar: (u) => uso("demo", "", modelo, u) }, sistema, h, t); },
   };
 }
 
@@ -102,6 +111,27 @@ export function depWidget(env: Env): DepWidget {
     iaActiva: !!env.ANTHROPIC_API_KEY && env.WIDGET_IA_ACTIVA === "si",
     limitador: limitadorDe(env),
     ...almacenWidget({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY }),
-    responder: (sistema, h, t) => responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo: env.BOT_MODELO || "claude-haiku-5-5" }, sistema, h, t),
+    responder: (sistema, h, t, clienteId) => { const modelo = env.BOT_MODELO || "claude-haiku-5-5"; const uso = registrarUso({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY }); return responderConModelo({ clave: env.ANTHROPIC_API_KEY ?? "", modelo, alUsar: (u) => uso("widget", clienteId, modelo, u) }, sistema, h, t); },
+  };
+}
+
+export function depDiagnostico(env: Env): DepDiagnostico {
+  const sitio = (env.SITE_URL || "https://www.three3agency.com").replace(/\/$/, "");
+  const planes = Object.fromEntries(planesConfig.planes.map((p) => [p.id, p.modulo ? p.nombre : `Plan ${p.nombre}`]));
+  const whatsapp = empresa.whatsapp_activo ? empresa.whatsapp.replace(/\D/g, "") : "";
+  const aviso = env.AVISO_EMAIL || empresa.correo;
+  return {
+    limitador: limitadorDe(env),
+    turnstile: { secreto: env.TURNSTILE_SECRET, entorno: env.ENTORNO },
+    ...almacenDiagnostico({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY }),
+    notificar: async (r, c) => {
+      if (!env.RESEND_API_KEY || !env.EMAIL_REMITENTE) return { cliente: false, aviso: false };
+      const cfg = { clave: env.RESEND_API_KEY, remitente: env.EMAIL_REMITENTE };
+      const [cliente, avisoOk] = await Promise.allSettled([
+        c.email ? enviarCorreo(cfg, correoCliente(r, c, { sitio, whatsapp, planes })) : Promise.reject(new Error("sin_correo")),
+        aviso ? enviarCorreo(cfg, correoAviso(r, c, { aviso, sitio, planes })) : Promise.reject(new Error("sin_aviso")),
+      ]);
+      return { cliente: cliente.status === "fulfilled", aviso: avisoOk.status === "fulfilled" };
+    },
   };
 }

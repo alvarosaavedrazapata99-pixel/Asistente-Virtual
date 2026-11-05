@@ -13,7 +13,7 @@ export type DepWidget = {
   limitador: Contador;
   buscarCliente: (id: string) => Promise<ConfigCliente | null>;
   guardarLead: (l: { cliente: string; nombre: string; contacto: string; detalle: string }) => Promise<void>;
-  responder: (sistema: string, historial: Turno[], texto: string) => Promise<string>;
+  responder: (sistema: string, historial: Turno[], texto: string, clienteId: string) => Promise<string>;
   hoy?: () => string;
 };
 
@@ -91,7 +91,7 @@ export async function manejarWidget(r: Request, dep: DepWidget): Promise<Respons
     const ultimo = turnos[turnos.length - 1];
     if (!ultimo || ultimo.rol !== "usuario" || !ultimo.texto.trim()) return resp(422, { ok: false, error: "mensajes" });
     try {
-      const texto = await dep.responder(sistemaCliente(cliente), turnos.slice(0, -1), ultimo.texto);
+      const texto = await dep.responder(sistemaCliente(cliente), turnos.slice(0, -1), ultimo.texto, id);
       return resp(200, { ok: true, texto: texto.slice(0, 900) });
     } catch { return resp(502, { ok: false, error: "no_disponible" }); }
   }

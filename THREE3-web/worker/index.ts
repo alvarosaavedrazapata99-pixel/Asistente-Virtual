@@ -2,6 +2,9 @@
 import { onRequest as leads } from "../functions/api/leads.ts";
 import { onRequest as demoChat } from "../functions/api/demo-chat.ts";
 import { onRequest as widget } from "../functions/api/widget.ts";
+import { onRequest as diagnostico } from "../functions/api/diagnostico.ts";
+import { onRequest as adminDiag } from "../functions/api/admin/diagnosticos.ts";
+import { onRequest as adminUso } from "../functions/api/admin/uso.ts";
 import { onRequest as meta } from "../functions/api/meta.ts";
 import { onRequest as pagosCrear } from "../functions/api/pagos/crear.ts";
 import { onRequest as pagosWebhook } from "../functions/api/pagos/webhook.ts";
@@ -15,6 +18,9 @@ type Ruta = (c: { request: Request; env: Env }) => Response | Promise<Response>;
 const RUTAS: Record<string, Ruta> = {
   "/api/leads": leads,
   "/api/meta": meta,
+  "/api/admin/uso": adminUso,
+  "/api/diagnostico": diagnostico,
+  "/api/admin/diagnosticos": adminDiag,
   "/api/widget": widget,
   "/api/demo-chat": demoChat,
   "/api/pagos/crear": pagosCrear,
