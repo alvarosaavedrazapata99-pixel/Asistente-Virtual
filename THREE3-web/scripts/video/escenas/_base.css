@@ -1,0 +1,9 @@
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#040814}
+*{box-sizing:border-box}
+.esc{position:absolute;inset:0;font-family:Inter,Arial,sans-serif;color:#F5F8FF;background:radial-gradient(900px 560px at 85% -10%,rgba(30,107,255,.30),transparent 60%),radial-gradient(760px 520px at -5% 105%,rgba(25,227,255,.16),transparent 60%),#040814}
+.rej{position:absolute;inset:0;background-image:linear-gradient(rgba(25,227,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(25,227,255,.05) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent)}
+.mic{font-family:Michroma,Arial,sans-serif;font-weight:400}
+.eti{position:absolute;left:56px;top:40px;font:600 15px Inter,Arial;letter-spacing:.16em;text-transform:uppercase;color:#19E3FF}
+.tit{position:absolute;left:56px;top:68px;font:400 40px/1.15 Michroma,Arial;letter-spacing:-.01em}
+.tarjeta{background:linear-gradient(180deg,#0d1a36,#0a1328);border:1.5px solid #1b2d58;border-radius:22px}
+.cy{color:#19E3FF}.am{color:#FFB300}.mu{color:#a3b4d4}

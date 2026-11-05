@@ -655,3 +655,8 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .adm-calc input,.adm-calc select,#adm-costos input{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}
 #adm-costos h2,#adm-diag h2{margin:18px 0 8px}
 .adm-fila{margin:0}
+
+/* video de sección */
+.vid-banner{position:relative;margin:0 0 22px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);aspect-ratio:16/9;max-width:1000px}
+.vid-banner video{display:block;width:100%;height:100%;object-fit:cover}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.vid-banner{transition:box-shadow .3s,border-color .3s}.vid-banner:hover{border-color:var(--cy);box-shadow:0 24px 60px -30px var(--cy)}}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ACLARACION } from "@/lib/planes";
 import { AgendarBtn } from "./AgendarBtn";
+import { LoopVideo } from "./LoopVideo";
 import { Reveal } from "./Reveal";
 
 export const PASOS = [
@@ -42,6 +43,9 @@ export function Proceso() {
           </div>
           <p>Sabes qué recibes, cuánto cuesta y cuándo llega antes de pagar.</p>
         </Reveal>
+        <Reveal className="vid-banner">
+          <LoopVideo base="/videos/sec_proceso" poster="/videos/posters/sec_proceso.webp" label="Animación de los cinco pasos: diagnóstico, propuesta, implementación, puesta en marcha y cuidado mensual" />
+        </Reveal>
         <Reveal>
           <ol className="steps5">
             {PASOS.map((p) => (
@@ -67,6 +71,9 @@ export function Despues() {
             <h2 style={{ marginTop: 10 }}>Tu negocio sigue creciendo</h2>
           </div>
           <p>Cuando tu bot ya trabaja, puedes sumar estos servicios, uno a la vez.</p>
+        </Reveal>
+        <Reveal className="vid-banner">
+          <LoopVideo base="/videos/sec_despues" poster="/videos/posters/sec_despues.webp" label="Animación de lo que puedes sumar después de tu bot: reportes, CRM, seguimiento, canales, web y capacitación" />
         </Reveal>
         <Reveal className="after">
           {DESPUES.map((d) => (

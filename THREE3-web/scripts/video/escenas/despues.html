@@ -1,0 +1,35 @@
+<!doctype html><meta charset=utf-8><style>{{FUENTES}}{{BASE}}
+.tile{position:absolute;width:376px;height:246px;padding:22px;overflow:hidden;animation:act 12s infinite backwards}
+.tile h3{margin:0 0 6px;font:400 19px Michroma;color:#F5F8FF}.tile p{margin:0;font-size:15px;color:#a3b4d4}
+.vis{position:absolute;left:22px;right:22px;bottom:18px;height:96px}
+@keyframes act{0%,2%{border-color:#1b2d58;box-shadow:none}4%,15%{border-color:#19E3FF;box-shadow:0 0 0 1px #19E3FF,0 18px 50px -22px #19E3FF;transform:translateY(-4px)}18%,100%{border-color:#1b2d58;box-shadow:none;transform:none}}
+.t1{left:56px;top:196px}.t2{left:452px;top:196px;animation-delay:2s}.t3{left:848px;top:196px;animation-delay:4s}
+.t4{left:56px;top:466px;animation-delay:6s}.t5{left:452px;top:466px;animation-delay:8s}.t6{left:848px;top:466px;animation-delay:10s}
+/* 1 reportes */ .bar{position:absolute;bottom:0;width:34px;border-radius:6px 6px 0 0;background:linear-gradient(#19E3FF,#1E6BFF);transform-origin:bottom;transform:scaleY(.12);animation:sube 12s infinite backwards}
+@keyframes sube{0%,1%{transform:scaleY(.12)}9%,17%{transform:scaleY(1)}22%,100%{transform:scaleY(.12)}}
+/* 2 crm */ .col{position:absolute;top:0;bottom:0;width:104px;border:1px solid #1b2d58;border-radius:10px;background:#07102a}.col i{position:absolute;top:6px;left:8px;font:600 10px Inter;color:#6FF3FF;font-style:normal;letter-spacing:.1em}
+.ficha{position:absolute;top:28px;left:6px;width:92px;height:36px;border-radius:8px;background:#1E6BFF;font:600 11px/36px Inter;text-align:center;animation:mueve 12s 2s infinite backwards}
+@keyframes mueve{0%,2%{transform:translateX(0);background:#1E6BFF}6%,9%{transform:translateX(110px)}11%,15%{transform:translateX(220px);background:#17c08b}20%,100%{transform:translateX(0);background:#1E6BFF}}
+/* 3 seguimiento */ .msg{position:absolute;left:0;top:6px;padding:10px 14px;border-radius:12px 12px 12px 0;background:#202c33;font-size:14px;animation:pop 12s 4s infinite backwards}.msg2{top:52px;left:60px;background:#005c4b;border-radius:12px 12px 0 12px;animation-delay:4.6s}
+.tick{color:#8696a0;animation:azul 12s 4.6s infinite backwards}@keyframes azul{0%,6%{color:#8696a0}9%,16%{color:#53bdeb}20%,100%{color:#8696a0}}
+@keyframes pop{0%,1%{opacity:0;transform:scale(.8)}3%,16%{opacity:1;transform:scale(1)}20%,100%{opacity:0;transform:scale(.8)}}
+/* 4 canales */ .cn{position:absolute;top:18px;width:62px;height:62px;border-radius:50%;border:2px solid #1b2d58;display:grid;place-items:center;font:700 13px Inter;background:#07102a;animation:late 12s infinite backwards}
+@keyframes late{0%,2%{border-color:#1b2d58;transform:none}5%,14%{border-color:#19E3FF;transform:scale(1.12)}18%,100%{border-color:#1b2d58;transform:none}}
+/* 5 web */ .nav{position:absolute;inset:0;border:1.5px solid #1b2d58;border-radius:10px;background:#07102a;overflow:hidden}.nav b{position:absolute;left:0;right:0;top:0;height:20px;background:#13234a}
+.cht{position:absolute;right:12px;bottom:10px;padding:8px 12px;border-radius:12px;background:#1E6BFF;font-size:13px;animation:pop 12s 8s infinite backwards}
+/* 6 capacitación */ .ar{position:absolute;left:10px;top:0;width:90px;height:90px;border-radius:50%;background:conic-gradient(#19E3FF var(--p),#1b2d58 0);display:grid;place-items:center;animation:ll 12s 10s infinite backwards}
+.ar::after{content:"✓";width:70px;height:70px;border-radius:50%;background:#0a1328;display:grid;place-items:center;font:700 26px Inter;color:#17c08b}
+@property --p{syntax:"<percentage>";inherits:false;initial-value:0%}@keyframes ll{0%,2%{--p:0%}12%,17%{--p:100%}22%,100%{--p:0%}}
+.sk{position:absolute;left:120px;height:10px;border-radius:5px;background:#1b2d58}
+</style><div class=esc><div class=rej></div><div class=eti>Después de tu bot</div><div class=tit>Tu negocio sigue <span class=cy>creciendo</span></div>
+<div class="tile tarjeta t1"><h3>Reportes</h3><p>Qué preguntan y qué se vende</p><div class=vis>
+<i class=bar style="left:6px;height:40%;animation-delay:0s"></i><i class=bar style="left:56px;height:62%;animation-delay:.15s"></i><i class=bar style="left:106px;height:48%;animation-delay:.3s"></i><i class=bar style="left:156px;height:84%;animation-delay:.45s"></i><i class=bar style="left:206px;height:70%;animation-delay:.6s"></i><i class=bar style="left:256px;height:96%;animation-delay:.75s"></i></div></div>
+<div class="tile tarjeta t2"><h3>Leads y CRM</h3><p>Cada interesado, con su estado</p><div class=vis>
+<div class=col style="left:0"><i>NUEVO</i></div><div class=col style="left:110px"><i>CONTACTADO</i></div><div class=col style="left:220px"><i>CERRADO</i></div><div class=ficha>Ana · Lead</div></div></div>
+<div class="tile tarjeta t3"><h3>Seguimiento automático</h3><p>Mensajes a tiempo, con permiso</p><div class=vis>
+<div class=msg>¿Sigues interesada, Ana?</div><div class="msg msg2">Sí, ¡cuéntame! <span class=tick>✓✓</span></div></div></div>
+<div class="tile tarjeta t4"><h3>Más canales</h3><p>Instagram, TikTok, WhatsApp y web</p><div class=vis>
+<div class=cn style="left:6px;animation-delay:6s">IG</div><div class=cn style="left:92px;animation-delay:6.5s">TT</div><div class=cn style="left:178px;animation-delay:7s">WA</div><div class=cn style="left:264px;animation-delay:7.5s">WEB</div></div></div>
+<div class="tile tarjeta t5"><h3>Web</h3><p>Una página conectada a tu bot</p><div class=vis><div class=nav><b></b></div><div class=cht>¡Hola! ¿En qué te ayudo?</div></div></div>
+<div class="tile tarjeta t6"><h3>Capacitación</h3><p>Tu equipo aprende a usarlo</p><div class=vis><div class=ar></div><i class=sk style="top:14px;width:150px"></i><i class=sk style="top:40px;width:190px"></i><i class=sk style="top:66px;width:110px"></i></div></div>
+</div>

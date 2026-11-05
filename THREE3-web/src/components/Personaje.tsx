@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { LoopVideo } from "./LoopVideo";
 import { Reveal } from "./Reveal";
 
 const PASOS = [
@@ -161,6 +162,9 @@ export function Personaje() {
             <h2 style={{ marginTop: 10 }}>Tu personaje 3D, del boceto al render</h2>
           </div>
           <p>Un personaje original para tu marca, en estilo juguete 3D. Mueve el control para ver el proceso.</p>
+        </Reveal>
+        <Reveal className="vid-banner">
+          <LoopVideo base="/videos/sec_personaje" poster="/videos/posters/sec_personaje.webp" label="Animación del proceso de un personaje 3D: briefing, boceto, modelado y render con entrega" />
         </Reveal>
         <div className="p3d">
           <Comparador />

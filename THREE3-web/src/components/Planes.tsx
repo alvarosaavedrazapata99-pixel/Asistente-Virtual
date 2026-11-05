@@ -1,5 +1,6 @@
 import { ACLARACION, mensualidadIncluye, PRECIOS_BAJO_CLIC, planes, soles } from "@/lib/planes";
 import { AgendarBtn } from "./AgendarBtn";
+import { LoopVideo } from "./LoopVideo";
 import { Reveal } from "./Reveal";
 
 const COMUN = ["Diagnóstico automático gratis (3 minutos)", "Implementación y puesta en marcha", "Cuidado mensual incluido"];
@@ -14,6 +15,9 @@ export function Planes() {
             <h2 style={{ marginTop: 10 }}>Elige cómo empezar</h2>
           </div>
           <p>Precios en soles, desde. El alcance exacto y el precio final los confirmas por escrito después del diagnóstico.</p>
+        </Reveal>
+        <Reveal className="vid-banner">
+          <LoopVideo base="/videos/sec_planes" poster="/videos/posters/sec_planes.webp" label="Animación de los planes Inicial, Profesional, Avanzado y el módulo de leads y CRM" />
         </Reveal>
         <Reveal className="plans">
           {planes.map((p) => (
