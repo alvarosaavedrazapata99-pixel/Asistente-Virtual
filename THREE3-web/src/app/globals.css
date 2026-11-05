@@ -677,3 +677,13 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .faq-aside p{margin:0;color:var(--mute);font-size:14.5px}
 @media (min-width:761px) and (prefers-reduced-motion:no-preference){.faq-aside img{animation:flota 5s ease-in-out infinite}@keyframes flota{50%{transform:translateY(-8px)}}}
 @media (max-width:860px){.faq-lay{grid-template-columns:1fr}.faq-aside{position:static}}
+
+/* planes detallados */
+.plan .para{font-size:14.5px;color:var(--mute);margin:6px 0}
+.plan ul.inc{margin:10px 0 6px;padding-left:18px;display:grid;gap:6px;font-size:14.5px}
+.plan ul.com{opacity:.75;font-size:13.5px}
+.plan .nota-plan{font-size:13px;color:var(--mute);border-left:2px solid var(--line);padding-left:10px;margin:8px 0}
+.mes-g{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin-top:12px}
+.mes-g>div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:4px}
+.mes-g span{font-size:14px;color:var(--mute)}
+.web-n{display:grid;gap:10px;justify-items:start}

@@ -18,7 +18,16 @@
       "nombre": "Inicial",
       "inicial": 2000,
       "mensual": 450,
-      "resumen": "Tu primer bot para atender y captar clientes."
+      "resumen": "Tu primer bot para atender y captar clientes.",
+      "para": "Negocios pequeños que quieren dejar de contestar lo mismo todo el día.",
+      "incluye": [
+        "Chatbot básico con IA que responde tus consultas frecuentes (precios, horarios, ubicación, servicios)",
+        "Un canal a elegir: WhatsApp o la web",
+        "Registro de cada interesado (nombre, celular, qué busca)",
+        "Aviso a ti cuando alguien quiere comprar o reservar",
+        "Reporte mensual simple"
+      ],
+      "nota": "No incluye CRM ni seguimiento automático. Para ordenar a tus clientes súmale el módulo de leads y CRM."
     },
     {
       "id": "plan-profesional",
@@ -26,14 +35,34 @@
       "inicial": 4000,
       "mensual": 750,
       "resumen": "Un bot con más capacidad para tu negocio.",
-      "destacado": true
+      "destacado": true,
+      "para": "Negocios con varias consultas al día que quieren vender más, no solo contestar.",
+      "incluye": [
+        "Chatbot completo que conversa con contexto y se ajusta a tu negocio",
+        "Aprende con cambios: cada mes mejoramos respuestas con las conversaciones reales",
+        "Seguimiento automático a quien dejó de responder",
+        "Hasta 2 canales (WhatsApp, web o Instagram)",
+        "Registro de interesados con nivel de interés",
+        "Reportes mensuales con recomendaciones"
+      ],
+      "nota": "Las conexiones a tus propios sistemas son del plan Avanzado."
     },
     {
       "id": "plan-avanzado",
       "nombre": "Avanzado",
       "inicial": 7500,
       "mensual": 1200,
-      "resumen": "Un bot a medida, con conexiones a tus sistemas."
+      "resumen": "Un bot a medida, con conexiones a tus sistemas.",
+      "para": "Empresas con más volumen, varias áreas o sistemas propios.",
+      "incluye": [
+        "Todo lo del plan Profesional",
+        "Bot a medida con reglas de tu empresa (cotizar, derivar por área, agendar)",
+        "Conexión a tus sistemas: hojas, CRM, facturación o agenda",
+        "Varios canales y varios idiomas",
+        "Reportes a medida y reunión mensual de mejora",
+        "Atención prioritaria"
+      ],
+      "nota": "Se define por escrito después del diagnóstico."
     },
     {
       "id": "modulo-leads-crm",
@@ -41,7 +70,51 @@
       "inicial": 900,
       "mensual": 250,
       "resumen": "Cada interesado registrado y con su seguimiento. Se suma a tu bot.",
-      "modulo": true
+      "modulo": true,
+      "para": "Para quienes ya tienen bot (o ventas por otros medios) y pierden clientes por falta de orden.",
+      "incluye": [
+        "Cada interesado queda registrado una sola vez, sin duplicados",
+        "Etapas: nuevo, contactado, cotizado, cliente",
+        "Recordatorios de seguimiento",
+        "Panel para ver quién está interesado y quién no",
+        "Reporte de ventas y de clientes perdidos"
+      ],
+      "nota": "Se suma a cualquier plan."
     }
-  ]
+  ],
+  "mensualidad_detalle": [
+    {
+      "t": "Mejora continua del bot",
+      "d": "Cada mes revisamos las conversaciones reales, corregimos respuestas que fallaron y agregamos lo que tus clientes preguntan y el bot aún no sabe."
+    },
+    {
+      "t": "Vigilancia",
+      "d": "Si el bot, el canal o la conexión falla, lo detectamos y lo arreglamos antes de que pierdas clientes."
+    },
+    {
+      "t": "IA y plataforma",
+      "d": "El costo del motor de IA, el servidor y la base de datos donde se guardan tus interesados."
+    },
+    {
+      "t": "Copias de seguridad",
+      "d": "Tu información de clientes respaldada y recuperable."
+    },
+    {
+      "t": "Horas de cambios",
+      "d": "Nuevos precios, promociones, productos o textos: los actualizamos por ti, sin costo extra dentro de las horas del plan."
+    },
+    {
+      "t": "Reporte mensual",
+      "d": "Cuántos escribieron, cuántos quedaron registrados, qué preguntan más y qué mejorar."
+    },
+    {
+      "t": "Actualizaciones de Meta y WhatsApp",
+      "d": "Meta cambia reglas y conexiones con frecuencia; nosotros las adaptamos para que tu bot siga funcionando."
+    }
+  ],
+  "pagos_aparte": "Lo cobra Meta directamente a tu tarjeta: mensajes de WhatsApp que inicia tu negocio. Lo cobra el proveedor que elijas: dominio y hosting (podemos encargarnos de comprarlos y gestionarlos por ti).",
+  "web": {
+    "titulo": "¿Aún no tienes página web?",
+    "texto": "Creamos tu página web profesional y la conectamos al bot desde el primer día: diseño, textos, formulario protegido contra spam, certificado de seguridad y publicación en tu dominio. Se cotiza según lo que necesites, después del diagnóstico."
+  }
 }

@@ -13,9 +13,6 @@ export function Instagram() {
           </div>
           <p>Mira cómo trabajamos y escríbenos por mensaje directo.</p>
         </Reveal>
-        <Reveal className="vid-banner">
-          <LoopVideo base="/videos/sec_instagram" poster="/videos/posters/sec_instagram.webp" label="Animación: un comentario en Instagram termina como cliente registrado en tu CRM" />
-        </Reveal>
         <div className="cta-centro" style={{ marginTop: 8 }}>
           <a className="btn" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
             Abrir Instagram

@@ -10,10 +10,16 @@ export type Plan = {
   resumen: string;
   destacado?: boolean;
   modulo?: boolean;
+  para?: string;
+  incluye?: string[];
+  nota?: string;
 };
 
 export const planes: Plan[] = config.planes;
 export const mensualidadIncluye: string[] = config.mensualidad_incluye;
+export const mensualidadDetalle: { t: string; d: string }[] = config.mensualidad_detalle;
+export const PAGOS_APARTE: string = config.pagos_aparte;
+export const WEB = config.web;
 export const ACLARACION: string = config.aclaracion;
 /** "bajo_clic": el precio se despliega con «Ver inversión». "abierto": siempre visible. */
 export const PRECIOS_BAJO_CLIC: boolean = config.mostrar_precios !== "abierto";
