@@ -45,7 +45,7 @@
         "Registro de interesados con nivel de interés",
         "Reportes mensuales con recomendaciones"
       ],
-      "nota": "Las conexiones a tus propios sistemas son del plan Avanzado."
+      "nota": "Sin CRM ni Excel maestro: se suman con el módulo de leads y CRM. Las conexiones a tus sistemas son del plan Avanzado."
     },
     {
       "id": "plan-avanzado",
@@ -56,10 +56,13 @@
       "para": "Empresas con más volumen, varias áreas o sistemas propios.",
       "incluye": [
         "Todo lo del plan Profesional",
+        "Módulo de leads y CRM incluido",
+        "Excel maestro: una hoja de Google que se llena sola con cada interesado, su etapa y sus ventas",
         "Bot a medida con reglas de tu empresa (cotizar, derivar por área, agendar)",
         "Conexión a tus sistemas: hojas, CRM, facturación o agenda",
         "Varios canales y varios idiomas",
         "Reportes a medida y reunión mensual de mejora",
+        "Capacitación a tu equipo",
         "Atención prioritaria"
       ],
       "nota": "Se define por escrito después del diagnóstico."

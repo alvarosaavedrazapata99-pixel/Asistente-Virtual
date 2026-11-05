@@ -671,12 +671,6 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .gal-i:hover .gal-m img,.gal-i:hover .gal-m video{transform:scale(1.05)}
 .gal-e{position:absolute;left:10px;top:10px;font:600 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:rgba(4,8,20,.8);color:var(--cy);padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
 .gal-i figcaption{padding:14px;display:grid;gap:3px}.gal-i figcaption span{font-size:14px;color:var(--mute)}
-.faq-lay{display:grid;gap:24px;grid-template-columns:minmax(0,1fr) 300px;align-items:start}
-.faq-aside{position:sticky;top:96px;background:linear-gradient(180deg,#0d1a36,#0a1328);border:1px solid var(--line);border-radius:20px;padding:20px;text-align:center;display:grid;gap:10px;justify-items:center}
-.faq-aside img{width:200px;height:auto;filter:drop-shadow(0 12px 28px rgba(25,227,255,.35))}
-.faq-aside p{margin:0;color:var(--mute);font-size:14.5px}
-@media (min-width:761px) and (prefers-reduced-motion:no-preference){.faq-aside img{animation:flota 5s ease-in-out infinite}@keyframes flota{50%{transform:translateY(-8px)}}}
-@media (max-width:860px){.faq-lay{grid-template-columns:1fr}.faq-aside{position:static}}
 
 /* planes detallados */
 .plan .para{font-size:14.5px;color:var(--mute);margin:6px 0}
@@ -687,3 +681,9 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .mes-g>div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:4px}
 .mes-g span{font-size:14px;color:var(--mute)}
 .web-n{display:grid;gap:10px;justify-items:start}
+
+/* preguntas en torres */
+.faq-torres{display:grid;gap:24px 28px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.faq-torres .faq{max-width:none}
+.faq-gt{font:600 12px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--cy);margin:0 0 2px}
+@media (max-width:860px){.faq-torres{grid-template-columns:1fr}}
