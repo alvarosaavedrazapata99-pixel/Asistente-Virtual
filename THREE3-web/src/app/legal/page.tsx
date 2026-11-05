@@ -37,7 +37,7 @@ export default function Legal() {
         <h2 id="privacidad">1. Política de privacidad</h2>
         <p>El tratamiento de datos personales se rige por la Ley N.º 29733, Ley de Protección de Datos Personales, y su reglamento. El titular del banco de datos es {dato(empresa.razon_social, "[RAZÓN SOCIAL / TITULAR]")}.</p>
         <h3>Qué datos recogemos</h3>
-        <p>Los que escribes en el formulario o en el chat: nombre, nombre de tu negocio (opcional), correo o celular, y el detalle de lo que necesitas. No pedimos datos sensibles.</p>
+        <p>Los que escribes en el formulario, el diagnóstico o el chat: nombre, nombre de tu negocio (opcional), correo o celular, las respuestas del diagnóstico (rubro, volumen de consultas, canales, urgencia, rango de inversión) y el detalle de lo que necesitas. No pedimos datos sensibles.</p>
         <h3>Para qué los usamos</h3>
         <p>Solo para responder tu solicitud y coordinar tu diagnóstico gratis. No los vendemos ni los usamos para otros fines sin pedirte antes tu consentimiento.</p>
         <h3>Consentimiento</h3>
@@ -55,7 +55,7 @@ export default function Legal() {
 
         <h2 id="terminos">2. Términos del servicio</h2>
         <ul>
-          <li>El diagnóstico es gratis, dura entre 20 y 30 minutos y no te obliga a contratar.</li>
+          <li>El diagnóstico automático es gratis, toma unos 3 minutos y no te obliga a contratar. Sus cifras son estimaciones orientativas calculadas con lo que respondes, no una garantía de resultados. Si lo pides, una persona lo revisa contigo en una llamada breve.</li>
           <li>Después del diagnóstico recibes una propuesta escrita con alcance, plazo y precio. El servicio empieza cuando aceptas esa propuesta.</li>
           <li>Los precios del sitio están en soles (S/) y son «desde». El precio final es el de la propuesta aceptada.</li>
           <li>Cada plan tiene un pago inicial y una mensualidad. La mensualidad incluye plataforma, IA, vigilancia, copias de seguridad, horas de mejora y un reporte.</li>

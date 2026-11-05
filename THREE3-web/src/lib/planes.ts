@@ -25,13 +25,13 @@ export const soles = pen;
 export type Opcion = { id: string; nombre: string; resumen: string };
 const creativos = servicios.filter((s) => s.categoria === "creativo" && s.id !== "personaje-completo");
 export const opciones: Opcion[] = [
-  { id: "diagnostico", nombre: "Diagnóstico gratis", resumen: "20 a 30 minutos para entender tu negocio y proponerte un plan." },
+  { id: "diagnostico", nombre: "Diagnóstico gratis", resumen: "Diagnóstico automático de 3 minutos para entender tu negocio y sugerirte un plan." },
   ...planes.map((p) => ({ id: p.id, nombre: p.modulo ? p.nombre : `Plan ${p.nombre}`, resumen: p.resumen })),
   ...creativos.map((s) => ({ id: s.id, nombre: s.nombre, resumen: s.resumen })),
 ];
 
 /** Mensaje inicial de WhatsApp. No contiene datos personales. */
-export const MENSAJE_DIAGNOSTICO = "Hola THREE3, quiero agendar mi diagnóstico gratis de 20 a 30 minutos.";
+export const MENSAJE_DIAGNOSTICO = "Hola THREE3, hice el diagnóstico en su web y quiero conversar.";
 
 /** Enlace de WhatsApp con mensaje inicial. Devuelve "" mientras no haya número o `whatsapp_activo` sea false (entonces el botón abre el formulario). */
 export function enlaceWhatsApp(mensaje: string = MENSAJE_DIAGNOSTICO): string {

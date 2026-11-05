@@ -4,7 +4,7 @@ import { AgendarBtn } from "./AgendarBtn";
 import { Reveal } from "./Reveal";
 
 export const PASOS = [
-  { t: "Diagnóstico gratis", d: "Hablamos de 20 a 30 minutos para entender tu negocio, tus consultas y lo que quieres lograr. No cuesta nada." },
+  { t: "Diagnóstico gratis", d: "Respondes unas preguntas sobre tu negocio (unos 3 minutos) y recibes al instante tu diagnóstico. Si quieres, lo revisamos juntos en una llamada corta. No cuesta nada." },
   { t: "Propuesta", d: "Te enviamos por escrito el alcance, el plazo y el precio. Tú decides si seguimos." },
   { t: "Implementación", d: "Construimos y configuramos tu bot con la información de tu negocio." },
   { t: "Puesta en marcha", d: "Lo activamos contigo, probamos juntos y revisamos que responda como esperas." },
@@ -22,6 +22,7 @@ export const DESPUES = [
 
 const FAQ = [
   { q: "¿Cuánto cuesta?", a: "Los precios están en soles y son desde: pago inicial más mensualidad. El valor final lo recibes por escrito en la propuesta, después del diagnóstico gratis." },
+  { q: "¿Cómo funciona el diagnóstico gratis?", a: "Eliges tu rubro, respondes unas preguntas (unos 3 minutos) y ves al instante tu diagnóstico: cuánto de tu atención está automatizada, cuántas consultas podrías estar dejando pasar y por dónde empezar. Te enviamos una copia por correo. Si quieres, después lo conversamos con una persona." },
   { q: "¿Qué incluye la mensualidad?", a: "Plataforma, IA, vigilancia, copias de seguridad, horas de mejora y un reporte." },
   { q: "¿Quién paga los mensajes de WhatsApp, el dominio y el hosting?", a: ACLARACION + " Te explicamos cada costo en la propuesta." },
   { q: "¿El bot funciona en WhatsApp de inmediato?", a: "No siempre. WhatsApp Business exige una verificación de Meta. Te acompañamos en ese trámite y te avisamos en qué estado está." },

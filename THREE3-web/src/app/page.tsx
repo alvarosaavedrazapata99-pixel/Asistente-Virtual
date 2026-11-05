@@ -52,7 +52,7 @@ export default function Home() {
             ))}
           </div>
           <div className="nav-act">
-            <AgendarBtn evento="nav" corto="Agendar" />
+            <AgendarBtn evento="nav" corto="Diagnóstico" />
             <button type="button" className="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
               <span />
               <span />
@@ -84,7 +84,7 @@ export default function Home() {
               a tus clientes <em>por ti</em>.
             </h1>
             <p className="lead">
-              Respondemos consultas, registramos cada interesado y te damos reportes. Empiezas con un diagnóstico gratis de 20 a 30 minutos.
+              Respondemos consultas, registramos cada interesado y te damos reportes. Empiezas con un diagnóstico automático gratis de 3 minutos.
             </p>
             <div className="cta">
               <AgendarBtn evento="hero" />
@@ -95,7 +95,7 @@ export default function Home() {
             <LoopVideo base="/videos/hero_loop" poster="/videos/posters/hero_loop.webp" label="Tri, la mascota de THREE3, atendiendo a un cliente" />
           </div>
           <div className="proof">
-            <div><b>Gratis</b>diagnóstico de 20 a 30 min</div>
+            <div><b>Gratis</b>diagnóstico en 3 min</div>
             {PRECIOS_BAJO_CLIC ? <div><b>Por escrito</b>propuesta antes de pagar</div> : <div><b>S/ 2,000</b>pago inicial desde</div>}
             <div><b>Incluido</b>cuidado mensual</div>
           </div>

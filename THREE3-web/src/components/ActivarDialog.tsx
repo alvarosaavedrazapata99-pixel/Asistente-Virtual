@@ -10,7 +10,7 @@ export function ActivarDialog() {
           <h2 id="activar-t">Agenda tu diagnóstico</h2>
           <button type="button" className="dlg-x" data-cerrar aria-label="Cerrar">×</button>
         </div>
-        <p className="dlg-s">Cuéntanos lo básico. Te respondemos para coordinar tu diagnóstico gratis de 20 a 30 minutos. No pagas nada en este paso.</p>
+        <p className="dlg-s">Cuéntanos lo básico. Te respondemos para coordinar los siguientes pasos. No pagas nada en este paso.</p>
 
         <label htmlFor="f-servicio">Qué te interesa</label>
         <select id="f-servicio" name="servicio" defaultValue={opciones[0].id}>

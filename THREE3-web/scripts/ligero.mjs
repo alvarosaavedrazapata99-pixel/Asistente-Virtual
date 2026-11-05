@@ -13,6 +13,7 @@ const porPagina = (ruta) => {
   if (ruta === "index.html") return INICIO;
   if (ruta === "ig.html" || ruta.startsWith("ig/")) return [{ src: "/eventos.js" }];
   if (ruta === "pagar.html" || ruta.startsWith("pagar/")) return [{ src: "/pagar.js" }];
+  if (ruta === "diagnostico.html") return [{ src: "/diagnostico-core.js" }, { src: "/diagnostico.js" }];
   if (ruta === "presentacion.html") return [{ src: "/presentacion.js" }];
   if (ruta === "admin.html") return [{ src: "/admin.js" }, { src: "/admin-clientes.js" }];
   return [];

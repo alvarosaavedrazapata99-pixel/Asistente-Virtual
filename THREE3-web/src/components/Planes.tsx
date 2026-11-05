@@ -2,7 +2,7 @@ import { ACLARACION, mensualidadIncluye, PRECIOS_BAJO_CLIC, planes, soles } from
 import { AgendarBtn } from "./AgendarBtn";
 import { Reveal } from "./Reveal";
 
-const COMUN = ["Diagnóstico gratis de 20 a 30 minutos", "Implementación y puesta en marcha", "Cuidado mensual incluido"];
+const COMUN = ["Diagnóstico automático gratis (3 minutos)", "Implementación y puesta en marcha", "Cuidado mensual incluido"];
 
 export function Planes() {
   return (
@@ -43,7 +43,7 @@ export function Planes() {
                   <li key={x}>{x}</li>
                 ))}
               </ul>
-              <AgendarBtn className="btn ghost" texto="Agendar diagnóstico" evento={`plan:${p.id}`} servicio={p.id} />
+              <AgendarBtn className="btn ghost" texto="Hacer mi diagnóstico" evento={`plan:${p.id}`} servicio={p.id} />
               {!PRECIOS_BAJO_CLIC && <p className="nota-precio">{ACLARACION}</p>}
             </article>
           ))}

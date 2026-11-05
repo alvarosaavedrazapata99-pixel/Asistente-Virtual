@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 // Por seguridad, la web NO se indexa en Google hasta el lanzamiento: en producción se define NEXT_PUBLIC_NOINDEX=0.
 const noindex = process.env.NEXT_PUBLIC_NOINDEX !== "0";
 
-const DESCRIPCION = "Bots de atención y captación para tu negocio, con cuidado mensual incluido. Agenda un diagnóstico gratis de 20 a 30 minutos.";
+const DESCRIPCION = "Bots de atención y captación para tu negocio, con cuidado mensual incluido. Haz tu diagnóstico gratis en 3 minutos.";
 const IMAGEN = { url: "/og.jpg", width: 1200, height: 630, alt: "THREE3: un bot con IA que atiende a tus clientes por ti" };
 
 export const metadata: Metadata = {

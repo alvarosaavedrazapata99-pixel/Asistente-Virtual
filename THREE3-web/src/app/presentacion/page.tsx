@@ -110,8 +110,8 @@ export default function Presentacion() {
 
       <section className="slide" data-slide>
         <span className="mono">Siguiente paso</span>
-        <h2>Agenda tu diagnóstico gratis</h2>
-        <p className="lead">20 a 30 minutos para entender tu negocio. Después recibes una propuesta por escrito y tú decides.</p>
+        <h2>Haz tu diagnóstico gratis</h2>
+        <p className="lead">Responde unas preguntas (3 minutos) y recibe al instante tu diagnóstico. Después, si quieres, recibes una propuesta por escrito y tú decides.</p>
         <div className="cta"><AgendarBtn evento="presentacion" /></div>
       </section>
 

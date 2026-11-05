@@ -11,7 +11,7 @@ export function Demo() {
             <span className="mono">Pruébalo tú mismo</span>
             <h2 style={{ marginTop: 10 }}>Mira cómo atiende tu bot</h2>
           </div>
-          <p>Elige entre 20 negocios de ejemplo, comercios y empresas. Conversa con el bot, mira cómo califica al cliente, lo registra con su prioridad y lo suma a tu reporte.</p>
+          <p>Elige entre 21 negocios de ejemplo, comercios y empresas. Conversa con el bot, mira cómo califica al cliente, lo registra con su prioridad y lo suma a tu reporte.</p>
         </Reveal>
         <div className="demo" id="demo-app">
           <div className="demo-neg" id="demo-neg" role="group" aria-label="Negocio de ejemplo" />
@@ -56,6 +56,7 @@ export function Demo() {
             <div className="demo-kpis" id="demo-kpis" />
             <div className="demo-barras" id="demo-barras" />
           </div>
+          <p className="demo-diag"><a className="btn amb" id="demo-diag" href="/diagnostico">Hacer el diagnóstico de mi negocio</a></p>
           <p className="mute demo-nota">Demostración simulada con negocios de ejemplo (ficticios). Lo que escribes aquí no se envía ni se guarda. Así se vería el bot en WhatsApp; el diseño está inspirado en esa aplicación (WhatsApp es una marca de Meta). El bot real entiende texto libre y usa la información de tu negocio.</p>
         </div>
       </div>

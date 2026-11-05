@@ -206,6 +206,22 @@
         { k: "Inicio", q: "¿Cuándo necesitas la cobertura?", o: [op("Lo antes posible", 3), op("Este mes", 2), op("Estoy comparando", 0)] },
       ] },
     },
+    tiendavirtual: {
+      nombre: "Tienda virtual Brisa", grupo: "Comercio y servicios", etiqueta: "Tienda virtual (WhatsApp, TikTok, Instagram)",
+      saludo: "¡Hola! Soy el asistente virtual (IA) de Tienda Brisa. Vendemos por WhatsApp, Instagram y TikTok. ¿En qué te ayudo?",
+      temas: [
+        { id: "Catálogo", chip: "Ver el catálogo", resp: "Tenemos accesorios, ropa y regalos. Te envío el catálogo por aquí y, si ves algo, te confirmo stock al instante.", seguir: [
+          { chip: "Lo vi en TikTok", resp: "¡Genial! Dime el nombre o el color del producto del video y te confirmo precio y stock." }] },
+        { id: "Pagos", chip: "Medios de pago", resp: "Aceptamos transferencia, billeteras digitales y pago contra entrega en Lima según el pedido." },
+        { id: "Envíos", chip: "Envíos y plazos", resp: "Enviamos a todo el país. Lima suele tardar menos; te confirmamos plazo y costo al registrar tu pedido." },
+        { id: "Cambios", chip: "Cambios y garantía", resp: "Aceptamos cambios por talla o falla dentro del plazo indicado en tu comprobante." },
+      ],
+      flujo: { id: "Pedidos", chip: "Hacer un pedido", cierre: "pedido registrado", pasos: [
+        { k: "Producto", q: "¿Qué te interesa?", o: [op("Accesorios", 1, 80), op("Ropa", 1, 140), op("Regalos", 2, 180), op("Compra por mayor", 3, 1800)] },
+        { k: "Cantidad", q: "¿Cuántas unidades?", o: [op("1", 1), op("2 a 5", 2), op("6 o más", 3)] },
+        { k: "Entrega", q: "¿Cómo lo quieres recibir?", o: [op("Envío en Lima", 2), op("Envío a provincia", 2), op("Contraentrega", 1)] },
+      ] },
+    },
     viajes: {
       nombre: "Viajes Horizonte", grupo: "Comercio y servicios", etiqueta: "Agencia de viajes",
       saludo: "¡Hola! Soy el asistente virtual (IA) de Viajes Horizonte. ¿En qué te ayudo?",
@@ -496,6 +512,7 @@
   function negocio(k) {
     clave = k; reiniciar();
     document.querySelectorAll("[data-neg]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.neg === k)));
+    const dl = $("demo-diag"); if (dl) dl.href = "/diagnostico?r=" + encodeURIComponent(k);
     log.replaceChildren(); chips.replaceChildren(); hist.length = 0; ultimoRol = "";
     $("wa-nom").textContent = NEG[k].nombre;
     const av = $("wa-av"); av.textContent = NEG[k].etiqueta.trim().charAt(0).toUpperCase();
