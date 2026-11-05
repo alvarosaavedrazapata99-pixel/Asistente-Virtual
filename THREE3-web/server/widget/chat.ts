@@ -56,7 +56,8 @@ export async function manejarWidget(r: Request, dep: DepWidget): Promise<Respons
   if (!/^[a-z0-9-]{2,40}$/.test(id)) return json(404, { ok: false });
   let cliente: ConfigCliente | null;
   try { cliente = await dep.buscarCliente(id); } catch { return json(502, { ok: false }); }
-  if (!cliente || !cliente.activo) return json(404, { ok: false });
+  // Para «config» se responde 200 con ok:false (no revela si existe) y así la consola de la página no muestra errores 404.
+  if (!cliente || !cliente.activo) return accion === "config" && r.method === "GET" ? json(200, { ok: false }) : json(404, { ok: false });
 
   // Los navegadores no envían Origin en un GET del mismo sitio; ahí se usa Sec-Fetch-Site.
   const origen = r.headers.get("origin") ?? (r.headers.get("sec-fetch-site") === "same-origin" ? new URL(r.url).origin : null);

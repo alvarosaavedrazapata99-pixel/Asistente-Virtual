@@ -426,3 +426,98 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .adm-cli-form textarea{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit}
 .adm-cli-form h2{font-size:18px}
 .adm-code{display:block;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;font-size:12px;overflow-wrap:anywhere;color:var(--ice)}
+
+/* ===== más animaciones (solo con movimiento permitido) ===== */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes subir{from{opacity:0;transform:translateY(18px)}}
+  @keyframes subir-t{from{transform:translateY(14px)}}
+  @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}}
+  @keyframes trazo{from{transform:scaleX(0)}}
+  @keyframes giro{to{--ang:360deg}}
+  @keyframes brillo{from{transform:translateX(-120%) skewX(-18deg)}to{transform:translateX(220%) skewX(-18deg)}}
+
+  /* entrada del hero: el título solo se desplaza (no afecta el contenido principal), el resto aparece */
+  .hero h1{animation:subir-t .7s cubic-bezier(.2,.8,.2,1) backwards}
+  .hero .lead{animation:subir .7s .12s cubic-bezier(.2,.8,.2,1) backwards}
+  .hero .cta{animation:subir .7s .24s cubic-bezier(.2,.8,.2,1) backwards}
+  .hero .proof div{animation:subir .6s backwards}
+  .hero .proof div:nth-child(1){animation-delay:.36s}.hero .proof div:nth-child(2){animation-delay:.44s}.hero .proof div:nth-child(3){animation-delay:.52s}
+
+  /* al aparecer una sección, sus tarjetas entran una tras otra */
+  .rv:not(.pre) :is(.plan,.after article,.steps5 li,.vf,.demo){animation:pop .55s cubic-bezier(.2,.8,.2,1) backwards}
+  .rv:not(.pre) :is(.plans .plan,.after article,.steps5 li,.vw2 .vf):nth-child(2){animation-delay:.07s}
+  .rv:not(.pre) :is(.plans .plan,.after article,.steps5 li,.vw2 .vf):nth-child(3){animation-delay:.14s}
+  .rv:not(.pre) :is(.plans .plan,.after article,.steps5 li,.vw2 .vf):nth-child(4){animation-delay:.21s}
+  .rv:not(.pre) :is(.after article,.steps5 li):nth-child(5){animation-delay:.28s}
+  .rv:not(.pre) :is(.after article):nth-child(6){animation-delay:.35s}
+
+  /* título de sección con trazo que se dibuja */
+  .sh h2{position:relative;padding-bottom:12px}
+  .sh h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--cy),var(--bl));transform-origin:left}
+  .rv:not(.pre) .sh h2::after,.rv.sh:not(.pre) h2::after{animation:trazo .7s .15s cubic-bezier(.2,.8,.2,1) backwards}
+
+  /* plan destacado: borde con luz que gira */
+  @property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+  .plan.hot{border:1px solid transparent;background:linear-gradient(165deg,#0f2a63,var(--panel) 62%) padding-box,conic-gradient(from var(--ang),var(--bl),var(--cy),transparent 40%,var(--bl)) border-box;animation:giro 7s linear infinite}
+
+  /* botón ámbar con destello al pasar el cursor */
+  .btn.amb{position:relative;overflow:hidden}
+  .btn.amb::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-120%) skewX(-18deg)}
+  @media (hover:hover){.btn.amb:hover::after{animation:brillo .8s ease-out}}
+
+  /* demostración: burbujas que aparecen y "escribiendo…" que respira */
+  .demo-msg{animation:pop .28s ease-out}
+  .demo-typing{animation:respira 1s ease-in-out infinite}
+  @keyframes respira{50%{opacity:.35}}
+  .demo-card{animation:pop .3s ease-out}
+  .demo-barra i{transform-origin:left;animation:trazo .6s ease-out backwards}
+
+  /* efectos ligados al scroll (solo navegadores que los soportan) */
+  @supports (animation-timeline:view()){
+    .hero-media{animation:par linear both;animation-timeline:scroll(root);animation-range:0 700px}
+    @keyframes par{to{transform:translateY(-34px)}}
+    .slide>*{animation:subir linear both;animation-timeline:view();animation-range:entry 5% entry 55%}
+  }
+}
+
+/* ===== animaciones: preguntas, pasos, personaje e Instagram ===== */
+@media (prefers-reduced-motion:no-preference){
+  /* preguntas frecuentes: se abren con suavidad y el + gira */
+  :root{interpolate-size:allow-keywords}
+  .faq details::details-content{block-size:0;overflow:hidden;transition:block-size .32s ease,content-visibility .32s allow-discrete}
+  .faq details[open]::details-content{block-size:auto}
+  .faq summary::after{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .faq details[open] summary::after{transform:rotate(180deg)}
+  .faq details p{animation:subir .4s ease-out}
+  .faq.rv:not(.pre) details{animation:pop .5s cubic-bezier(.2,.8,.2,1) backwards}
+  .faq.rv:not(.pre) details:nth-child(2){animation-delay:.06s}.faq.rv:not(.pre) details:nth-child(3){animation-delay:.12s}
+  .faq.rv:not(.pre) details:nth-child(4){animation-delay:.18s}.faq.rv:not(.pre) details:nth-child(5){animation-delay:.24s}
+  .faq.rv:not(.pre) details:nth-child(6){animation-delay:.3s}.faq.rv:not(.pre) details:nth-child(7){animation-delay:.36s}
+  .inversion[open] .precio{animation:subir .35s ease-out}
+  .inversion summary::after{transition:transform .3s}.inversion[open] summary::after{transform:rotate(180deg)}
+
+  /* pasos: la etiqueta «Paso n» se enciende en cadena */
+  @keyframes onda{0%,70%,100%{color:var(--cy);text-shadow:none}12%,28%{color:var(--am);text-shadow:0 0 14px rgba(255,179,0,.55)}}
+  .steps5 li::before{animation:onda 7s ease-in-out infinite}
+  .steps5 li:nth-child(2)::before{animation-delay:.7s}.steps5 li:nth-child(3)::before{animation-delay:1.4s}
+  .steps5 li:nth-child(4)::before{animation-delay:2.1s}.steps5 li:nth-child(5)::before{animation-delay:2.8s}
+
+  /* personaje 3D: pasos que entran uno a uno y botón con latido */
+  .rv:not(.pre) .pw .st{animation:pop .5s cubic-bezier(.2,.8,.2,1) backwards}
+  .rv:not(.pre) .pw .st:nth-of-type(2){animation-delay:.1s}.rv:not(.pre) .pw .st:nth-of-type(3){animation-delay:.2s}.rv:not(.pre) .pw .st:nth-of-type(4){animation-delay:.3s}
+  .cmp .bar{animation:latido 2.4s ease-in-out infinite}
+  @keyframes latido{50%{box-shadow:0 0 18px 2px var(--cy)}}
+
+  /* Instagram: botón con degradado que fluye y título con brillo */
+  @keyframes fluir{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+  #instagram .btn{background:linear-gradient(120deg,var(--cy),var(--bl),var(--ice),var(--cy));background-size:240% 240%;color:#04122a;animation:fluir 6s ease infinite}
+  #instagram h2{background:linear-gradient(100deg,var(--fg) 40%,var(--cy) 50%,var(--fg) 60%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilla 6s ease-in-out infinite}
+  @keyframes brilla{0%,60%{background-position:120% 0}100%{background-position:-60% 0}}
+
+  /* botones en general: pequeño levantamiento */
+  @media (hover:hover){.btn{transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px)}}
+}
+@media (prefers-reduced-motion:no-preference){
+  /* el plan destacado entra con «pop» y conserva su borde con luz giratoria */
+  .rv:not(.pre) .plans .plan.hot{animation:pop .55s cubic-bezier(.2,.8,.2,1) backwards,giro 7s linear infinite}
+}

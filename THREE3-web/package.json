@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "node --test \"server/**/*.test.ts\" && node scripts/leads/prueba-unitaria.js",
     "typecheck": "tsc --noEmit && tsc -p server/tsconfig.json",
-    "build:cf": "next build && node scripts/csp.mjs"
+    "build:cf": "next build && node scripts/ligero.mjs && node scripts/csp.mjs"
   },
   "dependencies": {
     "next": "16.4.3",

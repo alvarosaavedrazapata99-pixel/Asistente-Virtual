@@ -14,13 +14,15 @@ document.querySelectorAll('.card .foot button').forEach(b=>b.onclick=()=>{const 
  document.querySelectorAll('.card.open').forEach(x=>{if(x!==c){x.classList.remove('open');const y=x.querySelector('.foot button');y.textContent='Ver precio';y.setAttribute('aria-expanded','false')}});
  c.classList.toggle('open',o);b.textContent=o?'Cerrar':'Ver precio';b.setAttribute('aria-expanded',o);});
 // comparador boceto / render
-const cmp=document.querySelector('.cmp'),rg=cmp&&cmp.querySelector('input');if(rg)rg.oninput=()=>cmp.style.setProperty('--p',rg.value+'%');
+const cmp=document.querySelector('.cmp'),rg=cmp&&cmp.querySelector('input');if(rg)rg.oninput=()=>{cmp.dataset.t='1';cmp.style.setProperty('--p',rg.value+'%')};
+// el comparador se mueve solo una vez al verse, para mostrar que es interactivo (se detiene si la persona lo toca)
+if(cmp&&rg&&!rm){new IntersectionObserver((es,o)=>{if(!es[0].isIntersecting)return;o.disconnect();const t0=performance.now();const f=t=>{if(cmp.dataset.t)return;const k=Math.min(1,(t-t0)/2200);const v=50+Math.sin(k*Math.PI*2)*38*(1-k*.3);cmp.style.setProperty('--p',v+'%');rg.value=v;if(k<1)requestAnimationFrame(f);else{cmp.style.setProperty('--p','50%');rg.value=50}};requestAnimationFrame(f)},{threshold:.5}).observe(cmp)}
 // camino de Tri
 const st=[...document.querySelectorAll('.st')],ar=[...document.querySelectorAll('.pw .arr')],rp=document.querySelector('.ctl button');let tm;
 function go(i){st.forEach((e,k)=>{e.classList.toggle('on',k===i);e.classList.toggle('done',k<i)});ar.forEach((a,k)=>a.classList.toggle('on',k<i))}
 function play(){clearInterval(tm);go(-1);if(rm){go(3);return}let i=0;const step=()=>{go(i);i++;if(i>3)clearInterval(tm)};setTimeout(step,300);tm=setInterval(step,2300)}
 st.forEach((e,k)=>e.onclick=()=>{clearInterval(tm);go(k)});if(rp)rp.onclick=play;
-const pw=document.querySelector('.pw');if(pw){let s=false;new IntersectionObserver(es=>{if(es[0].isIntersecting&&!s){s=true;play()}},{threshold:.35}).observe(pw)}
+const pw=document.querySelector('.pw');if(pw){let s=false;new IntersectionObserver(es=>{const e=es[0];if(!s&&(e.intersectionRatio>=.35||e.intersectionRect.height>=innerHeight*.5)){s=true;play()}},{threshold:[.1,.2,.35,.5]}).observe(pw)}
 // mensajes de Instagram
 const ms=['Comentario “AUTOMATIZACIÓN” → lead en tu CRM','Mensaje directo → el chatbot responde','Reel guardado → seguimiento automático','Pregunta en comentarios → respuesta en minutos'];
 const c=document.querySelector('.igchip span');if(c&&!rm){let k=0;setInterval(()=>{k=(k+1)%ms.length;c.textContent=ms[k]},3200)}

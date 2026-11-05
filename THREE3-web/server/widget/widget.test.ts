@@ -42,9 +42,13 @@ test("origen no registrado o ausente → 403 sin cabeceras CORS", async () => {
   }
 });
 
-test("cliente inexistente, inactivo o id inválido → 404", async () => {
-  assert.equal((await manejarWidget(new Request(url("config", "nadie"), { headers: { origin: ORIGEN } }), dep().d)).status, 404);
-  assert.equal((await manejarWidget(new Request(url("config"), { headers: { origin: ORIGEN } }), dep({}, { activo: false }).d)).status, 404);
+test("cliente inexistente o inactivo: config → 200 ok:false (sin revelar); chat y datos → 404; id inválido → 404", async () => {
+  const sinCliente = await manejarWidget(new Request(url("config", "nadie"), { headers: { origin: ORIGEN } }), dep().d);
+  assert.deepEqual(await sinCliente.json(), { ok: false });
+  const inactivo = await manejarWidget(new Request(url("config"), { headers: { origin: ORIGEN } }), dep({}, { activo: false }).d);
+  assert.deepEqual(await inactivo.json(), { ok: false });
+  assert.equal((await manejarWidget(post("chat", chat, ORIGEN, "nadie"), dep().d)).status, 404);
+  assert.equal((await manejarWidget(post("lead", { nombre: "Ana" }, ORIGEN), dep({}, { activo: false }).d)).status, 404);
   assert.equal((await manejarWidget(new Request(url("config", "../x"), { headers: { origin: ORIGEN } }), dep().d)).status, 404);
 });
 
