@@ -541,7 +541,7 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .demo-valor{color:var(--ice)}
 
 /* ===== chat de la demo con aspecto y movimiento de conversación de WhatsApp ===== */
-.wa{--wa-fondo:#0b141a;--wa-barra:#1f2c34;--wa-entra:#202c33;--wa-sale:#005c4b;--wa-texto:#e9edef;--wa-tenue:#8696a0;--wa-verde:#00a884;--wa-azul:#53bdeb;
+.wa{--wa-fondo:#0b141a;--wa-barra:#1f2c34;--wa-entra:#202c33;--wa-sale:#005c4b;--wa-texto:#e9edef;--wa-tenue:#a6b4bc;--wa-verde:#00a884;--wa-azul:#53bdeb;
   width:min(100%,560px);margin:0 auto;height:min(78dvh,600px);display:flex;flex-direction:column;border-radius:14px;overflow:hidden;background:var(--wa-fondo);border:1px solid #1f2c34;color:var(--wa-texto)}
 .wa-h{display:flex;gap:12px;align-items:center;padding:10px 14px;background:var(--wa-barra)}
 .wa-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:17px;color:#fff;flex:none}
