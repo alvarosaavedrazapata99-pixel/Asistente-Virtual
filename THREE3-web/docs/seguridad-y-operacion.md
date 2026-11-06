@@ -55,3 +55,14 @@ Estado a noviembre de 2026. Checklist para antes y después de lanzar. Lo marcad
 1. Rotar el secreto afectado en Cloudflare (Settings → Runtime variables and secrets).
 2. Apagar el bot: `BOT_ACTIVO=no`, `WIDGET_IA_ACTIVA=no`, `DEMO_IA_ACTIVA=no` (en `wrangler.jsonc` o en el panel).
 3. Revisar registros en Cloudflare (Workers → Logs) y la tabla `uso_ia`.
+
+## Auditoría de código (noviembre 2026)
+Revisión de solo lectura de `server/`, `functions/`, `public/*.js`, CSP y migraciones. Sin XSS, inyección de filtros, SSRF ni bypass de autenticación explotables.
+
+Corregido: pago que podía quedar sin aplicar si la base fallaba después de marcar el evento; webhook de pagos sin límite y con escritura por firma falsa; id del pago tomado también del cuerpo; nombre del cliente dentro de `innerHTML` en el widget.
+
+Pendiente (decisión o panel):
+- **KV `LIMITES`** (importante): sin él los límites de intentos y el tope diario de la IA no se cumplen entre instancias. Crearlo en Cloudflare (Storage & databases → KV) y enlazarlo con el nombre `LIMITES`. Si lo enlazas solo desde el panel, un despliegue desde `wrangler.jsonc` puede quitarlo: dime el id del KV y lo declaro en el archivo.
+- Turnstile también en el formulario de interesados del widget de clientes.
+- Confirmación del correo (doble opt-in) antes de enviar la copia del diagnóstico, para que nadie use el formulario para enviar correos a terceros.
+- Quitar el respaldo `x-forwarded-for` de `ipDe` si algún día se sirve detrás de otro proxy.
