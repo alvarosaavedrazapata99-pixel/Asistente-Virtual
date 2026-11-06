@@ -11,7 +11,8 @@
   "vars": {
     "ENTORNO": "produccion",
     "SITE_URL": "https://www.three3agency.com",
-    "SUPABASE_URL": "https://etpxphnlvcrmelxkszat.supabase.co"
+    "SUPABASE_URL": "https://etpxphnlvcrmelxkszat.supabase.co",
+    "WHATSAPP_HUMANO": "51934467321"
   },
   "observability": { "enabled": true }
 }
