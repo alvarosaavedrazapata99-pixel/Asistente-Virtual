@@ -15,12 +15,12 @@ const paginas = [];
 
 const extra = [];
 for (const v of [process.env.NEXT_PUBLIC_LEADS_ENDPOINT]) { try { const u = new URL(v ?? ""); if (u.protocol === "https:") extra.push(u.origin); } catch {} }
-const conexion = ["'self'", "https://challenges.cloudflare.com", ...new Set(extra)].join(" ");
+const conexion = ["'self'", "https://challenges.cloudflare.com", "https://cloudflareinsights.com", ...new Set(extra)].join(" ");
 
 const hashes = (html) => [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash("sha256").update(m[1]).digest("base64")}'`);
 const csp = (h) => [
   "default-src 'self'",
-  `script-src 'self' ${[...new Set(h)].join(" ")} https://challenges.cloudflare.com`.replace(/\s+/g, " "),
+  `script-src 'self' ${[...new Set(h)].join(" ")} https://challenges.cloudflare.com https://static.cloudflareinsights.com`.replace(/\s+/g, " "),
   "style-src 'self'", "style-src-attr 'unsafe-inline'",
   "img-src 'self' data:", "media-src 'self'", "font-src 'self'",
   `connect-src ${conexion}`, "frame-src https://challenges.cloudflare.com",
