@@ -464,6 +464,25 @@
     },
   };
 
+  // Documentos de ejemplo que "envía" el bot cuando el cliente pide algo para ver (carta, catálogo, tarifas, portafolio…).
+  // clave del negocio → { id del tema: tipo de documento }. Son solo una vista de ejemplo: no se pueden abrir.
+  const DOCS = {
+    restaurante: { Carta: "Carta", Eventos: "Propuesta de eventos" }, ropa: { Tallas: "Guía de tallas" }, tiendavirtual: { Catálogo: "Catálogo" },
+    pasteleria: { Productos: "Catálogo de tortas" }, muebles: { Catálogo: "Catálogo" }, ferreteria: { Catálogo: "Catálogo" }, hotel: { Habitaciones: "Tarifario" },
+    dental: { Servicios: "Tarifario" }, inmobiliaria: { Inmuebles: "Fichas de inmuebles" }, contable: { Servicios: "Servicios y tarifas" }, software: { Módulos: "Brochure" },
+    instituto: { Programas: "Programas y fechas" }, autos: { Vehículos: "Catálogo de vehículos" }, seguros: { "Tipos de seguro": "Guía de coberturas" },
+    viajes: { Paquetes: "Paquetes de viaje" }, eventos: { Menús: "Menús y paquetes" }, clinica: { Especialidades: "Directorio médico" }, veterinaria: { Servicios: "Tarifario" },
+    gimnasio: { Membresías: "Planes y membresías" }, academia: { Pensiones: "Pensiones y admisión" }, juridico: { Áreas: "Áreas de práctica" }, constructora: { Proyectos: "Portafolio" },
+    estetica: { Servicios: "Tratamientos" }, salon: { Precios: "Lista de precios" }, psicologia: { Servicios: "Servicios y tarifas" }, optica: { Monturas: "Catálogo de monturas" },
+    arquitectura: { Portafolio: "Portafolio" }, marketing: { Casos: "Casos de ejemplo" }, logistica: { Servicios: "Tarifas y cobertura" },
+  };
+  const sinTildes = (t) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const nombreArchivo = (tipo, negocio) => (sinTildes(tipo) + " " + sinTildes(negocio)).replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "") + ".pdf";
+  for (const [k, m] of Object.entries(DOCS)) {
+    if (!NEG[k]) continue;
+    for (const t of NEG[k].temas) if (m[t.id]) t.doc = nombreArchivo(m[t.id], NEG[k].nombre);
+  }
+
   let clave = "restaurante", modo = "menu", pasoIdx = 0, datos = {}, puntos = 0, valor = 0, nombre = "";
   let stats, leads;
   const reiniciar = () => { stats = { chats: 1, temas: {}, derivadas: 0 }; leads = []; modo = "menu"; pasoIdx = 0; datos = {}; puntos = 0; valor = 0; nombre = ""; };
@@ -490,6 +509,19 @@
     log.append(b);
     baja();
   }
+  const PDF_ICO = '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M5 2h9l5 5v15H5z" fill="#e5483f"/><path d="M14 2v5h5" fill="#f4a29d"/><text x="12" y="18" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff" font-family="sans-serif">PDF</text></svg>';
+  // documento adjunto de ejemplo: se ve como en WhatsApp, pero no se puede abrir
+  function adjunto(nombre) {
+    hist.push({ rol: "bot", texto: "Te envié el documento " + nombre + "." });
+    const b = el("div", "demo-msg bot demo-doc" + (ultimoRol !== "bot" ? " cola" : ""));
+    ultimoRol = "bot";
+    const tarjeta = el("div", "wa-doc"); tarjeta.setAttribute("role", "img"); tarjeta.setAttribute("aria-label", "Documento PDF de ejemplo: " + nombre + ". No se puede abrir en la demostración.");
+    const ico = el("span", "wa-doc-i"); ico.innerHTML = PDF_ICO;
+    const tx = el("span", "wa-doc-t"); tx.append(el("b", null, nombre), el("small", null, "PDF · 1 página · " + (120 + (nombre.length * 7) % 160) + " KB"));
+    tarjeta.append(ico, tx);
+    b.append(tarjeta, el("span", "wa-doc-n", "Ejemplo: aquí llegaría el archivo real de tu negocio."), el("span", "wa-h2", hora()));
+    log.append(b); baja();
+  }
   function tipeo() {
     estadoWa.textContent = "escribiendo…"; estadoWa.classList.add("esc");
     const t = el("div", "demo-msg bot demo-typing" + (ultimoRol !== "bot" ? " cola" : ""));
@@ -511,13 +543,14 @@
     chips.append(b); baja();
   }
 
-  async function menu(msg, seguir) {
+  async function menu(msg, seguir, doc) {
     modo = "menu";
     if (msg) await bot(msg);
+    if (doc) { await espera(450); adjunto(doc); }
     chips.replaceChildren();
     const n = NEG[clave];
     if (seguir) for (const s of seguir) chip(s.chip, async () => { stats.temas[s.chip] = (stats.temas[s.chip] || 0) + 1; await menu(s.resp); }, "demo-chip-sub");
-    for (const t of n.temas) chip(t.chip, async () => { stats.temas[t.id] = (stats.temas[t.id] || 0) + 1; await menu(t.resp, t.seguir); });
+    for (const t of n.temas) chip(t.chip, async () => { stats.temas[t.id] = (stats.temas[t.id] || 0) + 1; await menu(t.resp, t.seguir, t.doc); });
     chip(n.flujo.chip, () => iniciarFlujo(), "demo-chip-main");
     chip("Hablar con una persona", async () => { stats.derivadas++; const l = leads[leads.length - 1]; if (l) l.humano = true; await menu("Claro. Aviso a una persona del equipo para que te contacte. Mientras, puedo seguir ayudándote por aquí."); });
     entradaModo(ia ? "libre" : "ninguna");

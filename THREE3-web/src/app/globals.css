@@ -719,3 +719,12 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .redes-card>img{border-radius:50%;border:2px solid var(--line);background:#071022;padding:6px}
 .rc-t{display:grid;gap:6px;max-width:520px}.rc-t b{font:600 20px var(--b)}.rc-t span{color:var(--mute);font-size:15px}
 .redes-card .redes{margin-top:0}
+
+/* documento PDF de ejemplo dentro del chat (no se puede abrir) */
+.wa-doc{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.22);border-radius:8px;padding:10px 12px;min-width:220px;max-width:100%;cursor:default;user-select:none}
+.wa-doc-i{display:inline-flex;flex:none}
+.wa-doc-t{display:grid;gap:2px;min-width:0}
+.wa-doc-t b{font-size:14px;font-weight:600;overflow-wrap:anywhere;line-height:1.25}
+.wa-doc-t small{font-size:12px;color:var(--wa-tenue)}
+.wa-doc-n{display:block;font-size:12px;color:var(--wa-tenue);margin-top:6px;font-style:italic}
+.demo-doc{animation:subir .35s ease-out}
