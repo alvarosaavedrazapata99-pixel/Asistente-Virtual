@@ -35,7 +35,7 @@
 ## Estado al cierre de esta tanda
 Hecho: planes en soles con aclaración Meta/dominio/hosting, "Cómo trabajamos", "Después de tu bot", botón ámbar, paleta y fuentes nuevas, /legal solo texto (privacidad, términos, consumidor, derechos), videos livianos `_sm`, Mercado Pago forzado a prueba, CSP 0 violaciones, sin desborde horizontal en móvil/escritorio, enlace de revisión republicado.
 Pendiente:
-- WhatsApp cargado (51922075014). Falta activar WhatsApp Business en un celular para poder responder.
+- WhatsApp cargado (51934467321). Falta activar WhatsApp Business en un celular para poder responder.
 - Datos legales (razón social, RUC, domicilio; correo ya puesto: three.3agencyweb@gmail.com) y revisión de abogado de /legal.
 - Actualizar pestaña "Servicios" del Sheet y regenerar/pegar `docs/sheets/Codigo.gs` (core.js cambió).
 - JS de la página ≈190 KB gzip (meta 170 KB); videos de svc_* no usados en la home aún sin `_sm`.
@@ -52,7 +52,7 @@ Pendiente:
 - Pendiente de código: aviso al dueño cuando alguien pide un humano.
 
 ## Actualización (5 nov)
-- WhatsApp: el número 51922075014 está guardado pero `whatsapp_activo: false` en `THREE3-web/src/config/empresa.config.json` (posible baja de la línea; Entel). Mientras sea false, el botón ámbar abre el formulario (que sí guarda en Supabase). Cuando el número responda en WhatsApp: ponerlo en `true` (o pedirlo a Claude) y se activa el enlace.
+- WhatsApp: el número 51934467321 está guardado pero `whatsapp_activo: false` en `THREE3-web/src/config/empresa.config.json` (número nuevo, falta confirmar que ya tiene WhatsApp Business). Mientras sea false, el botón ámbar abre el formulario (que sí guarda en Supabase). Cuando el número responda en WhatsApp: ponerlo en `true` (o pedirlo a Claude) y se activa el enlace.
 - Panel privado de solicitudes: `/admin` (pide `ADMIN_TOKEN`; ver y cambiar estado: nueva/contactada/cotizada/aceptada/perdida). API: `/api/admin/leads`. No está enlazado desde ninguna página.
 - `robots.txt` y `sitemap.xml` listos: hoy bloquean todo (noindex) hasta poner `NEXT_PUBLIC_NOINDEX=0` en Builds al lanzar.
 - Lighthouse móvil (5 nov, local, simulado): Rendimiento 77, Accesibilidad 100, Buenas prácticas 100, SEO 66 (solo por `noindex`, se resuelve al lanzar). LCP 5,5 s y bloqueo total 190 ms: el JS pesa ~188 KB gzip (Lighthouse estima 173 KB sin usar). Mejora pendiente: reducir JS de la home (pasar secciones a componentes de servidor/diferir `LoopVideo` y `Reveal`) y medir el LCP real en el dominio publicado.
