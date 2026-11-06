@@ -17,7 +17,7 @@ Estado: **construido y probado con simulaciones; apagado** hasta cargar las llav
 | `BOT_ACTIVO` | Texto | `si` para encender; cualquier otro valor lo deja apagado |
 | `BOT_MODELO` | Texto (opcional) | por defecto `claude-haiku-5-5` |
 | `WHATSAPP_PHONE_ID` | Texto | ID del número en Meta (no es el número) |
-| `WHATSAPP_HUMANO` | Texto | número al que se deriva, p. ej. `51922075014` |
+| `WHATSAPP_HUMANO` | Texto | número al que se deriva, p. ej. `51934467321` |
 | `META_APP_SECRET` | **Secreto** | secreto de la app de Meta |
 | `META_VERIFY_TOKEN` | **Secreto** | texto inventado por ti; el mismo se escribe en Meta al registrar el webhook |
 | `WHATSAPP_TOKEN` | **Secreto** | token permanente del usuario del sistema |
