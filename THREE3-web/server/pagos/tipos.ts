@@ -30,6 +30,8 @@ export interface Almacen {
   cambiarEstado(id: string, de: Estado, a: Estado, motivo: string): Promise<boolean>;
   /** false = el evento ya se había recibido (idempotencia). */
   registrarEvento(proveedor: string, eventoId: string, payload: unknown): Promise<boolean>;
+  /** Deshace registrarEvento cuando el proceso posterior falló, para que el reintento del proveedor no se tome como duplicado. */
+  liberarEvento(proveedor: string, eventoId: string): Promise<void>;
   registrarPago(p: PagoRegistro): Promise<void>;
   registrarAnomalia(ordenId: string | null, tipo: string, detalle: unknown): Promise<void>;
 }

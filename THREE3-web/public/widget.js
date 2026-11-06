@@ -46,7 +46,7 @@ button.e{border:0;background:${color};color:#fff;border-radius:10px;padding:0 14
 .d p{margin:0;color:#444}
 @media (prefers-reduced-motion:no-preference){.p{animation:s .18s ease-out}@keyframes s{from{opacity:0;transform:translateY(8px)}}}
 </style>
-<button class="l" aria-label="Abrir chat con ${c.nombre.replace(/[<>&"]/g, "")}" aria-expanded="false">💬</button>
+<button class="l" aria-label="Abrir chat" aria-expanded="false">💬</button>
 <section class="p" role="dialog" aria-label="Chat" hidden>
   <div class="h"><div><b></b><small>Asistente virtual con IA · THREE3</small></div><button class="x" aria-label="Cerrar chat">×</button></div>
   <div class="g" role="log" aria-live="polite"></div>
@@ -62,7 +62,7 @@ button.e{border:0;background:${color};color:#fff;border-radius:10px;padding:0 14
 </section>`;
     const q = (x) => sh.querySelector(x);
     const lanz = q(".l"), panel = q(".p"), log = q(".g"), chat = q(".chat"), inp = q(".chat input"), dat = q(".d"), btnDato = q(".dato");
-    q(".h b").textContent = c.nombre;
+    q(".h b").textContent = c.nombre; lanz.setAttribute("aria-label", "Abrir chat con " + c.nombre);
     q(".d p").textContent = "Déjanos tus datos y una persona te contactará.";
     q(".d label span").textContent = `Autorizo que ${c.nombre} use estos datos para contactarme.`;
     if (c.whatsapp) {

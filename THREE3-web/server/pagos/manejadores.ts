@@ -48,6 +48,7 @@ export async function manejarCrear(r: Request, dep: DepPagos): Promise<Response>
 /** POST /api/pagos/webhook : aviso de Mercado Pago. */
 export async function manejarWebhook(r: Request, dep: DepPagos): Promise<Response> {
   if (r.method !== "POST") return json(405, { ok: false });
+  if (!(await dentroDelLimite(dep.limitador, `webhook:${ipDe(r)}`, 300, 60))) return json(429, { ok: false });
   let cuerpo: unknown = {};
   try { cuerpo = await leerJson(r); } catch { /* algunos avisos llegan sin cuerpo: el dato viene en la URL */ }
   const res = await procesarAviso({ almacen: dep.almacen, mp: dep.mp, fetch: dep.fetch }, new URL(r.url), r.headers, cuerpo);

@@ -15,14 +15,16 @@ const ID_ORDEN = /^[A-Za-z0-9_-]{8,64}$/;
  */
 export async function procesarAviso(dep: Dep, url: URL, h: Headers, cuerpo: unknown): Promise<Resultado> {
   const b = (cuerpo ?? {}) as { type?: string; data?: { id?: string | number } };
-  const dataId = String(url.searchParams.get("data.id") ?? b.data?.id ?? "");
+  // el id firmado viaja en la URL (así se arma el manifiesto); el cuerpo no se usa para decidir qué pago consultar
+  const dataId = String(url.searchParams.get("data.id") ?? "");
+  void b.data;
   const tipo = url.searchParams.get("type") ?? b.type ?? "";
 
   const firma = await verificarFirma({
     secreto: dep.mp.webhookSecret, cabeceraFirma: h.get("x-signature"), requestId: h.get("x-request-id"), dataId, ahoraMs: (dep.ahora ?? Date.now)(),
   });
   if (!firma.valida) {
-    await dep.almacen.registrarAnomalia(null, "firma_invalida", { motivo: firma.motivo });
+    console.warn("webhook mercadopago: firma inválida", firma.motivo); // no se guarda en la base: evita que avisos falsos la llenen
     return { status: 401, accion: "firma_invalida" };
   }
   if (tipo !== "payment") return { status: 200, accion: "ignorado" };
@@ -44,9 +46,19 @@ export async function procesarAviso(dep: Dep, url: URL, h: Headers, cuerpo: unkn
     return { status: 200, accion: "orden_desconocida" };
   }
 
-  const nuevo = await dep.almacen.registrarEvento("mercadopago", `${pago.id}:${pago.status}`, pago);
+  const eventoId = `${pago.id}:${pago.status}`;
+  const nuevo = await dep.almacen.registrarEvento("mercadopago", eventoId, pago);
   if (!nuevo) return { status: 200, accion: "duplicado" };
+  // si algo falla después de marcar el evento, se libera para que el reintento de Mercado Pago sí aplique el pago
+  try {
+    return await aplicar(dep, orden, pago);
+  } catch (e) {
+    await dep.almacen.liberarEvento("mercadopago", eventoId).catch(() => {});
+    throw e;
+  }
+}
 
+async function aplicar(dep: Dep, orden: NonNullable<Awaited<ReturnType<Almacen["obtenerOrden"]>>>, pago: Awaited<ReturnType<typeof obtenerPago>>): Promise<Resultado> {
   const montoOk = Math.abs(pago.transaction_amount - orden.monto_pen) < 0.005 && pago.currency_id === "PEN";
   if (!montoOk) {
     await dep.almacen.registrarAnomalia(orden.id, "monto_o_moneda", { esperado: orden.monto_pen, recibido: pago.transaction_amount, moneda: pago.currency_id });

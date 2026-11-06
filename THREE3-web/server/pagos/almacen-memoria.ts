@@ -23,6 +23,7 @@ export function almacenMemoria() {
       return true;
     },
     async registrarEvento(prov, ev) { const k = `${prov}|${ev}`; if (eventos.has(k)) return false; eventos.add(k); return true; },
+    async liberarEvento(prov, ev) { eventos.delete(`${prov}|${ev}`); },
     async registrarPago(p) { pagos.push(p); },
     async registrarAnomalia(orden, tipo, detalle) { anomalias.push({ orden, tipo, detalle }); },
   };

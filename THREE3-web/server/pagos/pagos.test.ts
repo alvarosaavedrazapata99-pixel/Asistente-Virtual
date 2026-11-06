@@ -73,7 +73,7 @@ test("firma inválida: 401 y la orden no se toca", async () => {
   const r = await e.aviso(e.pago(), await firmar("111", "req-1", Math.floor(AHORA / 1000), "secreto-falso"));
   assert.equal(r.status, 401);
   assert.equal(e.almacen.ordenes.get(e.orden.id)?.estado, "creado");
-  assert.equal(e.almacen.anomalias[0].tipo, "firma_invalida");
+  assert.equal(e.almacen.anomalias.length, 0); // las firmas falsas no se guardan en la base
 });
 
 test("monto o moneda distintos: no se marca pagado y queda anomalía", async () => {
@@ -233,4 +233,15 @@ test("Supabase: llave nueva sb_ solo en apikey; llave antigua también como Bear
   const vieja = cabecerasSupabase("eyJhbGciOi.x.y", { Prefer: "return=minimal" });
   assert.equal(vieja.Authorization, "Bearer eyJhbGciOi.x.y");
   assert.equal(vieja.Prefer, "return=minimal");
+});
+
+test("si falla el proceso tras marcar el evento, se libera y el reintento sí aplica el pago", async () => {
+  const e = await escenario();
+  const orig = e.almacen.registrarPago;
+  e.almacen.registrarPago = async () => { throw new Error("db caída"); };
+  await assert.rejects(() => e.aviso(e.pago()));
+  e.almacen.registrarPago = orig;
+  const r = await e.aviso(e.pago());
+  assert.equal(r.accion, "pagado");
+  assert.equal(e.almacen.ordenes.get(e.orden.id)?.estado, "pagado");
 });

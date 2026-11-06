@@ -41,6 +41,9 @@ export function almacenSupabase(cfg: Cfg): Almacen {
       });
       return filas.length > 0; // vacío = ya existía
     },
+    async liberarEvento(proveedor, eventoId) {
+      await pedir(`webhook_eventos?proveedor=eq.${enc(proveedor)}&evento_id=eq.${enc(eventoId)}`, { method: "DELETE", headers: cab() });
+    },
     async registrarPago(p: PagoRegistro) {
       await pedir("pagos?on_conflict=proveedor,pago_externo_id", { method: "POST", headers: cab({ Prefer: "resolution=merge-duplicates" }), body: JSON.stringify(p) });
     },
