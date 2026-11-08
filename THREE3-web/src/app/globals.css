@@ -629,7 +629,7 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .dg-res .dg-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
 .dg-res h3{font-size:16px;margin:0 0 8px}
 .dg-res ol{margin:0;padding-left:20px;display:grid;gap:8px}
-.dg-medidor{--p:0%;width:170px;height:170px;border-radius:50%;margin:18px auto 8px;display:grid;place-items:center;background:conic-gradient(var(--cy) var(--p),var(--line) 0)}
+.dg-medidor{--dgp:0%;width:170px;height:170px;border-radius:50%;margin:18px auto 8px;display:grid;place-items:center;background:conic-gradient(var(--cy) var(--dgp),var(--line) 0)}
 .dg-num{width:136px;height:136px;border-radius:50%;background:var(--panel);display:grid;place-content:center;text-align:center}
 .dg-num b{font:400 44px var(--d);color:var(--cy);line-height:1}
 .dg-num small{color:var(--mute)}
@@ -637,8 +637,8 @@ html:has(.deck){scroll-snap-type:y mandatory}
 .dg-plan-n{font:400 22px var(--d);margin:4px 0}
 @media (prefers-reduced-motion:no-preference){
   .dg-medidor{animation:dgmed 1.2s cubic-bezier(.2,.8,.2,1) both}
-  @property --p{syntax:"<percentage>";inherits:false;initial-value:0%}
-  @keyframes dgmed{from{--p:0%}}
+  @property --dgp{syntax:"<percentage>";inherits:false;initial-value:0%}
+  @keyframes dgmed{from{--dgp:0%}}
   .dg-res>*{animation:subir .5s ease-out backwards}
   .dg-res>*:nth-child(3){animation-delay:.08s}.dg-res>*:nth-child(4){animation-delay:.16s}.dg-res>*:nth-child(5){animation-delay:.24s}.dg-res>*:nth-child(6){animation-delay:.32s}
   #dg-vista>*{animation:subir .35s ease-out backwards}

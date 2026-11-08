@@ -111,7 +111,7 @@
     const nivel = r.madurez < 35 ? "Bajo" : r.madurez < 70 ? "Medio" : "Alto";
     vista.append(el("h1", null, `${c.nombre.split(" ")[0]}, este es tu diagnóstico`));
     vista.append(el("p", "mute", `${r.rubroNombre} · estimación orientativa calculada con tus respuestas`));
-    const medidor = el("div", "dg-medidor"); medidor.style.setProperty("--p", r.madurez + "%");
+    const medidor = el("div", "dg-medidor"); medidor.style.setProperty("--dgp", r.madurez + "%");
     const num = el("div", "dg-num"); num.append(el("b", null, String(r.madurez)), el("small", null, "de 100"));
     medidor.append(num); vista.append(medidor);
     vista.append(el("p", "dg-nivel", `Nivel de automatización de tu atención: ${nivel}`));
