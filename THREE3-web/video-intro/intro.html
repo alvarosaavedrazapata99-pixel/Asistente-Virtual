@@ -1,0 +1,68 @@
+<!doctype html><html><head><meta charset="utf-8"><title>three3.agency intro</title>
+<style>
+:root{--bg:#0b0907;--glow:#ff7a3c;--ink:#f3e9df}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:var(--bg);overflow:hidden;font-family:Georgia,'Times New Roman',serif;color:var(--ink)}
+#glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(255,122,60,.35),transparent 70%),radial-gradient(ellipse 80% 30% at 50% 0,rgba(140,120,170,.18),transparent 70%)}
+.c{position:absolute;left:0;right:0;text-align:center;opacity:0}
+#spark{top:900px;font-size:110px;color:var(--glow);text-shadow:0 0 60px var(--glow)}
+#logo{top:860px;font-size:110px;letter-spacing:2px}
+#logo b{color:var(--glow);font-weight:400}
+#hello{top:640px;font-size:64px}
+#box{position:absolute;left:90px;right:90px;top:800px;height:300px;border-radius:36px;background:#1a1613;border:1px solid #3a2f28;box-shadow:0 0 120px rgba(255,122,60,.25);opacity:0;font-family:system-ui,sans-serif}
+#txt{position:absolute;left:44px;top:44px;right:44px;font-size:46px;color:var(--ink);line-height:1.3}
+#send{position:absolute;right:36px;bottom:36px;width:96px;height:96px;border-radius:24px;background:var(--glow);color:#fff;font:700 54px system-ui;display:flex;align-items:center;justify-content:center}
+#cursor{position:absolute;width:60px;font-size:70px;opacity:0}
+#code{top:620px;font:38px/1.5 ui-monospace,Menlo,monospace;text-align:left;padding:0 130px;white-space:pre;color:#e8b99a;text-shadow:0 0 18px rgba(255,122,60,.6)}
+#T{top:800px;font-size:340px;color:var(--glow);text-shadow:0 0 90px var(--glow)}
+#fast{top:880px;font-size:96px;font-style:italic}
+#cap{position:absolute;left:0;right:0;bottom:300px;text-align:center;font:700 54px system-ui;text-shadow:0 2px 12px #000}
+#tag{position:absolute;left:0;right:0;bottom:90px;text-align:center;font:500 34px system-ui;letter-spacing:6px;color:#a89888}
+</style></head><body>
+<div id="glow"></div>
+<div id="spark" class="c">✺</div>
+<div id="logo" class="c">three<b>3</b>.agency</div>
+<div id="hello" class="c">✺ Buenos días, equipo</div>
+<div id="box"><div id="txt"></div><div id="send">↑</div></div>
+<div id="cursor">👆</div>
+<div id="code" class="c"></div>
+<div id="T" class="c">T3</div>
+<div id="fast" class="c">más rápido</div>
+<div id="cap">Tu agencia de IA está fuera de control 😶</div>
+<div id="tag">THREE3.AGENCY</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const seg=(t,a,b)=>clamp((t-a)/(b-a));          // 0..1 dentro de [a,b]
+const win=(t,a,b,f=.4)=>Math.min(seg(t,a,a+f),1-seg(t,b-f,b)); // fade in/out
+const CODE=`const agencia = {
+  nombre: "three3.agency",
+  servicios: ["chatbot","crm","leads"],
+};
+async function automatizar(n){
+  const lead = await captar(n);
+  await responder(lead, "IA");
+  return crm.guardar(lead);
+}
+automatizar(negocio); // listo ✓`;
+const MSG="Automatiza mi negocio con IA";
+window.setT=function(t){
+  $('spark').style.opacity=win(t,0,1.6,.5); $('spark').style.transform=`scale(${1+.2*Math.sin(t*6)})`;
+  $('logo').style.opacity=win(t,1.2,2.8,.5);
+  $('hello').style.opacity=win(t,2.8,4.4,.5);
+  const b=win(t,3.8,8.2,.5); $('box').style.opacity=b;
+  $('box').style.transform=`translateY(${(1-seg(t,3.8,4.6))*60}px)`;
+  $('txt').textContent=MSG.slice(0,Math.floor(seg(t,4.6,6.6)*MSG.length))+(Math.floor(t*2)%2&&t<7?'|':'');
+  const cur=$('cursor'); cur.style.opacity=win(t,6.8,8.2,.3);
+  cur.style.left=(560+ (1-seg(t,6.8,7.6))*-200)+'px'; cur.style.top=(1000+(1-seg(t,6.8,7.6))*200)+'px';
+  $('send').style.transform=`scale(${t>7.6&&t<7.8?.88:1})`;
+  $('code').style.opacity=win(t,8.2,11.4,.5);
+  $('code').textContent=CODE.slice(0,Math.floor(seg(t,8.3,10.8)*CODE.length));
+  $('T').style.opacity=win(t,11.2,12.9,.4);
+  $('fast').style.opacity=win(t,12.8,14.2,.4);
+  $('cap').style.opacity=clamp(Math.min(seg(t,.5,1),1-seg(t,14.6,15)));
+  $('tag').style.opacity=.9;
+  $('glow').style.opacity=.7+.3*Math.sin(t*2);
+};
+setT(0);
+</script></body></html>
