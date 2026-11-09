@@ -1,0 +1,168 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>THREE3 · tienda virtual</title>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030712;--card:#0a1128;--line:#1b2a5a;--cyan:#3bd8f4;--blue:#3b6cf4;--txt:#f4f7ff;--mut:#9aa6c4;--cta:#f5b33a;--ring:#3a2d12}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:var(--bg);overflow:hidden;color:var(--txt);font-family:Inter,system-ui,sans-serif}
+.h{font-family:Michroma,sans-serif;font-weight:400}
+.abs{position:absolute;left:0;right:0;text-align:center;opacity:0}
+em{font-style:normal;color:var(--cyan)}
+#bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 35% at 50% 55%,rgba(40,90,200,.28),transparent 70%),radial-gradient(ellipse 60% 25% at 50% 0,rgba(59,216,244,.10),transparent 70%)}
+#grid{position:absolute;inset:0;opacity:.3;background-image:radial-gradient(rgba(59,216,244,.35) 1.5px,transparent 1.5px);background-size:90px 90px;mask-image:radial-gradient(ellipse 70% 50% at 50% 50%,#000,transparent 80%)}
+#bar{position:absolute;left:0;top:0;height:8px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 20px var(--cyan)}
+#brand{position:absolute;left:70px;top:90px;display:flex;align-items:center;gap:22px;opacity:0}
+#brand img{height:84px}#brand .h{font-size:46px;letter-spacing:4px}
+/* hook */
+#oye{top:380px;font-size:112px;line-height:1.1;white-space:nowrap}
+#si{top:600px;font-size:128px;color:var(--cyan);text-shadow:0 0 60px rgba(59,216,244,.6);white-space:nowrap}
+#dedo{top:880px;font-size:260px}
+/* titulo superior */
+.ttl{top:230px;font-size:62px;line-height:1.3;padding:0 70px}
+/* mock tienda */
+#shop{position:absolute;left:230px;top:560px;width:620px;border-radius:44px;background:var(--card);border:2px solid var(--line);padding:34px;opacity:0;box-shadow:0 0 90px rgba(59,108,244,.25)}
+#shop .hd{display:flex;justify-content:space-between;align-items:center;font:600 36px Inter;margin-bottom:26px}
+#shop .cart{background:var(--cta);color:#14100a;border-radius:20px;padding:8px 18px;font-weight:800;font-size:30px}
+#shop .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tile{background:#0f1a3a;border:1px solid var(--line);border-radius:28px;padding:22px;text-align:center}
+.tile .e{font-size:110px;line-height:1.2}
+.tile .ln{height:14px;border-radius:7px;background:#243564;margin:10px auto 0;width:70%}
+.tile .ln.s{width:45%;background:#1a2a55}
+#ok{position:absolute;left:640px;top:520px;width:130px;height:130px;border-radius:50%;background:var(--cyan);color:#03121a;font:800 84px Inter;display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px var(--cyan);opacity:0}
+/* dolores */
+.pain{position:absolute;left:90px;right:90px;background:var(--card);border:2px solid var(--line);border-radius:36px;padding:38px 44px;font:600 46px Inter;opacity:0}
+/* agente */
+#robot{position:absolute;left:390px;top:210px;width:300px;opacity:0}
+#alabel{top:735px;font-size:50px;letter-spacing:6px;color:var(--cyan)}
+#chat{position:absolute;left:70px;right:70px;top:800px}
+.b{max-width:700px;padding:22px 30px;border-radius:30px;font:500 36px/1.3 Inter;margin-bottom:20px;opacity:0}
+.q{background:#121c3d;border:2px solid var(--line);border-bottom-left-radius:10px}
+.a{margin-left:auto;background:linear-gradient(135deg,#2a56d6,#27b4d6);border-bottom-right-radius:10px;font-weight:600}
+#venta{position:absolute;left:0;right:0;top:1300px;text-align:center;opacity:0}
+#venta span{display:inline-block;background:rgba(59,216,244,.14);border:2px solid var(--cyan);color:var(--cyan);border-radius:30px;padding:14px 34px;font:700 38px Inter}
+/* logo */
+#logo{top:420px;opacity:0}#logo img{width:330px;filter:drop-shadow(0 0 50px rgba(59,216,244,.6))}
+#t3{top:790px;font-size:128px;letter-spacing:10px}
+#lo{top:1000px;font-size:64px;color:var(--cyan)}
+/* comentar */
+#cm{position:absolute;left:90px;right:90px;top:560px;background:var(--card);border:2px solid var(--line);border-radius:44px;padding:40px;opacity:0;display:flex;gap:30px;align-items:center}
+#cm img{width:110px;height:110px;border-radius:50%;background:#0f1a3a;padding:10px;border:2px solid var(--line)}
+#cm .n{font:700 34px Inter;color:var(--mut)}#cm .t{font:600 46px Inter;margin-top:8px}
+#heart{position:absolute;right:40px;bottom:-34px;font-size:90px;opacity:0}
+#cta{top:880px;opacity:0}
+#cta span{display:inline-block;background:var(--cta);color:#14100a;font:800 50px Inter;padding:34px 70px;border-radius:80px;box-shadow:0 0 0 14px var(--ring)}
+/* subtitulos */
+#sub{position:absolute;left:60px;right:60px;top:1400px;text-align:center;font:800 62px/1.2 Inter;text-shadow:0 4px 18px #000;opacity:0}
+#sub span{background:rgba(3,7,18,.7);padding:6px 22px;border-radius:22px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#sub em{color:var(--cyan)}
+</style></head><body>
+<div id="bg"></div><div id="grid"></div><div id="bar"></div>
+<div id="brand"><img src="assets/logo-icon.png"><span class="h">THREE3</span></div>
+
+<div id="oye" class="abs h">¡OYE, TÚ!</div>
+<div id="si" class="abs h">SÍ, TÚ.</div>
+<div id="dedo" class="abs">☝️</div>
+
+<div id="t_q" class="abs ttl h">¿Tienes una<br><em>tienda virtual</em>?</div>
+<div id="t_ti" class="abs ttl h">Este servicio<br>es <em>para ti</em></div>
+<div id="t_nec" class="abs ttl h">Un servicio <em>necesario</em><br>para tu trabajo</div>
+
+<div id="shop"><div class="hd"><span>Tu tienda 🛍️</span><span class="cart">🛒 3</span></div>
+ <div class="grid2">
+  <div class="tile"><div class="e">👟</div><div class="ln"></div><div class="ln s"></div></div>
+  <div class="tile"><div class="e">👜</div><div class="ln"></div><div class="ln s"></div></div>
+  <div class="tile"><div class="e">🧴</div><div class="ln"></div><div class="ln s"></div></div>
+  <div class="tile"><div class="e">🕶️</div><div class="ln"></div><div class="ln s"></div></div>
+ </div></div>
+<div id="ok">✓</div>
+
+<div class="pain" id="d1" style="top:520px">💬 Clientes preguntando sin parar</div>
+<div class="pain" id="d2" style="top:720px">⏳ Mensajes sin responder</div>
+<div class="pain" id="d3" style="top:920px">📉 Ventas que se pierden</div>
+
+<img id="robot" src="assets/robot.png">
+<div id="alabel" class="abs h">AGENTE IA</div>
+<div id="chat">
+ <div class="b q" id="q1">¿Tienen talla M? 👟</div>
+ <div class="b a" id="a1">¡Sí! Te la separo ahora 🙌</div>
+ <div class="b q" id="q2">¿Hacen envíos a provincia?</div>
+ <div class="b a" id="a2">Claro, llega en 2-3 días 🚚</div>
+ <div class="b q" id="q3">Quiero pagar ya 💳</div>
+ <div class="b a" id="a3">Listo, aquí tu link de pago ✅</div>
+</div>
+<div id="venta"><span>✓ Venta cerrada</span></div>
+
+<div id="logo" class="abs"><img src="assets/logo-icon.png"></div>
+<div id="t3" class="abs h">THREE3</div>
+<div id="lo" class="abs h">puedes lograrlo ✓</div>
+
+<div id="cm"><img src="assets/logo-icon.png"><div><div class="n">tu_tienda_virtual</div><div class="t" id="cmt"></div></div><div id="heart">❤️</div></div>
+<div id="t_com" class="abs ttl h" style="top:230px">Comenta<br><em>en este video</em></div>
+<div id="cta" class="abs"><span>💬 Comenta aquí</span></div>
+
+<div id="sub"><span id="subt"></span></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const seg=(t,a,b)=>cl((t-a)/(b-a));
+const ease=x=>1-Math.pow(1-x,3);
+const win=(t,a,b,f=.25)=>Math.min(seg(t,a,a+f),1-seg(t,b-f,b));
+function rise(el,p,dy=40){el.style.opacity=p;el.style.transform=`translateY(${(1-ease(p))*dy}px)`}
+function pop(el,t,a,b,f=.25){const o=win(t,a,b,f);el.style.opacity=o;el.style.transform=`scale(${.6+.4*ease(seg(t,a,a+.3))})`}
+const SUBS=[
+ [0.3,1.5,'¡<em>Oye, tú</em>!'],[1.5,2.6,'Sí, <em>tú</em>.'],[2.6,4.3,'¿Tienes una <em>tienda virtual</em>?'],
+ [4.4,7.5,'Entonces, este servicio <em>es para ti</em>.'],
+ [7.6,10.7,'Queremos ofrecerte un servicio <em>necesario</em> para tu trabajo:'],
+ [11.2,14.4,'un <em>agente IA</em> que impulsa tus ventas'],
+ [14.6,16.0,'y responde a <em>todos tus clientes</em>.'],
+ [16.13,19.3,'Con <em>Three3</em>, puedes lograrlo.'],
+ [19.5,21.3,'<em>Comenta</em> en este video,'],
+ [21.3,23.5,'y te mandamos nuestro <em>catálogo de servicios</em>.']];
+const CM="Quiero el catálogo 🙋";
+let lastS=-1;
+window.setT=function(t){
+  $('bar').style.width=(t/23.6*100)+'%';
+  $('grid').style.transform=`translateY(${(t*14)%90}px)`;
+  $('brand').style.opacity=cl(Math.min(seg(t,4.4,4.9),1-seg(t,23.2,23.6)));
+  // 1 gancho
+  pop($('oye'),t,.3,1.55); 
+  pop($('si'),t,1.48,2.6);
+  const d=$('dedo');d.style.opacity=win(t,1.6,2.6,.2);d.style.transform=`translateY(${Math.sin(t*10)*18}px) scale(${1+.08*Math.sin(t*8)})`;
+  // 2 pregunta + tienda
+  rise($('t_q'),Math.min(ease(seg(t,2.6,3.1)),1-seg(t,4.2,4.4)),40);
+  const shopOp=Math.min(ease(seg(t,2.9,3.5)),1-seg(t,7.3,7.6));
+  $('shop').style.opacity=shopOp;
+  $('shop').style.transform=`translateY(${(1-ease(seg(t,2.9,3.5)))*80}px) scale(${1+.02*Math.sin(t*3)})`;
+  // 3 es para ti
+  rise($('t_ti'),Math.min(ease(seg(t,4.4,4.9)),1-seg(t,7.3,7.5)),40);
+  pop($('ok'),t,5.0,7.5);
+  // 4 necesario + dolores (la tienda se desvanece)
+  rise($('t_nec'),Math.min(ease(seg(t,7.6,8.1)),1-seg(t,10.6,10.9)),40);
+  [['d1',8.1],['d2',8.9],['d3',9.7]].forEach(([id,a])=>{const e=$(id);const p=Math.min(ease(seg(t,a,a+.4)),1-seg(t,10.6,10.9));rise(e,p,50)});
+  // 5 agente IA
+  const aOp=Math.min(ease(seg(t,10.9,11.4)),1-seg(t,16.0,16.2));
+  $('robot').style.opacity=aOp;$('robot').style.transform=`translateY(${Math.sin(t*2.4)*12}px)`;
+  $('alabel').style.opacity=aOp;
+  const fade=1-seg(t,16.0,16.2);
+  [['q1',11.7],['a1',12.4],['q2',12.95],['a2',13.55],['q3',14.1],['a3',14.7]].forEach(([id,a])=>{const e=$(id);let p=Math.min(ease(seg(t,a,a+.3)),fade);if(id==='q1'||id==='a1')p=Math.min(p,1-seg(t,12.9,13.3));rise(e,p,24)});
+  $('chat').style.transform=`translateY(${-ease(seg(t,12.9,13.4))*$('q2').offsetTop}px)`;
+  rise($('venta'),Math.min(ease(seg(t,15.2,15.6)),fade),20);
+  // 6 logo
+  $('logo').style.opacity=Math.min(ease(seg(t,16.13,16.6)),1-seg(t,19.3,19.5));
+  $('logo').style.transform=`scale(${.85+.15*ease(seg(t,16.13,16.8))})`;
+  rise($('t3'),Math.min(ease(seg(t,16.2,16.7)),1-seg(t,19.3,19.5)),30);
+  rise($('lo'),Math.min(ease(seg(t,17.3,17.8)),1-seg(t,19.3,19.5)),30);
+  // 7 comentar
+  rise($('t_com'),Math.min(ease(seg(t,19.5,20.0)),1),40);
+  const cmP=ease(seg(t,20.0,20.5));rise($('cm'),cmP,60);
+  $('cmt').textContent=CM.slice(0,Math.floor(seg(t,20.5,21.4)*CM.length));
+  const h=$('heart');h.style.opacity=seg(t,21.6,21.8);h.style.transform=`scale(${1+.3*Math.sin(Math.max(0,t-21.6)*10)*Math.max(0,1-(t-21.6))})`;
+  rise($('cta'),ease(seg(t,21.4,21.9)),40);
+  $('cta').style.transform+=` scale(${1+.02*Math.sin(t*5)})`;
+  // subtítulos
+  let k=-1;for(let i=0;i<SUBS.length;i++)if(t>=SUBS[i][0]&&t<SUBS[i][1])k=i;
+  if(k!==lastS){$('subt').innerHTML=k>=0?SUBS[k][2]:'';lastS=k}
+  $('sub').style.opacity=k>=0?1:0;
+};
+setT(0);
+</script></body></html>
