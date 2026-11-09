@@ -160,3 +160,15 @@ test("enviar: WhatsApp y Instagram usan su ruta y su token; error si Meta rechaz
   assert.equal(llamadas[1].auth, "Bearer IT");
   await assert.rejects(() => enviarTexto(cfg, "whatsapp", "51999", "x"), /meta_envio_400/);
 });
+
+test("la base de conocimiento entra a las instrucciones y no rompe sin ella", async () => {
+  const { default: k } = await import("../../src/config/conocimiento.config.json", { with: { type: "json" } });
+  const base = instrucciones(planes, "https://wa.me/51934467321");
+  const con = instrucciones(planes, "https://wa.me/51934467321", k as never);
+  assert.ok(con.length > base.length + 1500);
+  assert.match(con, /PREGUNTAS FRECUENTES/);
+  assert.match(con, /Excel maestro/);
+  assert.match(con, /NUNCA:/);
+  assert.doesNotMatch(con, /_nota/);
+  assert.doesNotMatch(base, /PREGUNTAS FRECUENTES/);
+});

@@ -41,3 +41,11 @@ Apagada por defecto. Para encenderla: cargar `ANTHROPIC_API_KEY` (secreto) y `DE
 - Protecciones: solo acepta peticiones desde tu propio dominio, 20 consultas por IP por hora, tope global de 400 consultas por día, mensajes de máx. 300 caracteres y 8 turnos de historial.
 - IMPORTANTE: sin un KV de Cloudflare (binding `LIMITES`) los contadores son por instancia y el tope diario no es exacto. Crear un KV `LIMITES` (Workers & Pages → KV) y añadirlo en Bindings. Además, fijar un límite de gasto mensual en la consola de Anthropic.
 - Negocios de ejemplo (ficticios): `server/demo/chat.ts`.
+
+## Base de conocimiento (reglas para nuevas consultas)
+`src/config/conocimiento.config.json` reúne lo que el bot de THREE3 debe saber: quiénes somos, cómo funciona, canales, CRM y reportes, costos aparte, demo, preguntas frecuentes, cómo conversar y qué nunca hacer. Se lee entera junto con los planes (`planes.config.json`) cada vez que el bot arma sus instrucciones (`server/bot/cerebro.ts`).
+- Para cambiar lo que responde: edita el texto del JSON, haz commit y se despliega solo. No hace falta tocar código.
+- Lo que no esté ahí, el bot no lo sabe y deriva a una persona.
+- No pongas llaves, contraseñas ni datos personales en ese archivo.
+- Cuesta poco: son unos 1,500 tokens más por consulta (con Haiku 5.5 son fracciones de centavo).
+- El bot de cada cliente (widget) usa la descripción de su negocio, no este archivo.

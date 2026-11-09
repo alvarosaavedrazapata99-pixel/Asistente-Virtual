@@ -1,7 +1,7 @@
 import { modoMercadoPago } from "../../server/pagos/modo.ts";
 import { cabecerasSupabase } from "../../server/pagos/cabeceras-supabase.ts";
 import { almacenBot } from "../../server/bot/almacen-bot.ts";
-import { instrucciones, responderConModelo, type PlanesConfig } from "../../server/bot/cerebro.ts";
+import { instrucciones, responderConModelo, type Conocimiento, type PlanesConfig } from "../../server/bot/cerebro.ts";
 import { enviarTexto } from "../../server/bot/meta.ts";
 import { almacenDiagnostico } from "../../server/diagnostico/almacen.ts";
 import { correoAviso, correoCliente, enviarCorreo } from "../../server/diagnostico/correo.ts";
@@ -13,6 +13,7 @@ import type { DepWidget } from "../../server/widget/chat.ts";
 import type { DepDemo } from "../../server/demo/chat.ts";
 import type { DepBot } from "../../server/bot/manejador.ts";
 import planes from "../../src/config/planes.config.json" with { type: "json" };
+import conocimiento from "../../src/config/conocimiento.config.json" with { type: "json" };
 const planesConfig = planes;
 import { almacenSupabase } from "../../server/pagos/almacen-supabase.ts";
 import type { DepLeads } from "../../server/leads/registrar.ts";
@@ -80,7 +81,7 @@ export function depLeads(env: Env): DepLeads {
 export function depBot(env: Env): DepBot {
   const almacen = almacenBot({ url: env.SUPABASE_URL, clave: env.SUPABASE_SERVICE_KEY });
   const humano = env.WHATSAPP_HUMANO ? `https://wa.me/${env.WHATSAPP_HUMANO.replace(/\D/g, "")}` : "nuestro WhatsApp";
-  const sistema = instrucciones(planes as PlanesConfig, humano);
+  const sistema = instrucciones(planes as PlanesConfig, humano, conocimiento as Conocimiento);
   const envio = { whatsappToken: env.WHATSAPP_TOKEN ?? "", whatsappPhoneId: env.WHATSAPP_PHONE_ID ?? "", instagramToken: env.INSTAGRAM_TOKEN ?? "" };
   return {
     activo: env.BOT_ACTIVO === "si" && !!env.ANTHROPIC_API_KEY,
