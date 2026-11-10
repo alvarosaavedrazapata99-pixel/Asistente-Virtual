@@ -28,3 +28,8 @@ Notas:
 - `.gitignore` raíz usa `/lib/` (no `lib/`): `src/lib/` DEBE estar versionado.
 - Pagos: Mercado Pago solo en modo prueba salvo `MP_MODO=produccion` y `MP_PRODUCCION_APROBADA=si`.
 - Pendientes y decisiones del dueño: `PENDIENTES.md` en la raíz del repo.
+
+## Base de conocimiento de THREE3
+Toda sesión de Claude en este repo debe usar esta información (planes, precios, canales, reglas de conversación y límites) al redactar respuestas a clientes, textos de la web o mensajes de venta. Se genera con `node scripts/conocimiento-md.mjs` desde `src/config/conocimiento.config.json` y `planes.config.json`; si cambias esos archivos, vuelve a generarla.
+
+@docs/base-conocimiento.md
