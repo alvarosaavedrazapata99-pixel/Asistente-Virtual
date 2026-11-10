@@ -33,3 +33,11 @@ Notas:
 Toda sesión de Claude en este repo debe usar esta información (planes, precios, canales, reglas de conversación y límites) al redactar respuestas a clientes, textos de la web o mensajes de venta. Se genera con `node scripts/conocimiento-md.mjs` desde `src/config/conocimiento.config.json` y `planes.config.json`; si cambias esos archivos, vuelve a generarla.
 
 @docs/base-conocimiento.md
+
+## Reglas en Notion (se editan allí)
+La página «THREE3 — Base de conocimiento» en Notion es donde el dueño ajusta las reglas: https://app.notion.com/p/41466841129e814884beeb89aa66d47d
+Cuando el dueño pida «actualiza las reglas» o «sincroniza con Notion»:
+1. Lee la página con el conector de Notion.
+2. Compara con `src/config/conocimiento.config.json` y `planes.config.json`.
+3. Muéstrale las diferencias y, con su visto bueno, actualiza esos JSON, corre `node scripts/conocimiento-md.mjs` y `npm test`, y haz commit.
+El bot de la web NO lee Notion en vivo: solo lo que está en el repositorio. Nunca copies secretos a Notion.
