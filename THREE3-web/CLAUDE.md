@@ -46,3 +46,6 @@ El bot de la web NO lee Notion en vivo: solo lo que está en el repositorio. Nun
 Para cualquier tema de estrategia, validación de mercado, ventas o producto, aplica este modo. Para tareas de código siguen las reglas técnicas de arriba.
 
 @docs/modo-mentor.md
+
+## Traspaso de sesión
+Al empezar una sesión nueva, lee primero `docs/traspaso-sesion-2026-11-17.md`: estado, decisiones, archivos y pendientes inmediatos.
