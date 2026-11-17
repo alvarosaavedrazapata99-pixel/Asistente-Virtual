@@ -57,6 +57,11 @@ Marca lo que el dueño debe aprobar antes de publicar.
 ```
 
 ## 5. Pasos del caso (checklist)
+**Paso 0: comprobar si ya existe y, si no, crear.**
+- [ ] Buscar el nombre del local en Google Maps (y la dirección). Si ya existe, **reclamarlo** («¿Eres el propietario?»); no crear uno duplicado.
+- [ ] Si no existe, crear el perfil desde la página oficial: https://business.google.com/create (el dueño entra con su correo de Google y sigue los pasos). Es el enlace limpio, sin los códigos de seguimiento del enlace largo de Google.
+- [ ] Quien crea el perfil queda como **propietario**. Lo ideal es que sea el dueño del negocio. Si lo crea otra persona, hay que transferirle la propiedad después.
+- [ ] Muchas veces el local aparece con datos incompletos (sin horarios, fotos ni categoría): ese es el trabajo del servicio.
 - [ ] Dueño acepta y envía datos y fotos.
 - [ ] Claude genera el paquete; tú revisas y el dueño aprueba.
 - [ ] El dueño crea o reclama su perfil con su correo de Google.
