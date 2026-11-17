@@ -41,3 +41,8 @@ Cuando el dueño pida «actualiza las reglas» o «sincroniza con Notion»:
 2. Compara con `src/config/conocimiento.config.json` y `planes.config.json`.
 3. Muéstrale las diferencias y, con su visto bueno, actualiza esos JSON, corre `node scripts/conocimiento-md.mjs` y `npm test`, y haz commit.
 El bot de la web NO lee Notion en vivo: solo lo que está en el repositorio. Nunca copies secretos a Notion.
+
+## Modo mentor (estrategia, validación y ventas)
+Para cualquier tema de estrategia, validación de mercado, ventas o producto, aplica este modo. Para tareas de código siguen las reglas técnicas de arriba.
+
+@docs/modo-mentor.md
